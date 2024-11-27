@@ -1,0 +1,115 @@
+.event-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 40px;
+  background-color: #fffaf0;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.event-container h1 {
+  font-size: 2.4rem;
+  color: #e74c3c;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.event-container h3 {
+  color: #e67e22;
+  font-size: 1.5rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.event-container p {
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+  color: #2d3436;
+  line-height: 1.8;
+}
+
+.event-submit-p {
+	display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 2% 0;
+}
+
+.event-submit-time {
+	-webkit-appearance:none; /* 크롬 화살표 없애기 */
+	-moz-appearance:none; /* 파이어폭스 화살표 없애기 */
+	appearance:none; /* 화살표 없애기 */
+	text-align-last: center;
+	min-width: 30px;
+	border: none;
+	cursor: pointer;
+}
+
+.event-container p span {
+  font-weight: 500;
+  color: #3498db;
+}
+
+.event-container .event-detail-item {
+  padding: 10px 0;
+  border-bottom: 2px dashed #f39c12;
+}
+
+.event-container .event-detail-item:last-child {
+  border-bottom: none;
+}
+
+.event-container .event-location {
+  font-size: 1.3rem;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #e67e22;
+  color: white;
+  width: 200px; /* 고정된 너비 */
+  height: 50px; /* 고정된 높이 */
+  font-size: 1.1rem;
+  border-radius: 50px;
+  margin-top: 20px;
+  text-align: center; /* 텍스트를 중앙 정렬 */
+  line-height: 50px; /* 높이와 같은 값으로 설정해 텍스트를 중앙에 위치 */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+
+.btn:hover {
+  background-color: #d35400;
+  transform: scale(1.05);
+}
+
+.btn:active {
+  background-color: #c0392b;
+  transform: scale(0.98);
+}
+
+
+@media (max-width: 768px) {
+  .event-container {
+    padding: 20px;
+  }
+
+  .event-container h1 {
+    font-size: 2rem;
+  }
+
+  .event-container p {
+    font-size: 1rem;
+  }
+}

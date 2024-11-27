@@ -1,0 +1,77 @@
+/* 메인 이미지와 텍스트를 토탈 감싸는 */
+.main_container {
+    position: relative; /* 자식 요소의 절대 위치를 기준으로 설정 */
+}
+
+/* 메인 이미지 */
+.main_image {
+    width: 100%;
+    height: 700px; /* 원하는 높이 */
+    object-fit: cover; /* 이미지 비율 유지하며 잘라냄 */
+    margin: auto;
+    display: block;
+    position: relative;
+}
+
+/* 메인위에 입혀질 텍스트 */
+.overlay_text {
+    position: relative; /* 절대 위치 설정 */
+    bottom: 50px; /* 하단에서 20px 위에 위치 */
+    left: 50%; /* 수평 중앙 정렬 */
+    transform: translate(-50%, -50%); /* 중앙 정렬을 위한 변환 */
+    color: white; /* 텍스트 색상 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    padding: 10px; /* 패딩 */
+    font-size: calc(1rem + 1vw); /* 기본 폰트 크기 설정 (비율 유지) */
+    font-family: 'Pretendard-Regular', sans-serif; /*기본 폰트 적용*/
+    text-shadow: 2px 2px 5px #000;
+}
+
+/* 메인위에 입혀질 텍스트 - 제목 */
+.overlay_title {
+    margin: 5px; /* 기본 마진 제거 */
+    font-size: calc(1.0rem + 1vw); /* 글씨 크기 설정 (비율 유지) */
+    color: white; /* 텍스트 색상 (필요에 따라 조정 가능) */
+}
+
+/* 메인위에 입혀질 텍스트 - 부제목 */
+.overlay_detail {
+    margin: 0; /* 기본 마진 제거 */
+    font-size: calc(0.7rem + 0.5vw); /* 글씨 크기 설정 (비율 유지) */
+    font-weight: normal; /* 글씨 두께 설정 (bold로 설정) */
+    color: white; /* 텍스트 색상 (필요에 따라 조정 가능) */
+}
+
+/* 버튼 컨테이너 */
+.main_button_container {
+position: absolute; /* 절대적으로 위치 설정 */
+top: 80%; /* 이미지 하단에서 80% 위치 */
+left: 0; /* 왼쪽 정렬 */
+right: 0; /* 오른쪽 정렬 */
+display: flex; /* Flexbox 사용 */
+justify-content: space-between; /* 버튼을 양 끝으로 배치 */
+align-items: center; /* 세로 중앙 정렬 */
+transform: translateY(-50%); /* 중앙 정렬 */
+padding: 0 80px; /* 좌우 패딩 (상대적 크기 조정) */
+}
+
+/* 버튼 스타일 */
+.main_toggle_button {
+padding: 10px 15px; /* 버튼 패딩 */
+background-color: rgba(68, 32, 32, 0); /* 반투명 배경 */
+color: rgb(255, 255, 255); /* 버튼 텍스트 색상 */
+border: none; /* 테두리 제거 */
+cursor: pointer; /* 커서 변경 */
+font-size: calc(1rem + 1vw); /* 글씨 크기 설정 (비율 유지) */
+width: 80px; /* 버튼 너비 설정 (상대적 크기 조정) */
+height: 40px; /* 버튼 높이 설정 (원하는 크기로 조정 가능) */
+border-radius: 5px; /* 버튼 모서리 둥글게 */
+transition: background-color 0.3s; /* 배경색 전환 효과 */
+font-family: 'Pretendard-Regular', sans-serif; /*기본 폰트 적용*/
+
+}
+
+/* 버튼 호버(눌렀을때) 효과 */
+.main_toggle_button:hover {
+    background-color: #00000000; /* 호버 시 배경색 변경 */
+}

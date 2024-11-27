@@ -1,0 +1,175 @@
+/* 헤더 전체 */
+.header-all {
+	margin: 1% 1% 0;
+  height: 120px;
+  position: sticky; /* 스크롤 시에도 고정되도록 설정 */
+  top: 0; /* 상단에 고정 */
+  left: 0; /* 좌측에 고정 */
+  background-color: white; /* 배경색 설정 (필요시) */
+  z-index: 1000; /* 다른 요소 위에 표시되도록 설정 */
+  font-family: 'Pretendard-Regular', sans-serif; /*기본 폰트 적용*/
+}
+
+/* HeaderNavMenu 스타일 */
+    .header-nav-menu {
+			width: auto;
+        display: flex; /* Flexbox 사용 */
+        align-items: center; /* 수직 중앙 정렬 */
+        height: 100%; /* 부모 요소 높이 사용 */
+        justify-content: space-between;
+        margin: 0 10px; /* 필요에 따라 조정 */
+    }
+
+/* HeaderLogo 스타일 */
+    .header-logo {
+        float: left;
+        margin: 0 10px;
+        font-family: 'DepartureMono-Regular', monospace; /* DepartureMono-Regular 사용 */
+        font-size: 80px; /* 필요에 따라 크기 조정 */
+        font-weight: bold; /* 필요에 따라 두께 조정 */
+        white-space: nowrap; /* 줄 바꿈 방지 */
+        cursor: pointer;
+    }
+
+/* NavMenuContainer */
+.nav-menu-container {
+	float: left;
+	display: flex;
+}
+
+/* NavMenuContent 스타일 */
+.nav-menu-content {
+			  margin: 0 20px;
+        font-size: 25px;
+        font-weight: bold;
+        cursor: pointer;
+}
+
+.nav-menu-content:hover {
+    color: red; /* 마우스를 올렸을 때 글씨 색상 변경 */
+    transition: color 0.3s; /* 부드러운 전환 효과 */
+}
+
+.nav-menu-search-content {
+  width: 36px;
+  height: 36px;
+	display: flex;
+	flex-wrap: nowrap;
+  border-radius: 10px;
+  margin: 0 20px;
+  background-color: rgba(0, 0, 0, 0.1);
+  align-self: center;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: width 0.5s ease;
+}
+
+.nav-menu-search-content.expanded {
+  width: 327px;
+  height: 36px;
+  transition: width 0.2s ease;
+}
+
+.nav-menu-search-text {
+	border: none;
+	background-color: rgba(255, 255, 255, 0.5);
+	font-size: 20px;
+	align-self: center;
+}
+
+/* login 스타일 */
+    .header-login {
+        float: right;
+        display: flex;
+        margin: 0 10px;
+        font-size: 25px; /* 필요에 따라 크기 조정 */
+        font-weight: bold; /* 필요에 따라 두께 조정 */
+        cursor: pointer;
+        white-space: nowrap; /* 줄 바꿈 방지 */
+    }
+
+
+/* NavMenuLogin 스타일 */
+    .nav-menu-login {
+        margin: 0 20px; /* 다른 메뉴와의 간격 */
+        font-size: 32px; /* 폰트 크기 */
+        font-weight: bold; /* 폰트 두께 */
+        cursor: pointer; /* 마우스 포인터 변경 */
+    }
+
+    .nav-menu-login:hover {
+        text-decoration: underline; /* 호버 시 밑줄 추가 */
+    }
+
+/* 모달 배경 */
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000; /* 다른 요소 위에 표시 */
+        animation: slideDown 0.5s ease forwards; /* 애니메이션 추가 */
+    }
+
+/* 모달 콘텐츠 */
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 50px; /* 모달 내용이 위에서부터 내려오게 하기 위해 여백 추가 */
+    }
+
+/* 모달 닫기 버튼 */
+    .close {
+        float: right;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+/* 모달 내려오는 애니메이션 */
+    @keyframes slideDown {
+        from {
+            transform: translateY(-100%); /* 화면 위에서 시작 */
+            opacity: 0; /* 투명도 */
+
+        }
+        to {
+            transform: translateY(0); /* 원래 위치로 */
+            opacity: 1; /* 완전히 불투명 */
+        }
+    }
+
+/* 검색 입력 필드 */
+    .search-input {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 200px; /* 원하는 너비로 조정 */
+    }
+
+/* 검색 아이콘 */
+    .search-icon {
+			  padding: 6px;
+        width: 24px; /* 원하는 너비로 조정 */
+        height: 24px; /* 원하는 높이로 조정 */
+        display: block; /* 블록 요소로 설정 */
+    }
+
+/* 검색 버튼 */
+    .search-button {
+        background: none; /* 배경 제거 */
+        border: none; /* 테두리 제거 */
+        cursor: pointer; /* 커서 모양 변경 */
+        padding: 0; /* 패딩 제거 */
+    }
+
+    .search-button:hover {
+        background-color: #0056b3; /* hover 시 배경색 변경 */
+    }

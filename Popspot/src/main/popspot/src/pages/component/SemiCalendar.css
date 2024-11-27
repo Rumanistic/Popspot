@@ -1,0 +1,22 @@
+.datetime-widget {
+	position: absolute;
+  background-color: bisque;
+}
+
+.calendar-container {
+	display: flex;
+	align-items: center;
+}
+
+.btn-icon {
+	padding: 0;
+	max-height: 21px;
+	max-width: 21px;
+	border: none;
+	background-color: none;
+	
+	img{
+		max-width: 100%;
+		max-height: 100%;
+	}
+}
