@@ -22,14 +22,17 @@ function EventList({tag}) {
 	useEffect(() => {
 		if(selectedTag !== ''){
 			axios.get(`/api/event/search/tags`, {params: {tags: selectedTag}}).then(
-					result => setList(result.data.data));
+					result => setList(result.data));
 		}else {
 			axios.get(`/api/event/lists`)
-					 .then(result => setList(result.data.data));			
+					 .then(result => {
+						console.log(result);
+						setList(result.data)
+					});			
 		}
 		axios.get(`/api/event/tags`)
 				 .then(result => {
-					 	setTags(result.data.data)
+					 	setTags(result.data)
 					 });
 	}, [])
 	
@@ -118,16 +121,16 @@ function ShowTag({tags, setList}){
 		const searchTags = selectedTags.filter(tag => tag !== '');
 		if(searchTags.length === 0){
 			axios.get(`/api/event/lists`).then(
-				result => setList(result.data.data))
+				result => setList(result.data))
 		}
 		else {
 			if (searchTags.length === 1){
 				axios.get('/api/event/search/tags', {params: {tags: searchTags.join('')}}).then(
-					result => setList(result.data.data));
+					result => setList(result.data));
 			}
 			else {
 				axios.get('/api/event/search/tags', {params: {tags: searchTags.join(',')}}).then(
-					result => setList(result.data.data));
+					result => setList(result.data));
 			}
 		}
 	}, [selectedTags])

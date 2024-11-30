@@ -24,8 +24,8 @@ function Login({ setUser }) {
     // 서버에 로그인 요청 보내기
     axios.post('/api/users/login', { userId, userPwd }) // userIdOrEmail 필드로 전송
     .then(response => {
-      if (response.data.success) {
-					const loginData = response.data.data
+      if (response.status === 200) {
+					const loginData = response.data
 					let permissions = ['user'];
 		          // Storage에 사용자 정보 저장
 		          // Storage.setItem('user', userId);
@@ -49,7 +49,7 @@ function Login({ setUser }) {
           // 메인 페이지로 이동
           navigate('/main');
         } else {
-        setError(response.data.message);
+        setError(response.message);
       }
     })
     .catch(error => {

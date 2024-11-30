@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tjoeun.popspot.domain.Event;
+import com.tjoeun.popspot.domain.Review;
 import com.tjoeun.popspot.domain.dto.ApiResponse;
 import com.tjoeun.popspot.domain.mapping.ReviewPoint;
 
@@ -72,5 +73,17 @@ public class EventReviewService {
 		}
 		
 		return ApiResponse.apiBuilder(false, NOT_FOUND);
+	}
+
+	public ApiResponse getEvent(Long eventNo) {
+		Event e = es.getEvent(eventNo);
+		List<Review> r = rs.getReview(eventNo);
+		
+		HashMap<String, Object> result = new HashMap<>();
+		
+		result.put("event", e);
+		result.put("review", r);
+		
+		return ApiResponse.apiBuilder(true, SUCCESS, result);
 	}
 }

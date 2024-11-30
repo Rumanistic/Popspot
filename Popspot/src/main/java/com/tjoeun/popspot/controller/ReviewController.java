@@ -13,48 +13,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tjoeun.popspot.config.ResponseBuilder;
-import com.tjoeun.popspot.domain.Faq;
+import com.tjoeun.popspot.domain.Review;
 import com.tjoeun.popspot.domain.dto.ApiResponse;
-import com.tjoeun.popspot.service.FaqService;
+import com.tjoeun.popspot.service.ReviewService;
 
 @RestController
-@RequestMapping("/api/support/faqs")
-public class FaqController {
+@RequestMapping("/api/reviews")
+public class ReviewController {
 	@Autowired
-	FaqService fs;
+	ReviewService rs;
 	
 	@Autowired
-    ResponseBuilder rb;
+	ResponseBuilder rb;
 	
-	@GetMapping
-	public ResponseEntity<Object> getAllFaqs() {
-		ApiResponse res = fs.getAllFaqs();
-		
-		return rb.buildResponse(res, HttpStatus.NO_CONTENT);
+	@GetMapping("/{no}")
+	ResponseEntity<Object> getReviewsByEventNo(@PathVariable(name="no") Long no) {
+		ApiResponse res = rs.getReviewFromRc(no); 
+				
+		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
 	}
 	
 	@PostMapping("/submit")
-	public ResponseEntity<ApiResponse> submitFaq(@RequestBody Faq f) {
-		ApiResponse res = fs.submitFaq(f);
+	ResponseEntity<ApiResponse> submitReview(@RequestBody Review r) {
+		ApiResponse res = rs.submit(r);
 		
-		return rb.buildCreatedResponse(res, HttpStatus.NO_CONTENT);
+		return rb.buildCreatedResponse(res, HttpStatus.BAD_REQUEST);
 	}
 	
 	@PutMapping("/{no}")
-	public ResponseEntity<ApiResponse> editFaq(
+	ResponseEntity<Object> editReview(
 			@PathVariable(name="no") Long no,
-			@RequestBody Faq faq
+			@RequestBody Review r
 		) {
-		ApiResponse res = fs.editFaq(no, faq);
+		ApiResponse res = rs.editReview(no, r);
 		
-		return rb.buildNoContentResponse(res, HttpStatus.NOT_FOUND);
+		return rb.buildResponse(res, HttpStatus.BAD_REQUEST);
 	}
 	
 	@DeleteMapping("/{no}")
-	public ResponseEntity<ApiResponse> deleteFaq(
-			@PathVariable(name="no") Long no
-		) {
-		ApiResponse res = fs.deleteFaq(no);
+	ResponseEntity<ApiResponse> deleteReview(@PathVariable(name="no") Long no) {
+		ApiResponse res = rs.deleteReviwe(no);
 		
 		return rb.buildNoContentResponse(res, HttpStatus.NOT_FOUND);
 	}

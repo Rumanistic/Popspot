@@ -42,8 +42,8 @@ function UserSupportDetail() {
 	
 	useEffect(() => {
 		axios.get(`/api/support/user-support/${no}`).then(result => {
-			const inquiry = result.data.data.inquiry;
-			const reply = result.data.data.reply;
+			const inquiry = result.data.inquiry;
+			const reply = result.data.reply;
 			
 			setSupportData({
 				...supportData,

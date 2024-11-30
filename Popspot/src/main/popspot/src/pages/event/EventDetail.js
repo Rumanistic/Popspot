@@ -16,17 +16,21 @@ import {
 function EventDetail() {
   const { no } = useParams(); // URL에서 이벤트 번호를 가져옴
   const [event, setEvent] = useState(null);
+  const [reviews, setReviews] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`/api/event/${no}`)
-      .then(result => setEvent(result.data.data))
+      .then(result => {
+			setEvent(result.data.event);
+		  	setReviews(result.data.review);
+		  })
       .catch(err => console.error('이벤트 정보를 불러오는 중 오류가 발생했습니다.', err));
   }, [no]);
   
   const doDelete = () => {
 		axios.delete(`/api/event/${no}`)
-			.then(result => {alert(result.data.data.msg);
+			.then(result => {alert(result.data.msg);
 				navigate("/popup");
 			})
 	}
@@ -65,7 +69,7 @@ function EventDetail() {
             <EventParagraph>❗모든 상품은 품절시 조기종료 될 수 있습니다❗</EventParagraph>
           </EventDetailItem>
 
-          <Review eventNo={event.eventNo} eventTitle={event.title} />
+          <Review eventNo={event.eventNo} eventTitle={event.title} reviews={reviews} />
         </EventContainer>
       ) : (
         <p>이벤트 정보를 찾을 수 없습니다.</p>
