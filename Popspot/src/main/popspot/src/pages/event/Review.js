@@ -20,8 +20,8 @@ import {
   LoginButton  // 로그인 버튼을 위한 스타일 추가 필요
 } from '../styles/ReviewStyle'; // LoginButton 스타일도 여기에 추가 필요
 
-function Review({ eventNo, eventTitle }) {
-  const [reviews, setReviews] = useState([]);
+function Review({ eventNo, eventTitle, reviews }) {
+  const [review, setReview] = useState([...reviews]);
   const [newReview, setNewReview] = useState('');
   const [selectedRating, setSelectedRating] = useState(0);
   const [submitting, setSubmitting] = useState(false);
@@ -35,11 +35,9 @@ function Review({ eventNo, eventTitle }) {
   const savedUser = sessionStorage.getItem('name');
 
   // 리뷰 목록 가져오기
-  useEffect(() => {
-    axios.get(`/api/review/${eventNo}`)
-      .then(response => setReviews(response.data))
-      .catch(error => console.error('리뷰 데이터를 가져오는 중 오류가 발생했습니다.', error));
-  }, [eventNo]);
+/*  useEffect(() => {
+    setReview([...reviews]);
+  }, [reviews]);*/
 
   // 리뷰 제출 처리
   const handleReviewSubmit = () => {
@@ -57,22 +55,20 @@ function Review({ eventNo, eventTitle }) {
       userId: savedUser
     };
 
-    axios.post('/api/review/submit', newReviewData)
+    axios.post('/api/reviews/submit', newReviewData)
+      .then(() => axios.get(`/api/reviews/${eventNo}`))
       .then(response => {
-        axios.get(`/api/review/${eventNo}`)
-          .then(response => setReviews(response.data))
-          .catch(error => console.error('리뷰 데이터를 가져오는 중 오류가 발생했습니다.', error));
-        
-        // 리뷰 제출 후 입력 폼 초기화
-        setNewReview('');
-        setSelectedRating(0);
+		  setReview(response.data.reviews)
+		  // 리뷰 제출 후 입력 폼 초기화
+          setNewReview('');
+          setSelectedRating(0);
       })
       .catch(error => {
         console.error('리뷰 제출 중 오류가 발생했습니다.', error);
-        alert('리뷰 제출 중 오류가 발생했습니다.');
-      })
+        alert('리뷰 제출 중 오류가 발생했습니다.')
+        })
       .finally(() => setSubmitting(false));
-  };
+      }
 
   // 리뷰 삭제 처리
   const handleReviewDelete = (reviewNo, reviewUserId) => {
@@ -82,10 +78,10 @@ function Review({ eventNo, eventTitle }) {
     }
 
     if (window.confirm('이 리뷰를 삭제하시겠습니까?')) {
-      axios.delete(`/api/review/${reviewNo}`)
+      axios.delete(`/api/reviews/${reviewNo}`)
         .then(() => {
           alert('삭제되었습니다.');
-          setReviews(reviews.filter(review => review.reviewNo !== reviewNo));
+          setReview(reviews.filter(review => review.reviewNo !== reviewNo));
         })
         .catch(error => {
           console.error('리뷰 삭제 중 오류가 발생했습니다.', error);
@@ -118,9 +114,9 @@ function Review({ eventNo, eventTitle }) {
       rating: editingRating,
     };
 
-    axios.put(`/api/review/update/${editingReviewNo}`, updatedReviewData)
+    axios.put(`/api/reviews/${editingReviewNo}`, updatedReviewData)
       .then(response => {
-        setReviews(reviews.map(review =>
+        setReview(reviews.map(review =>
           review.reviewNo === editingReviewNo ? response.data : review
         ));
         setEditingReviewNo(null);
@@ -179,9 +175,9 @@ function Review({ eventNo, eventTitle }) {
       )}
 
       {/* 기존 리뷰 목록 */}
-      {reviews.length > 0 ? (
+      {review.length > 0 ? (
         <ReviewList>
-          {reviews.map(review => (
+          {review.map(review => (
             <ReviewItem key={review.reviewNo}>
               {editingReviewNo === review.reviewNo ? (
                 <>

@@ -36,7 +36,7 @@ public class EventController {
     ResponseBuilder rb;
 	
 	@GetMapping("/lists")
-	public ResponseEntity<ApiResponse> getAllList() {
+	public ResponseEntity<Object> getAllList() {
 		ApiResponse res = ers.getAllList();
 		
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
@@ -46,26 +46,26 @@ public class EventController {
 	public ResponseEntity<ApiResponse> submitEvent(@RequestBody Event e) throws Exception {
 		ApiResponse res = es.submitEvent(e);
 		
-		return rb.buildResponse(res, HttpStatus.BAD_REQUEST);
+		return rb.buildCreatedResponse(res, HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("/tags")
-	public ResponseEntity<ApiResponse> getAllTags() {
+	public ResponseEntity<Object> getAllTags() {
 		ApiResponse res = es.getAllTags();
 		
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
 	}
 	
 	@GetMapping("/search/tags")
-	public ResponseEntity<ApiResponse> searchListByTag(@RequestParam(name="tags") String tags) {
+	public ResponseEntity<Object> searchListByTag(@RequestParam(name="tags") String tags) {
 		ApiResponse res = ers.searchListByTag(tags);
 		
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
 	}
 	
 	@GetMapping("/{no}")
-	public ResponseEntity<ApiResponse> getEvent(@PathVariable(name="no") Long eventNo) {
-		ApiResponse res = es.getEvent(eventNo);
+	public ResponseEntity<Object> getEvent(@PathVariable(name="no") Long eventNo) {
+		ApiResponse res = ers.getEvent(eventNo);
 		
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
 	}
@@ -77,7 +77,7 @@ public class EventController {
 		) throws Exception {
 		ApiResponse res = es.editEvent(e);
 		
-		return rb.buildResponse(res, HttpStatus.BAD_REQUEST);
+		return rb.buildNoContentResponse(res, HttpStatus.BAD_REQUEST);
 	}
 	
 	@DeleteMapping("/{no}")
@@ -86,11 +86,11 @@ public class EventController {
 		) throws Exception {
 		ApiResponse res = es.deleteEvent(eventNo);
 		
-		return rb.buildResponse(res, HttpStatus.BAD_REQUEST);
+		return rb.buildNoContentResponse(res, HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("/recent-events")
-	public ResponseEntity<ApiResponse> getRecentEvents() {
+	public ResponseEntity<Object> getRecentEvents() {
 		ApiResponse res = es.getRecentEvents();
 		
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);

@@ -24,7 +24,7 @@ const Main = ({setTag}) => {
     axios.get('/api/event/recent-events')
       .then(response => {
 		console.log(response.data);
-		const eventData = response.data.data;		
+		const eventData = response.data;		
         setEvents(eventData);
       })
       .catch(error => {

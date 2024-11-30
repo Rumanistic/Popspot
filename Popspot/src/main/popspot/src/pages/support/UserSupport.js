@@ -41,7 +41,7 @@ function UserSupportList({userId, userPermission}) {
 	useEffect(() => {
 		axios
 			.get('/api/support/user-support')
-			.then(response => setSList(response.data.data));
+			.then(response => setSList(response.data));
 	}, []);
 	
 	const navigate = useNavigate(); 

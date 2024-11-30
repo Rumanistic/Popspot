@@ -2,17 +2,16 @@ import './App.css';
 import Main from './pages/Main';
 import Support from './pages/Support'
 import Login from './pages/Login';
-//import Profile from './pages/Profile';
-//import Signup from './pages/Signup';
-//import DeleteAccount from './pages/DeleteAccount'
+import Profile from './pages/users/Profile';
+import Signup from './pages/users/Signup';
 import { Route, Routes } from 'react-router-dom';
 import EventDetail from './pages/event/EventDetail';
 import Review from './pages/event/Review';
 import UserSupportDetail from './pages/support/UserSupportDetail';
-//import FindId from './pages/FindId';
-//import FindPassword from './pages/FindPassword';
-//import MyPage from './pages/MyPage';
-//import Withdraw from './pages/Withdraw';
+import FindId from './pages/users/FindId';
+import FindPassword from './pages/users/FindPassword';
+import MyPage from './pages/users/MyPage';
+import Withdraw from './pages/users/Withdraw';
 import EventSubmit from './pages/event/EventSubmit';
 import EventEdit from './pages/event/EventEdit';
 import { useEffect, useState } from 'react';
@@ -37,19 +36,16 @@ function App({user, setUser}) {
 		{ path:'/event/:no', element: <EventDetail />},
 		{ path:'/review', element: <Review />},
 		{ path:'/support/*', element: <Support />},
-		/*
 		{ path:'/signup', element:<Signup />},
 		{ path:'/find-id', element: <FindId />},
-		{ path:'/find-password', element: <FindPassword />}*/
+		{ path:'/find-password', element: <FindPassword />}
 	];
   
   const userPermissionRoutes = [
 		{ path:'/support/usersupport/detail/:no', element: <UserSupportDetail />},
-/*		
 		{ path:'/profile', element: <Profile />},
 		{ path:'/mypage', element: <MyPage />},
-		{ path:'/delete-account', element: <DeleteAccount />},
-		{ path:'/withdraw', element: <Withdraw />}*/
+		{ path:'/withdraw', element: <Withdraw />}
 	];
   
   const plannerPermissionRoutes = [

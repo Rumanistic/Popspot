@@ -37,7 +37,7 @@ function Faq() {
 
 	useEffect(() => {
 		axios.get(`/api/support/faqs`).then(result => {
-			setFaqList(result.data.data);
+			setFaqList(result.data);
 			
 		});
 	}, []);

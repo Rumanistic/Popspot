@@ -68,16 +68,8 @@ public class EventService {
 		return new ArrayList<>(tagSet);
 	}
 
-	public ApiResponse getEvent(Long eventNo) {
-		Optional<Event> event = er.findById(eventNo);
-		
-		if(event.isPresent()) {
-			Event e = event.get();
-			
-			return ApiResponse.apiBuilder(true, SUCCESS, e);
-		}
-		
-		return ApiResponse.apiBuilder(false, NOT_FOUND);
+	public Event getEvent(Long eventNo) {
+		return er.findById(eventNo).orElse(null);
 	}
 	
 	public ApiResponse editEvent(Event e) throws Exception {

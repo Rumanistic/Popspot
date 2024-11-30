@@ -16,9 +16,9 @@ public class ResponseBuilder {
 	 * @param defaultStatus 실패 시 반환할 기본 HTTP 상태 코드
 	 * @return {200 OK 확인 [데이터 필드 있음] | defaultStatus 에러 리턴값}
 	 */
-	public ResponseEntity<ApiResponse> buildResponse(ApiResponse res, HttpStatus defaultStatus){
+	public ResponseEntity<Object> buildResponse(ApiResponse res, HttpStatus defaultStatus){
 		HttpStatus stat = res.isSuccess() ? HttpStatus.OK : defaultStatus;
-		return ResponseEntity.status(stat).body(res);
+		return ResponseEntity.status(stat).body(res.getData());
 	}
 	
 	/**
