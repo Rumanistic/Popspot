@@ -93,6 +93,8 @@ const Main = ({setTag}) => {
             src={parseImgSrc(banners[banner])}
             alt="Main" 
             className="main_image" 
+            onClick={() => navigate(`/event/${banners[banner].eventNo}`)}
+            style={{cursor: 'pointer'}}
           	/>
           	<div className="overlay_text">
             <h1 className="overlay_title">{banners[banner].title}</h1>
