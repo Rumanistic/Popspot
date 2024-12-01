@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import StarPoint from "../component/StarPoint";
 import { Col12, Col4, EventCardSpan, EventCardSpanImage, EventListSpan, EventListSpanImage, ListContentContainer, ListContentTag, ListContentTagsContainer, ListHeaderContainer, ListHeaderContainerHead1, ViewChangeSpan, ViewChangeSpanContainer, ViewChangeSpanDot, ViewChangeSpanHamburger } from "../styles/ListStyle";
 import { RightFloatSpan } from "../styles/FaqStyle";
 
-function EventList({tag, searchResults}) {
+function EventList({tag}) {
 	const [list, setList] = useState({eList:[], rPoint: {}});
 	const [tags, setTags] = useState([]);
 	const [view, setView] = useState('list');
@@ -16,25 +16,29 @@ function EventList({tag, searchResults}) {
 	
 	const userId = sessionStorage.getItem("userId");
 	const userPermissions = sessionStorage.getItem("permissions");
-	
+
+	function searchResultList() {
+		const location = useLocation();
+		const searchResults = location.state;
+	}
 	
 	// 페이지 리스트 렌더링
 	useEffect(() => {
-		console.log('검색후 이벤트리스트 검색결과 확인 : ',searchResults);
-		if(searchResults && searchResults.eList && searchResults.eList.length > 0){
-			setList(searchResults);
-		}else if(selectedTag !== ''){
+		if(selectedTag !== ''){
 			axios.get(`/api/event/search/tags`, {params: {tags: selectedTag}}).then(
-					result => setList(result.data.data));
+					result => setList(result.data));
 		}else {
 			axios.get(`/api/event/lists`)
-					 .then(result => setList(result.data.data));			
+					 .then(result => {
+						console.log(result);
+						setList(result.data)
+					});			
 		}
 		axios.get(`/api/event/tags`)
 				 .then(result => {
-					 	setTags(result.data.data)
+					 	setTags(result.data)
 					 });
-	}, [list, selectedTag])
+	}, [])
 	
 	// 페이지 표시 형태 변경(list <-> card)
 	const viewToggleHandler = () => {
@@ -121,16 +125,16 @@ function ShowTag({tags, setList}){
 		const searchTags = selectedTags.filter(tag => tag !== '');
 		if(searchTags.length === 0){
 			axios.get(`/api/event/lists`).then(
-				result => setList(result.data.data))
+				result => setList(result.data))
 		}
 		else {
 			if (searchTags.length === 1){
 				axios.get('/api/event/search/tags', {params: {tags: searchTags.join('')}}).then(
-					result => setList(result.data.data));
+					result => setList(result.data));
 			}
 			else {
 				axios.get('/api/event/search/tags', {params: {tags: searchTags.join(',')}}).then(
-					result => setList(result.data.data));
+					result => setList(result.data));
 			}
 		}
 	}, [selectedTags])

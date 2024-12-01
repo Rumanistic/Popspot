@@ -9,12 +9,11 @@ import reportWebVitals from './reportWebVitals';
 
 function Main(){
 	const [user, setUser] = useState(sessionStorage.getItem('name'));
-	const [searchResults, setSearchResults] = useState([]);
 	
 	return (
 			<BrowserRouter>
-				<Header user={user} setUser={setUser} setSearchResults={setSearchResults}/>
-			  	<App user={user} setUser={setUser} searchResults={searchResults}/>
+				<Header user={user} setUser={setUser}/>
+			  	<App user={user} setUser={setUser}/>
 				<Footer />
 			</BrowserRouter>
 	);

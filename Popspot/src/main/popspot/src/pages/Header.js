@@ -3,11 +3,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './styles/HeaderStyle.css'; // CSS 파일 import
 
-function Header({user, setUser, setSearchResults}) {
+function Header({user, setUser}) {
   // 로그인 상태를 관리하는 state
   const [search, setSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleLogout = () => {
     sessionStorage.clear();
@@ -23,7 +24,7 @@ function Header({user, setUser, setSearchResults}) {
           setSearchResults(response.data.data); // 검색 결과 전달
           setSearchQuery('');
           console.log('검색결과 헤더확인 : ', response.data.data);
-          navigate('/popup');
+          navigate('/popup', { state: searchResults });
         } else {
           alert("검색 결과가 없습니다.");
         }
