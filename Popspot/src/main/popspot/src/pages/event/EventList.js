@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import StarPoint from "../component/StarPoint";
 import { Col12, Col4, EventCardSpan, EventCardSpanImage, EventListSpan, EventListSpanImage, ListContentContainer, ListContentTag, ListContentTagsContainer, ListHeaderContainer, ListHeaderContainerHead1, ViewChangeSpan, ViewChangeSpanContainer, ViewChangeSpanDot, ViewChangeSpanHamburger } from "../styles/ListStyle";
 import { RightFloatSpan } from "../styles/FaqStyle";
@@ -13,6 +13,7 @@ function EventList({tag}) {
 	const selectedTag = tag || '';
 	
 	const navigate = useNavigate();
+	const location = useLocation();
 	
 	const userId = sessionStorage.getItem("userId");
 	const userPermissions = sessionStorage.getItem("permissions");
@@ -35,6 +36,19 @@ function EventList({tag}) {
 					 	setTags(result.data)
 					 });
 	}, [])
+	
+	//검색결과 받아오는 유즈이펙트
+	useEffect(()=>{
+		if(location.state){
+			setList(location.state);
+		}else{
+			axios.get('/api/event/lists').then((result)=>{
+				setList(result.data);
+			});
+		}
+	}, [location.state]);
+	
+	
 	
 	// 페이지 표시 형태 변경(list <-> card)
 	const viewToggleHandler = () => {
