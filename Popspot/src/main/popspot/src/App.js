@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react';
 import EventList from './pages/event/EventList';
 
 
-function App({user, setUser}) {
+function App({user, setUser, searchResults}) {
 	
 	const [permissions, setPermissions] = useState(sessionStorage.getItem("permissions"));
 	const [tag, setTag] = useState('');
@@ -31,7 +31,7 @@ function App({user, setUser}) {
   const noPermissionRoutes = [
 		{ path:'/', element: <Main />},
 		{ path:'/login', element: <Login setUser={setUser}/>},
-		{ path:'/popup', element: <EventList />},
+		{ path:'/popup', element: <EventList searchResults={searchResults}/>},
 		{ path:'/main', element: <Main setTag={setTag}/>},
 		{ path:'/popup/tag?', element: <EventList tag={tag}/>},
 		{ path:'/event/:no', element: <EventDetail />},

@@ -5,7 +5,7 @@ import StarPoint from "../component/StarPoint";
 import { Col12, Col4, EventCardSpan, EventCardSpanImage, EventListSpan, EventListSpanImage, ListContentContainer, ListContentTag, ListContentTagsContainer, ListHeaderContainer, ListHeaderContainerHead1, ViewChangeSpan, ViewChangeSpanContainer, ViewChangeSpanDot, ViewChangeSpanHamburger } from "../styles/ListStyle";
 import { RightFloatSpan } from "../styles/FaqStyle";
 
-function EventList({tag}) {
+function EventList({tag, searchResults}) {
 	const [list, setList] = useState({eList:[], rPoint: {}});
 	const [tags, setTags] = useState([]);
 	const [view, setView] = useState('list');
@@ -20,7 +20,10 @@ function EventList({tag}) {
 	
 	// 페이지 리스트 렌더링
 	useEffect(() => {
-		if(selectedTag !== ''){
+		console.log('검색후 이벤트리스트 검색결과 확인 : ',searchResults);
+		if(searchResults && searchResults.eList && searchResults.eList.length > 0){
+			setList(searchResults);
+		}else if(selectedTag !== ''){
 			axios.get(`/api/event/search/tags`, {params: {tags: selectedTag}}).then(
 					result => setList(result.data.data));
 		}else {
@@ -31,7 +34,7 @@ function EventList({tag}) {
 				 .then(result => {
 					 	setTags(result.data.data)
 					 });
-	}, [])
+	}, [list, selectedTag])
 	
 	// 페이지 표시 형태 변경(list <-> card)
 	const viewToggleHandler = () => {
