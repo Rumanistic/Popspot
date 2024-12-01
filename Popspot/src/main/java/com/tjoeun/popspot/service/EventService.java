@@ -109,4 +109,8 @@ public class EventService {
 
 		return ApiResponse.apiBuilder(false, FAIL);
 	}
+	
+	public List<Event> searchListByKeyword(String keyword) {  
+	    return er.searchListByKeyword(keyword);
+	}
 }
