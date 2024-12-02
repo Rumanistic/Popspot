@@ -12,6 +12,7 @@ import {
   EventImages,
   Button
 } from '../styles/EventDetailStyle'; // 여기에 폰트가 설정되어 있음
+import KakaoMap from '../component/Map';
 
 function EventDetail() {
   const { no } = useParams(); // URL에서 이벤트 번호를 가져옴
@@ -39,6 +40,8 @@ function EventDetail() {
 		navigate('/popup/edit', {state: {event}})
 	}
 
+  
+
   return (
     <div>
       {event ? (
@@ -61,7 +64,7 @@ function EventDetail() {
 
           <EventDetailItem>
             <EventHeading>위치</EventHeading>
-            <EventLocation>{event.location}</EventLocation>
+            <EventLocation><KakaoMap lat={event.lat} lon={event.lon}/></EventLocation>
           </EventDetailItem>
 
           <EventDetailItem>
