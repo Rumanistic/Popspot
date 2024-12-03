@@ -18,6 +18,7 @@ function EventList({tag}) {
 	const userId = sessionStorage.getItem("userId");
 	const userPermissions = sessionStorage.getItem("permissions");
 	
+
 	
 	// 페이지 리스트 렌더링
 	useEffect(() => {
@@ -168,6 +169,9 @@ function ShowList({list, view}){
 	const navigate = useNavigate();
 	const hyphenRemover = /-/g;
 	
+	const [listCount, setListCount]=useState(3);
+	const [cardCount, setCardCount]=useState(6);
+	
 	const contentRegex = (content) => {
 		const tagRemover = /<[^>]*>/g;
 		const imgRemover = /image[0-9]+/g;
@@ -185,14 +189,18 @@ function ShowList({list, view}){
 		return date.substring(0,8);
 	}
 	
-
-	
+	const listMore = ()=>{
+		setListCount(p=>p+3);
+	}
+	const cardMore = ()=>{
+		setCardCount(p=>p+6);
+	}
 	// eslint-disable-next-line default-case
 	switch(view){
 		case 'list':
 			return (
 				<EventListSpan>
-					{eList.map((e, i) => {
+					{eList.slice(0,listCount).map((e, i) => {
 						return(
 							<Col12 onClick={() => {navigate(`/event/${e.eventNo}`)}} key={e.eventNo}>
 								<span style={{alignSelf: "center", maxwidth: "400px", minWidth: "400px"}}>
@@ -223,12 +231,13 @@ function ShowList({list, view}){
 							</Col12>
 						)
 					})}
+					<button onClick={listMore}> 더보기 </button>
 				</EventListSpan>
 			)
 		case 'card':
 			return (
 				<EventCardSpan>
-					{eList.map((e, i) => {
+					{eList.slice(0,cardCount).map((e, i) => {
 						let no = e.eventNo;
 						return(
 							<Col4 onClick={() => {navigate(`/event/${no}`)}} key={e.eventNo}>
@@ -255,6 +264,7 @@ function ShowList({list, view}){
 							</Col4>
 						)
 					})}
+					<button onClick={cardMore}> 더보기 </button>
 				</EventCardSpan>
 			)
 	}
