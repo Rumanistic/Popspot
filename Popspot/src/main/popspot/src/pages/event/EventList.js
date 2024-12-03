@@ -21,6 +21,15 @@ function EventList({tag}) {
 	
 	// 페이지 리스트 렌더링
 	useEffect(() => {
+		if(location) {
+			setList(location.state);
+			axios.get(`/api/event/tags`)
+				 .then(result => {
+					 	setTags(result.data)
+					 });
+			return;
+		}
+		
 		if(selectedTag !== ''){
 			axios.get(`/api/event/search/tags`, {params: {tags: selectedTag}}).then(
 					result => setList(result.data));
@@ -36,18 +45,18 @@ function EventList({tag}) {
 					 	setTags(result.data)
 					 });
 	}, [])
-	
+/*	
 	//검색결과 받아오는 유즈이펙트
 	useEffect(()=>{
 		if(location.state){
-			setList(location.state);
+			
 		}else{
 			axios.get('/api/event/lists').then((result)=>{
 				setList(result.data);
 			});
 		}
 	}, [location.state]);
-	
+*/
 	
 	
 	// 페이지 표시 형태 변경(list <-> card)
@@ -93,7 +102,7 @@ function EventList({tag}) {
 				</ViewChangeSpanContainer>
 			</ListHeaderContainer>
 			<ListContentContainer>
-				<ShowTag tags={tags} setList={setList} />
+				<ShowTag tags={tags} setList={setList} location={location} />
 				<ShowList list={list} view={view} />
 			</ListContentContainer>
 		</span>
@@ -101,7 +110,7 @@ function EventList({tag}) {
 }
 
 
-function ShowTag({tags, setList}){
+function ShowTag({tags, setList, location}){
 
 	// 태그 값 초기화
 	const [values, setValues] = useState(Array(tags.length).fill(false));
@@ -134,8 +143,10 @@ function ShowTag({tags, setList}){
 	useEffect(() => {
 		const searchTags = selectedTags.filter(tag => tag !== '');
 		if(searchTags.length === 0){
-			axios.get(`/api/event/lists`).then(
-				result => setList(result.data))
+			if(!location) {
+				axios.get(`/api/event/lists`).then(
+					result => setList(result.data))
+			}
 		}
 		else {
 			if (searchTags.length === 1){

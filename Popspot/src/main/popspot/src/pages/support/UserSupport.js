@@ -50,19 +50,22 @@ function UserSupportList({userId, userPermission}) {
 		<ContentVerticalSpan style={{alignItems: 'center'}}>
 			<h2 style={{margin: '0 auto'}}>1:1 고객 문의</h2>
 			<RightFloatSpan>
-				<input 
-					type="button" 
-					value={"문의사항 등록"}
-					style={{backgroundColor: '#ff8f8f',
-							color: 'white',
-							fontSize:'15px', 
-							borderRadius: '10px', 
-							padding: '10px', 
-							borderColor: 'transparent'			
-					      }}					
-					onClick={() => navigate('/support/usersupport/register')}
-				/>
-			</RightFloatSpan>
+			{userId !== null ?
+					<span style={{color: '#000'}}>로그인 후에 문의 가능합니다!</span> :
+					<input 
+						type="button" 
+						value={"문의사항 등록"}
+						style={{backgroundColor: '#ff8f8f',
+								color: 'white',
+								fontSize:'15px', 
+								borderRadius: '10px', 
+								padding: '10px', 
+								borderColor: 'transparent'			
+						      }}					
+						onClick={() => navigate('/support/usersupport/register')}
+					/>
+			}
+			</RightFloatSpan>				
 			<ContentHorizontalBar width={'98%'} />
 			{sList.map((e, i) => {
 				if(e.secret !== 1){
