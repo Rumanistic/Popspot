@@ -33,6 +33,7 @@
 
  * 발표 관련 내용 학원 문의
  * Figma 자료 업로드 시 검토
+   (https://www.figma.com/design/pnVpoqjryuIfFhbFkiXY5T/Pop-Spot?node-id=0-1&t=yzITaCMfXahLno49-1) Figma 링크 첨부
 
 ============================================
  Job-done
