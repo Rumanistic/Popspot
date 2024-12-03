@@ -33,7 +33,8 @@
 
  * 발표 관련 내용 학원 문의
  * Figma 자료 업로드 시 검토
-   (https://www.figma.com/design/pnVpoqjryuIfFhbFkiXY5T/Pop-Spot?node-id=0-1&t=yzITaCMfXahLno49-1) => 최대한 기존 디자인을 유지하되, support 부분과 디테일한 부분 수정
+   (https://www.figma.com/design/pnVpoqjryuIfFhbFkiXY5T/Pop-Spot?node-id=0-1&t=yzITaCMfXahLno49-1)
+   => 최대한 기존 디자인을 유지하되, support 부분과 디테일한 부분 수정
 
 ============================================
  Job-done
