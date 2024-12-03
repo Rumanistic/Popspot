@@ -21,7 +21,7 @@ function EventList({tag}) {
 	
 	// 페이지 리스트 렌더링
 	useEffect(() => {
-		if(location) {
+		if(location.state) {
 			setList(location.state);
 			axios.get(`/api/event/tags`)
 				 .then(result => {
@@ -143,10 +143,14 @@ function ShowTag({tags, setList, location}){
 	useEffect(() => {
 		const searchTags = selectedTags.filter(tag => tag !== '');
 		if(searchTags.length === 0){
-			if(!location) {
-				axios.get(`/api/event/lists`).then(
-					result => setList(result.data))
+			console.log(location.state);
+			if(location.state) {
+				setList(location.state);
+				
+				return;
 			}
+			axios.get(`/api/event/lists`).then(
+				result => setList(result.data))
 		}
 		else {
 			if (searchTags.length === 1){
@@ -158,7 +162,7 @@ function ShowTag({tags, setList, location}){
 					result => setList(result.data));
 			}
 		}
-	}, [selectedTags])
+	}, [selectedTags, location.state])
 	
 	
 	return (

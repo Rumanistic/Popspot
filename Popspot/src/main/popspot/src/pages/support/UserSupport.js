@@ -51,7 +51,6 @@ function UserSupportList({userId, userPermission}) {
 			<h2 style={{margin: '0 auto'}}>1:1 고객 문의</h2>
 			<RightFloatSpan>
 			{userId !== null ?
-					<span style={{color: '#000'}}>로그인 후에 문의 가능합니다!</span> :
 					<input 
 						type="button" 
 						value={"문의사항 등록"}
@@ -63,7 +62,8 @@ function UserSupportList({userId, userPermission}) {
 								borderColor: 'transparent'			
 						      }}					
 						onClick={() => navigate('/support/usersupport/register')}
-					/>
+					/>:
+					<span style={{color: '#000'}}>로그인 후에 문의 가능합니다!</span> 
 			}
 			</RightFloatSpan>				
 			<ContentHorizontalBar width={'98%'} />
