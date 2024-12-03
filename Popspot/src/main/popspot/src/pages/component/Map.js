@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-function KakaoMap({lat, lon}) {
+function KakaoMap({lat, lon, address}) {
     useEffect(() => {
         const container =document.getElementById('map');
         const options = {
@@ -14,6 +14,11 @@ function KakaoMap({lat, lon}) {
         });
 
         marker.setMap(map);
+
+        window.kakao.maps.event.addListener(map, "click", () => {
+            const kakaoLink =  `https://map.kakao.com/link/search/${encodeURIComponent(address)}`; 
+            window.open(kakaoLink, "_blank");
+        });
         
   },[]);
   return (

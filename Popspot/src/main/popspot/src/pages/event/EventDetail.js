@@ -64,7 +64,7 @@ function EventDetail() {
 
           <EventDetailItem>
             <EventHeading>위치</EventHeading>
-            <EventLocation><KakaoMap lat={event.lat} lon={event.lon}/></EventLocation>
+            <EventLocation>📍{event.address}<br /><KakaoMap lat={event.lat} lon={event.lon} address={event.address}/></EventLocation>
           </EventDetailItem>
 
           <EventDetailItem>
