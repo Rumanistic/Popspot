@@ -65,7 +65,7 @@ public class EventService {
 	public List<Event> searchListByTag(String[] tagArr) {
 		Set<Event> tagSet = new HashSet<>();
 		for(String s : tagArr)
-			tagSet.addAll(er.findByTagsContaining(s));
+			tagSet.addAll(er.findByTagsContainingAndDeleted(s,false));
 		
 		return new ArrayList<>(tagSet);
 	}
