@@ -26,10 +26,11 @@ public interface EventRepository extends JpaRepository<Event, Long>  {
 	List<Event> findTop8ByDeletedOrderByCreatedDateDesc(boolean b);
 	
 	@Query(value = "SELECT * FROM EVENT " +
-            "WHERE LOWER(TITLE) LIKE LOWER('%' || :keyword || '%') " +
+            "WHERE (LOWER(TITLE) LIKE LOWER('%' || :keyword || '%') " +
             "   OR LOWER(TAGS) LIKE LOWER('%' || :keyword || '%') " +
             "   OR LOWER(CONTENT) LIKE LOWER('%' || :keyword || '%') " +
-            "   OR LOWER(COMPANY) LIKE LOWER('%' || :keyword || '%')",
+            "   OR LOWER(COMPANY) LIKE LOWER('%' || :keyword || '%')) " +
+            "   AND IS_DELETED = 0",
 	    nativeQuery = true)
 	@QueryHints(@QueryHint(name = "org.hibernate.cacheable", value = "false"))
 	List<Event> searchListByKeyword(@Param("keyword") String keyword);
