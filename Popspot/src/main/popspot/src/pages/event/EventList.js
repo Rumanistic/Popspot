@@ -179,14 +179,14 @@ function ShowTag({tags, setList, location}){
 
 function ShowList({list, view}){
 	const navigate = useNavigate();
+	const [listCount, setListCount]=useState(3);
+	const [cardCount, setCardCount]=useState(6);
 	if (!list || !list.eList || list.eList.length === 0) {
 		return <p>데이터를 불러오는 중입니다...</p>;
 	  }
 	const {eList, rPoint} = list;
 	const hyphenRemover = /-/g;
 	
-	const [listCount, setListCount]=useState(3);
-	const [cardCount, setCardCount]=useState(6);
 	
 	const contentRegex = (content) => {
 		const tagRemover = /<[^>]*>/g;
