@@ -49,8 +49,18 @@ dependencies {
    
 	// https://mvnrepository.com/artifact/commons-io/commons-io
 	implementation group: 'commons-io', name: 'commons-io', version: '2.16.1'
+
+	// redis
+implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+
+// Add this section to include the -parameters flag
+tasks.withType(JavaCompile) {
+    options.compilerArgs += ['-parameters']
 }

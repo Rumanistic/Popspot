@@ -216,6 +216,7 @@ function ShowList({list, view}){
 												(e.images.split(','))[0] :
 												'FullStar'
 									}.jpg`}
+									// 이미지 로드 예외처리 필요함 
 									onError={(event) => {
 										console.log(`png 이미지로 로드중...`);
 										event.target.src = `/img/${e.company}${checkDir(e.createdDate)}/${

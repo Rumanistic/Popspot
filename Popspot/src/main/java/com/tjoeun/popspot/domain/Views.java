@@ -48,7 +48,7 @@ public class Views {
  	@EmbeddedId
     private ViewsId viewsId;
  	
- 	
+ 	// 조회수 갯수 
  	@Column(name="VIEWCOUNT")
 	private int VIEWCOUNT;
  	
