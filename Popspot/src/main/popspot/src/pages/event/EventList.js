@@ -21,7 +21,8 @@ function EventList({tag}) {
 	
 	// 페이지 리스트 렌더링
 	useEffect(() => {
-		if(location) {
+		console.log('이벤트리스트 유즈이펙트 location if 전  list데이터 확인 : ',list);
+		if(location.state) {
 			setList(location.state);
 			axios.get(`/api/event/tags`)
 				 .then(result => {
@@ -29,6 +30,7 @@ function EventList({tag}) {
 					 });
 			return;
 		}
+		console.log('이벤트리스트 유즈이펙트 location if 후  list데이터 확인 : ',list);
 		
 		if(selectedTag !== ''){
 			axios.get(`/api/event/search/tags`, {params: {tags: selectedTag}}).then(
@@ -36,7 +38,7 @@ function EventList({tag}) {
 		}else {
 			axios.get(`/api/event/lists`)
 					 .then(result => {
-						console.log(result);
+						console.log('팝업 눌렀을때 list data 확인 : ',result.data);
 						setList(result.data)
 					});			
 		}
@@ -45,18 +47,16 @@ function EventList({tag}) {
 					 	setTags(result.data)
 					 });
 	}, [])
-/*	
-	//검색결과 받아오는 유즈이펙트
+
 	useEffect(()=>{
-		if(location.state){
-			
-		}else{
-			axios.get('/api/event/lists').then((result)=>{
-				setList(result.data);
-			});
+		if(location.state) {
+			setList(location.state);
+			axios.get(`/api/event/tags`)
+				 .then(result => {
+					 	setTags(result.data)
+					 });
 		}
-	}, [location.state]);
-*/
+	},[location.state]);
 	
 	
 	// 페이지 표시 형태 변경(list <-> card)
@@ -175,8 +175,12 @@ function ShowTag({tags, setList, location}){
 
 
 function ShowList({list, view}){
-	const {eList, rPoint} = list;
 	const navigate = useNavigate();
+	if (!list || !list.eList || list.eList.length === 0) {
+		console.log('showList 안 list데이터 확인 : ',list);
+		return <p>데이터를 불러오는 중입니다...</p>;
+	  }
+	const {eList, rPoint} = list;
 	const hyphenRemover = /-/g;
 	
 	const contentRegex = (content) => {

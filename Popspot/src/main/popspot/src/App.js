@@ -4,7 +4,7 @@ import Support from './pages/Support'
 import Login from './pages/Login';
 import Profile from './pages/users/Profile';
 import Signup from './pages/users/Signup';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import EventDetail from './pages/event/EventDetail';
 import Review from './pages/event/Review';
 import UserSupportDetail from './pages/support/UserSupportDetail';
@@ -22,6 +22,7 @@ function App({user, setUser}) {
 	
 	const [permissions, setPermissions] = useState(sessionStorage.getItem("permissions"));
 	const [tag, setTag] = useState('');
+	const location = useLocation();
 	
 	useEffect(() => {
     setPermissions(sessionStorage.getItem("permissions"));
@@ -30,7 +31,7 @@ function App({user, setUser}) {
   const noPermissionRoutes = [
 		{ path:'/', element: <Main />},
 		{ path:'/login', element: <Login setUser={setUser}/>},
-		{ path:'/popup', element: <EventList />},
+		{ path:'/popup', element: <EventList  key={location.key} />},
 		{ path:'/main', element: <Main setTag={setTag}/>},
 		{ path:'/popup/tag?', element: <EventList tag={tag}/>},
 		{ path:'/event/:no', element: <EventDetail />},

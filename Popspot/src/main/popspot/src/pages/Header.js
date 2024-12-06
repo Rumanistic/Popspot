@@ -28,12 +28,21 @@ function Header({user, setUser}) {
           navigate('/popup', { state: response.data });
         } else {
           alert("검색 결과가 없습니다.");
+          setSearchQuery('');
         }
       })
       .catch((error) => {
         console.error("검색 오류:", error);
       });
   };
+
+  function EnterKeyDown(e) {
+    if (e.key === 'Enter') {
+      if (searchQuery.trim()) {
+        searchKeyword(); // 검색 실행
+      }
+    }
+  }
 
   return (
     <header className="header-all">
@@ -60,6 +69,7 @@ function Header({user, setUser}) {
 	          			<input 
 	          				className="nav-menu-search-text"
 	          				onChange={(e) => {setSearchQuery(e.target.value)}}
+                    onKeyDown={EnterKeyDown}
                     value={searchQuery}
           				/>
 	          			<img 
