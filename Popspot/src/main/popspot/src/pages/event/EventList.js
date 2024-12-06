@@ -37,7 +37,7 @@ function EventList({tag}) {
 		}else {
 			axios.get(`/api/event/lists`)
 					 .then(result => {
-						console.log(result);
+						console.log('팝업 눌렀을때 list data 확인 : ',result.data);
 						setList(result.data)
 					});			
 		}
@@ -46,18 +46,16 @@ function EventList({tag}) {
 					 	setTags(result.data)
 					 });
 	}, [])
-/*	
-	//검색결과 받아오는 유즈이펙트
+
 	useEffect(()=>{
-		if(location.state){
-			
-		}else{
-			axios.get('/api/event/lists').then((result)=>{
-				setList(result.data);
-			});
+		if(location.state) {
+			setList(location.state);
+			axios.get(`/api/event/tags`)
+				 .then(result => {
+					 	setTags(result.data)
+					 });
 		}
-	}, [location.state]);
-*/
+	},[location.state]);
 	
 	
 	// 페이지 표시 형태 변경(list <-> card)
@@ -180,8 +178,11 @@ function ShowTag({tags, setList, location}){
 
 
 function ShowList({list, view}){
-	const {eList, rPoint} = list;
 	const navigate = useNavigate();
+	if (!list || !list.eList || list.eList.length === 0) {
+		return <p>데이터를 불러오는 중입니다...</p>;
+	  }
+	const {eList, rPoint} = list;
 	const hyphenRemover = /-/g;
 	
 	const [listCount, setListCount]=useState(3);
