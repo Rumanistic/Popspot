@@ -18,10 +18,10 @@ function EventList({tag}) {
 	const userId = sessionStorage.getItem("userId");
 	const userPermissions = sessionStorage.getItem("permissions");
 	
+
 	
 	// 페이지 리스트 렌더링
 	useEffect(() => {
-		console.log('이벤트리스트 유즈이펙트 location if 전  list데이터 확인 : ',list);
 		if(location.state) {
 			setList(location.state);
 			axios.get(`/api/event/tags`)
@@ -30,7 +30,6 @@ function EventList({tag}) {
 					 });
 			return;
 		}
-		console.log('이벤트리스트 유즈이펙트 location if 후  list데이터 확인 : ',list);
 		
 		if(selectedTag !== ''){
 			axios.get(`/api/event/search/tags`, {params: {tags: selectedTag}}).then(
@@ -143,10 +142,14 @@ function ShowTag({tags, setList, location}){
 	useEffect(() => {
 		const searchTags = selectedTags.filter(tag => tag !== '');
 		if(searchTags.length === 0){
-			if(!location) {
-				axios.get(`/api/event/lists`).then(
-					result => setList(result.data))
+			console.log(location.state);
+			if(location.state) {
+				setList(location.state);
+				
+				return;
 			}
+			axios.get(`/api/event/lists`).then(
+				result => setList(result.data))
 		}
 		else {
 			if (searchTags.length === 1){
@@ -158,7 +161,7 @@ function ShowTag({tags, setList, location}){
 					result => setList(result.data));
 			}
 		}
-	}, [selectedTags])
+	}, [selectedTags, location.state])
 	
 	
 	return (
@@ -177,11 +180,13 @@ function ShowTag({tags, setList, location}){
 function ShowList({list, view}){
 	const navigate = useNavigate();
 	if (!list || !list.eList || list.eList.length === 0) {
-		console.log('showList 안 list데이터 확인 : ',list);
 		return <p>데이터를 불러오는 중입니다...</p>;
 	  }
 	const {eList, rPoint} = list;
 	const hyphenRemover = /-/g;
+	
+	const [listCount, setListCount]=useState(3);
+	const [cardCount, setCardCount]=useState(6);
 	
 	const contentRegex = (content) => {
 		const tagRemover = /<[^>]*>/g;
@@ -200,14 +205,18 @@ function ShowList({list, view}){
 		return date.substring(0,8);
 	}
 	
-
-	
+	const listMore = ()=>{
+		setListCount(p=>p+3);
+	}
+	const cardMore = ()=>{
+		setCardCount(p=>p+6);
+	}
 	// eslint-disable-next-line default-case
 	switch(view){
 		case 'list':
 			return (
 				<EventListSpan>
-					{eList.map((e, i) => {
+					{eList.slice(0,listCount).map((e, i) => {
 						return(
 							<Col12 onClick={() => {navigate(`/event/${e.eventNo}`)}} key={e.eventNo}>
 								<span style={{alignSelf: "center", maxwidth: "400px", minWidth: "400px"}}>
@@ -238,12 +247,13 @@ function ShowList({list, view}){
 							</Col12>
 						)
 					})}
+					<button onClick={listMore}> 더보기 </button>
 				</EventListSpan>
 			)
 		case 'card':
 			return (
 				<EventCardSpan>
-					{eList.map((e, i) => {
+					{eList.slice(0,cardCount).map((e, i) => {
 						let no = e.eventNo;
 						return(
 							<Col4 onClick={() => {navigate(`/event/${no}`)}} key={e.eventNo}>
@@ -270,6 +280,7 @@ function ShowList({list, view}){
 							</Col4>
 						)
 					})}
+					<button onClick={cardMore}> 더보기 </button>
 				</EventCardSpan>
 			)
 	}
