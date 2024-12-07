@@ -44,13 +44,21 @@ function UserSupportList({userId, userPermission}) {
 			.then(response => setSList(response.data));
 	}, []);
 	
-	const navigate = useNavigate(); 
+	const navigate = useNavigate();
+	
+	const showDetail = (url) => {
+		if(userId !== ''){
+			navigate(url);
+		}
+		
+		alert("로그인 후 확인 가능합니다.")
+	}
 	
 	return (
 		<ContentVerticalSpan style={{alignItems: 'center'}}>
 			<h2 style={{margin: '0 auto'}}>1:1 고객 문의</h2>
 			<RightFloatSpan>
-			{userId !== null ?
+			{userId !== '' ?
 					<input 
 						type="button" 
 						value={"문의사항 등록"}
@@ -70,19 +78,19 @@ function UserSupportList({userId, userPermission}) {
 			{sList.map((e, i) => {
 				if(e.secret !== 1){
 					return (
-						<ContentHorizontalSpan key={i} redirect={'y'} onClick={() => navigate(`/support/usersupport/detail/${e.supportNo}`)}>
+						<ContentHorizontalSpan key={i} redirect={'y'} onClick={() => showDetail(`/support/usersupport/detail/${e.inquiryNo}`)}>
 							<span className="no">{sList.length - i}</span>
 							<span className="type">{getType(e.type)}</span>
 							<span className="secret"/>
 							<span className="userId">{e.userId}</span>
-							<span className="title">{e.title}</span>
+							<span className="inqTitle">{e.inqTitle}</span>
 						</ContentHorizontalSpan>
 					);
 				}
 				
 				if(e.userId === userId || userPermission.includes('admin')){
 					return(
-						<ContentHorizontalSpan key={i} redirect={'y'} onClick={() => navigate(`/support/usersupport/detail/${e.supportNo}`)}>
+						<ContentHorizontalSpan key={i} redirect={'y'} onClick={() => navigate(`/support/usersupport/detail/${e.inquiryNo}`)}>
 							<span className="no">{sList.length - i}</span>
 							<span className="type">{getType(e.type)}</span>
 							<span className="secret"> 🔓 </span>

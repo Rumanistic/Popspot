@@ -41,7 +41,7 @@ public class Users {
 	@Column(name="PHONE")
 	private String phone;
 	
-	@NonNull
+	//@NonNull
 	@Column(name="IS_RECEPTIONED")
 	private Boolean receptioned;
 	

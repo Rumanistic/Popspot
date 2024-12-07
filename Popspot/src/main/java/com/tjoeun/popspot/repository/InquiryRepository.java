@@ -8,6 +8,6 @@ import com.tjoeun.popspot.domain.Inquiry;
 
 public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
 
-	List<Inquiry> findAllByDeleted(boolean b);
+	List<Inquiry> findAllByDeletedOrderByCreatedDateDesc(boolean b);
 
 }

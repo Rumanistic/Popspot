@@ -80,13 +80,13 @@ public class UserController {
 	}
 	
 	@PostMapping("/verify-password")
-	public ResponseEntity<ApiResponse> verifyPassword(@RequestBody LoginRequest lr){
+	public ResponseEntity<Object> verifyPassword(@RequestBody LoginRequest lr){
 		ApiResponse res = us.verifyPassword(lr);
 		
-		return rb.buildNoContentResponse(res, HttpStatus.UNAUTHORIZED);
+		return rb.buildResponse(res, HttpStatus.UNAUTHORIZED);
 	}
 	
-	@PostMapping("/update-info")
+	@PostMapping("/update-user-info")
 	public ResponseEntity<ApiResponse> updateUserInfo(@RequestBody Users user){
 		ApiResponse res = us.updateUserInfo(user);
 		

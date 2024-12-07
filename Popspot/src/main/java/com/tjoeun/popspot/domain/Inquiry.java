@@ -37,6 +37,10 @@ public class Inquiry {
 	private String userId;
 	
 	@NonNull
+	@Column(name="USER_NAME", nullable=false)
+	private String userName;
+	
+	@NonNull
 	@Column(name="INQUIRY_TITLE")
 	private String inqTitle;
 	
