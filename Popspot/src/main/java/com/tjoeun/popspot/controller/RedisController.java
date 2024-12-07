@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/views")
+@RequestMapping("/api/Redis")
 public class RedisController {
 
     private final RedisService redisService;
@@ -16,7 +16,7 @@ public class RedisController {
         this.redisService = redisService;
     }
 
-    @GetMapping("/{eventNo}/increment")
+    @GetMapping("views/{eventNo}/increment")
     public ApiResponse incrementViewCount(@PathVariable("eventNo") String eventNo) {
         return redisService.incrementViewCount(eventNo);
     }
@@ -31,10 +31,10 @@ public class RedisController {
         return redisService.getAllKeys();
     }
 
-    @DeleteMapping("/{eventNo}")
-    public ApiResponse deleteViewCount(@PathVariable("eventNo") String eventNo) {
-        return redisService.deleteViewCount(eventNo);
-    }
+//    @DeleteMapping("/{eventNo}")
+//    public ApiResponse deleteViewCount(@PathVariable("eventNo") String eventNo) {
+//        return redisService.deleteViewCount(eventNo);
+//    }
     
     
     

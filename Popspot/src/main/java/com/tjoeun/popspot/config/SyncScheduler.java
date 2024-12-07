@@ -18,9 +18,10 @@ public class SyncScheduler {
     }
 
     // 매 정각마다 실행
-    @Scheduled(cron = "* * * * * *")
+    @Scheduled(cron = "0 0 * * * *")
     public void syncRedisToDatabase() {
         syncService.syncViewsToDatabase();
         System.out.println("스케줄러 실행: Redis 데이터를 Oracle DB로 동기화했습니다.");
     }
+    
 }
