@@ -44,8 +44,8 @@ public class LikeCount {
 	        }
 	    }
 	 	
-	 	 @EmbeddedId
-	     private LikeCountId id;
+	 	@EmbeddedId
+	 	private LikeCountId id;
 	 	 
 	 	// 생성 시간 
 	 	@CreatedDate
