@@ -16,11 +16,13 @@ import com.tjoeun.popspot.domain.Event;
 import com.tjoeun.popspot.domain.dto.ApiResponse;
 import com.tjoeun.popspot.domain.mapping.TagList;
 import com.tjoeun.popspot.repository.EventRepository;
+import com.tjoeun.popspot.repository.LikeCountRepository;
 
 @Service
 public class EventService {
 	@Autowired
 	EventRepository er;
+	
 	
 	ImageManager im = new ImageManager();
 	
@@ -112,7 +114,11 @@ public class EventService {
 		return ApiResponse.apiBuilder(false, FAIL);
 	}
 	
+	
 	public List<Event> searchListByKeyword(String keyword) {  
 	    return er.searchListByKeyword(keyword);
 	}
+
+	
+	
 }

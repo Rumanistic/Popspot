@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import StarPoint from "../component/StarPoint";
 import { Col12, Col4, EventCardSpan, EventCardSpanImage, EventListSpan, EventListSpanImage, ListContentContainer, ListContentTag, ListContentTagsContainer, ListHeaderContainer, ListHeaderContainerHead1, ViewChangeSpan, ViewChangeSpanContainer, ViewChangeSpanDot, ViewChangeSpanHamburger } from "../styles/ListStyle";
 import { RightFloatSpan } from "../styles/FaqStyle";
+import LikeCount from "../component/LikeCount";
 
 function EventList({tag}) {
 	const [list, setList] = useState({eList:[], rPoint: {}});
@@ -45,6 +46,7 @@ function EventList({tag}) {
 				 .then(result => {
 					 	setTags(result.data)
 					 });
+		 
 	}, [])
 /*	
 	//검색결과 받아오는 유즈이펙트
@@ -85,6 +87,9 @@ function EventList({tag}) {
 			</관리 div>
 		</>
 	*/
+	
+	
+	
 	return (
 		<span>
 			<ListHeaderContainer>
@@ -187,6 +192,7 @@ function ShowList({list, view}){
 	const [listCount, setListCount]=useState(3);
 	const [cardCount, setCardCount]=useState(6);
 	
+	const userId = sessionStorage.getItem("userId");
 	const contentRegex = (content) => {
 		const tagRemover = /<[^>]*>/g;
 		const imgRemover = /image[0-9]+/g;
@@ -256,6 +262,7 @@ function ShowList({list, view}){
 						let no = e.eventNo;
 						return(
 							<Col4 onClick={() => {navigate(`/event/${no}`)}} key={e.eventNo}>
+								<LikeCount no={no} userId={userId}/>
 								<span>{e.title}</span>&emsp;
 								<span><EventCardSpanImage src={`/img/${
 									e.images !== null && e.images !== '' ? 
