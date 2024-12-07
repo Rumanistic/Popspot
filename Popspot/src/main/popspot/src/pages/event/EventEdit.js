@@ -19,10 +19,64 @@ function EventEdit() {
 	const [cLen, setCLen] = useState(0);
 	const [value, setValue] = useState('');
 	const [spans, setSpans] = useState(eventData.tags.split(','));
+	const [address, setAddress] = useState(eventData.address);
 	
 	const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
 	const MINS = [0, 30];
 	const navigate = useNavigate();
+
+	useEffect (() => {
+
+		if (!window.kakao || !window.kakao.maps) {
+		   console.error('Kakao Maps API가 로드되지 않았습니다.');
+		   return;
+	   }
+  
+	   
+		   const container =document.getElementById('map');
+		   const options = {
+			  center: new window.kakao.maps.LatLng(37.537187, 127.005476),
+			  level: 5,
+		   };
+  
+		   const map = new window.kakao.maps.Map(container, options);
+		   const marker = new window.kakao.maps.Marker({
+			  position: new window.kakao.maps.LatLng(37.537187, 127.005476),
+			  map: map,
+		   });
+  
+		   window.kakaoMapData = { map, marker};
+  
+	 },[]);
+  
+	 const searchAddress = () => {
+		new window.daum.Postcode({
+		   oncomplete: function (data) {
+			  const addr = data.address;
+			  setAddress(addr);
+			  setEventData({...eventData, address:addr});
+  
+			  const {map, marker} = window.kakaoMapData;
+		   const geocoder = new window.kakao.maps.services.Geocoder();
+			  geocoder.addressSearch(addr, function (results, status) {
+				 if (status === window.kakao.maps.services.Status.OK) {
+					const result = results[0];
+					const coords = new window.kakao.maps.LatLng(result.y, result.x);
+					setEventData((prev) => ({
+					   ...prev,
+					   lat: result.y,
+					   lon: result.x,
+					}));
+					
+					document.getElementById('map').style.display = 'block';
+					map.relayout();
+					map.setCenter(coords);
+					marker.setPosition(coords);
+				 }
+			  });
+		   },
+		}).open();
+	 };
 	
 	const onKeyPressed = (e) => {
 		if(e.key === 'Enter' && value.trim()) {
@@ -111,9 +165,9 @@ function EventEdit() {
 		};
 		
 		console.log(submitData);
-		axios.put(`/event/${submitData.eventNo}`, submitData, {
+		axios.put(`/api/event/${submitData.eventNo}`, submitData, {
 	    headers: {
-	        'Content-Type': 'application/json; charset=UTF-8'  // UTF-8 설정
+	        'Content-Type': 'application/json; charset=UTF-8'  
 	    }
 		}).then(result => {
 				console.log(result);
@@ -247,7 +301,41 @@ function EventEdit() {
         </div>
 
         <div className="event-detail-item">
-          <h3>위치</h3>
+		<h3>위치</h3>
+            <input
+                type="text"
+                id="searchAddress"
+                value={address}
+                placeholder="주소를 입력해주세요"
+                readOnly
+                style={{
+                    width: '70%',
+                    padding: '8px',
+                    fontSize: '14px',
+                    marginRight: '10px',
+                }}
+            />
+            <button
+                onClick={searchAddress}
+                style={{
+                    padding: '8px 16px',
+                    backgroundColor: '#f06565',
+                    color: '#fff',
+                    border: 'none',
+                    cursor: 'pointer',
+                }}
+            >
+                주소 검색
+            </button>
+            <div
+                id="map"
+                style={{
+                    width: '100%',
+                    height: '350px',
+                    marginTop: '10px',
+                    display: 'none',
+                }}
+            ></div>
         </div>
 
         <div className="event-detail-item">

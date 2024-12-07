@@ -9,7 +9,8 @@ import {
   ErrorMessage,
   Button,
   SignupButton,
-  FindButton
+  FindText,
+  StyledLoginImg
 } from './styles/LoginStyle'; 
 
 function Login({ setUser }) {
@@ -63,17 +64,14 @@ function Login({ setUser }) {
   };
 
   const handleFindId = () => {
-    navigate('/find-id'); // 아이디 찾기 페이지로 이동
-  };
-
-  const handleFindPassword = () => {
-    navigate('/find-password'); // 비밀번호 찾기 페이지로 이동
+    navigate('/find-id'); 
   };
 
   return (
     <Container>
       <LoginContainer>
         <form onSubmit={handleLogin}>
+        <StyledLoginImg src="/login.png" alt="Login" /> <br />
           <Title>Login</Title>
           <Input
             type="text"
@@ -92,12 +90,10 @@ function Login({ setUser }) {
           <SignupButton type="button" onClick={handleSignUp}>
             회원가입
           </SignupButton>
-          <FindButton type="button" onClick={handleFindId}>
-            아이디 찾기
-          </FindButton>
-          <FindButton type="button" onClick={handleFindPassword}>
-            비밀번호 찾기
-          </FindButton>
+          <br /><br />
+          <FindText type="button" onClick={handleFindId}>
+            아이디 찾기 / 비밀번호 찾기
+          </FindText>
         </form>
       </LoginContainer>
     </Container>

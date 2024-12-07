@@ -85,6 +85,8 @@ public class EventService {
 		e.setImages(resultSet.get("images"));
 		e.setContent(resultSet.get("content"));
 		
+		er.save(e);
+		
 		return ApiResponse.apiBuilder(true, SUCCESS);
 	}
 
