@@ -29,7 +29,7 @@ public class EventService {
     private static final String NOT_FOUND = "조회실패";
 
 	public List<Event> getAllList() {
-		return er.findAllByDeleted(false);
+		return er.findAllByDeletedOrderByCreatedDateDesc(false);
 	}
 
 	public ApiResponse submitEvent(Event e) throws Exception {
@@ -65,7 +65,7 @@ public class EventService {
 	public List<Event> searchListByTag(String[] tagArr) {
 		Set<Event> tagSet = new HashSet<>();
 		for(String s : tagArr)
-			tagSet.addAll(er.findByTagsContainingAndDeleted(s,false));
+			tagSet.addAll(er.findByTagsContainingOrderByCreatedDateDesc(s));
 		
 		return new ArrayList<>(tagSet);
 	}
@@ -113,6 +113,6 @@ public class EventService {
 	}
 	
 	public List<Event> searchListByKeyword(String keyword) {  
-	    return er.searchListByKeyword(keyword);
+	    return er.searchListByKeywordAndDeletedOrderByCreatedDateDesc(keyword, false);
 	}
 }

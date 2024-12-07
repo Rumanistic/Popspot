@@ -111,7 +111,7 @@ function EventEdit() {
 		};
 		
 		console.log(submitData);
-		axios.put(`/event/${submitData.eventNo}`, submitData, {
+		axios.put(`/api/event/${submitData.eventNo}`, submitData, {
 	    headers: {
 	        'Content-Type': 'application/json; charset=UTF-8'  // UTF-8 설정
 	    }
