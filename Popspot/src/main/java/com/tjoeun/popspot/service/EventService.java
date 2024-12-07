@@ -81,9 +81,14 @@ public class EventService {
 						.toString()
 						.replaceAll("-", ""))
 				.toString();
-		HashMap<String, String> resultSet = im.editImage(e.getContent(), e.getCompany(), curDir);
+		String images = e.getImages();
+		HashMap<String, String> resultSet = im.editImage(e.getContent(), e.getCompany(), curDir, images);
+		System.out.println(resultSet.get("images"));
+		System.out.println(resultSet.get("content"));
 		e.setImages(resultSet.get("images"));
 		e.setContent(resultSet.get("content"));
+		
+		er.save(e);
 		
 		return ApiResponse.apiBuilder(true, SUCCESS);
 	}

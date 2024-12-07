@@ -84,7 +84,7 @@ function EventDetail() {
 const SetParagraph = ({content, company, createdDate}) => {
 	const text = content;
 	const splitText = text.split(/<(?:\/)?[a-zA-Z][^>]*>/).filter(list => !/\[alert\](?:!\s\w)*[가-힣]*(?:\s[가-힣]*)*/.test(list));
-	const imgRegex = /^image[0-9]*$/;
+	const imgRegex = /^image[0-9]*/;
 	const hyphenRemover = /-/g;
 	
 	const checkDir = (createdDate) => {
@@ -99,7 +99,7 @@ const SetParagraph = ({content, company, createdDate}) => {
 			{splitText.map((e, i) => {return (
 				imgRegex.test(e) ? 
 					<EventImages src={`/img/${company}${checkDir(createdDate)}/${company}_${e.substring(5)}.png`} alt='' key={i}/>:
-					<EventParagraph key={i}>{e}</EventParagraph>
+						<EventParagraph key={i}>{e}</EventParagraph>
 			)})}
 		</EventDetailItem>
 	)
