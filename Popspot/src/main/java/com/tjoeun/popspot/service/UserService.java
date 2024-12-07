@@ -70,10 +70,10 @@ public class UserService {
 
 	public ApiResponse findId(LoginRequest lr) {
 		String email = lr.getEmail();
-		String userId = ur.findUserIdByEmail(email);
+		Users user = ur.findUserIdByEmail(email).orElse(null);
 		
-		return userId != null ? 
-				ApiResponse.apiBuilder(true, "아이디 검색 성공", userId) : ApiResponse.apiBuilder(false, "아이디를 찾을 수 없습니다.");
+		return user != null ? 
+				ApiResponse.apiBuilder(true, "아이디 검색 성공", user.getUserId()) : ApiResponse.apiBuilder(false, "아이디를 찾을 수 없습니다.");
 	}
 
 	public ApiResponse findPassword(LoginRequest lr) {
@@ -113,6 +113,7 @@ public class UserService {
 	
 	public ApiResponse verifyPassword(LoginRequest lr) {
 		Users user = ur.findByUserId(lr.getUserId());
+		System.out.println(lr.getUserPwd() + " is equal" + user.getUserPwd() + " : " + pe.matches(lr.getUserPwd(), user.getUserPwd()));
 		if(user != null && pe.matches(lr.getUserPwd(), user.getUserPwd())){
 			LoginResponse res = LoginResponse.builder()
 					.userId(user.getUserId())
@@ -121,7 +122,7 @@ public class UserService {
 					.phone(user.getPhone())
 					.build();
 			
-			return ApiResponse.apiBuilder(true, "비밀번호 검증 성공");
+			return ApiResponse.apiBuilder(true, "비밀번호 검증 성공", user);
 		}
 		return ApiResponse.apiBuilder(false, "비밀번호가 일치하지 않습니다.");
 	}
@@ -141,6 +142,9 @@ public class UserService {
 			if (user.getPhone() != null) {
 			    targetUser.setPhone(user.getPhone());
 			}
+//			if (targetUser.getReceptioned() == null) {
+//				targetUser.setReceptioned(false);
+//			}
 			
 			ur.save(targetUser);
 			

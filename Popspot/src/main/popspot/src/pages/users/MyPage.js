@@ -32,8 +32,9 @@ const MyPage = () => {
     // 서버에 비밀번호 확인 요청
     axios.post('/api/users/verify-password', { userId: savedUser, userPwd: password })
       .then(response => {
-        if (response.data.success) {
-          setUserInfo(response.data.userInfo); // 성공 시 사용자 정보 설정
+		  //20241207 todo
+        if (response.status === 200) {
+          setUserInfo(response.data); // 성공 시 사용자 정보 설정
           setIsPasswordVerified(true);
           setError('');
         } else {
@@ -57,7 +58,7 @@ const MyPage = () => {
     // 서버에 수정된 사용자 정보 업데이트 요청
     axios.post('/api/users/update-user-info', userInfo)
       .then(response => {
-        if (response.data.success) {
+        if (response.status === 204) {
           setIsEditing(false);
           alert('회원 정보가 수정되었습니다.');
         } else {
