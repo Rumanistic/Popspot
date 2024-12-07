@@ -18,6 +18,7 @@ function EventList({tag}) {
 	const userId = sessionStorage.getItem("userId");
 	const userPermissions = sessionStorage.getItem("permissions");
 	
+
 	
 	// 페이지 리스트 렌더링
 	useEffect(() => {
@@ -36,7 +37,7 @@ function EventList({tag}) {
 		}else {
 			axios.get(`/api/event/lists`)
 					 .then(result => {
-						console.log(result);
+						console.log('팝업 눌렀을때 list data 확인 : ',result.data);
 						setList(result.data)
 					});			
 		}
@@ -45,18 +46,16 @@ function EventList({tag}) {
 					 	setTags(result.data)
 					 });
 	}, [])
-/*	
-	//검색결과 받아오는 유즈이펙트
+
 	useEffect(()=>{
-		if(location.state){
-			
-		}else{
-			axios.get('/api/event/lists').then((result)=>{
-				setList(result.data);
-			});
+		if(location.state) {
+			setList(location.state);
+			axios.get(`/api/event/tags`)
+				 .then(result => {
+					 	setTags(result.data)
+					 });
 		}
-	}, [location.state]);
-*/
+	},[location.state]);
 	
 	
 	// 페이지 표시 형태 변경(list <-> card)
@@ -179,9 +178,15 @@ function ShowTag({tags, setList, location}){
 
 
 function ShowList({list, view}){
-	const {eList, rPoint} = list;
 	const navigate = useNavigate();
+	const [listCount, setListCount]=useState(3);
+	const [cardCount, setCardCount]=useState(6);
+	if (!list || !list.eList || list.eList.length === 0) {
+		return <p>데이터를 불러오는 중입니다...</p>;
+	  }
+	const {eList, rPoint} = list;
 	const hyphenRemover = /-/g;
+	
 	
 	const contentRegex = (content) => {
 		const tagRemover = /<[^>]*>/g;
@@ -200,14 +205,18 @@ function ShowList({list, view}){
 		return date.substring(0,8);
 	}
 	
-
-	
+	const listMore = ()=>{
+		setListCount(p=>p+3);
+	}
+	const cardMore = ()=>{
+		setCardCount(p=>p+6);
+	}
 	// eslint-disable-next-line default-case
 	switch(view){
 		case 'list':
 			return (
 				<EventListSpan>
-					{eList.map((e, i) => {
+					{eList.slice(0,listCount).map((e, i) => {
 						return(
 							<Col12 onClick={() => {navigate(`/event/${e.eventNo}`)}} key={e.eventNo}>
 								<span style={{alignSelf: "center", maxwidth: "400px", minWidth: "400px"}}>
@@ -238,12 +247,13 @@ function ShowList({list, view}){
 							</Col12>
 						)
 					})}
+					<button onClick={listMore}> 더보기 </button>
 				</EventListSpan>
 			)
 		case 'card':
 			return (
 				<EventCardSpan>
-					{eList.map((e, i) => {
+					{eList.slice(0,cardCount).map((e, i) => {
 						let no = e.eventNo;
 						return(
 							<Col4 onClick={() => {navigate(`/event/${no}`)}} key={e.eventNo}>
@@ -270,6 +280,7 @@ function ShowList({list, view}){
 							</Col4>
 						)
 					})}
+					<button onClick={cardMore}> 더보기 </button>
 				</EventCardSpan>
 			)
 	}
