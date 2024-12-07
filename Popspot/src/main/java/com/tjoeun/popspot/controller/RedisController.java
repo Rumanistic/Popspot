@@ -31,6 +31,7 @@ public class RedisController {
         return redisService.getAllKeys();
     }
 
+    // 삭제부분은 위험하니까 주석처리 
 //    @DeleteMapping("/{eventNo}")
 //    public ApiResponse deleteViewCount(@PathVariable("eventNo") String eventNo) {
 //        return redisService.deleteViewCount(eventNo);
