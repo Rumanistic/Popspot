@@ -18,7 +18,7 @@ function FindId() {
     // 서버에 이메일로 아이디 찾기 요청
     axios.post('/api/users/find-id', { email })
       .then(response => {
-        if (response.data.success) {
+        if (response.status === 200) {
           setResult(`아이디는 ${response.data.userId}입니다.`);
         } else {
           setError('아이디를 찾을 수 없습니다.');

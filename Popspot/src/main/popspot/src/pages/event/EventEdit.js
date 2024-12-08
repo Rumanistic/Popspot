@@ -111,7 +111,7 @@ function EventEdit() {
 		};
 		
 		console.log(submitData);
-		axios.put(`/event/${submitData.eventNo}`, submitData, {
+		axios.put(`/api/event/${submitData.eventNo}`, submitData, {
 	    headers: {
 	        'Content-Type': 'application/json; charset=UTF-8'  // UTF-8 설정
 	    }
@@ -135,7 +135,7 @@ function EventEdit() {
 		const text = eventContentData;
 		const firstAlertIdx = text.indexOf("[alert]");
 		const splitText = text.substring(0, firstAlertIdx).split(/<(?:\/)?[a-zA-Z][^>]*>/);
-		const imgRegex = /^image[0-9]*$/;
+		const imgRegex = /^image[0-9]*/;
 		const hyphenRemover = /-/g;
 		
 		const checkDir = (createdDate) => {

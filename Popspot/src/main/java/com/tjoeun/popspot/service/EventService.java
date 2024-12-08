@@ -31,7 +31,7 @@ public class EventService {
     private static final String NOT_FOUND = "조회실패";
 
 	public List<Event> getAllList() {
-		return er.findAllByDeleted(false);
+		return er.findAllByDeletedOrderByCreatedDateDesc(false);
 	}
 
 	public ApiResponse submitEvent(Event e) throws Exception {
@@ -67,7 +67,7 @@ public class EventService {
 	public List<Event> searchListByTag(String[] tagArr) {
 		Set<Event> tagSet = new HashSet<>();
 		for(String s : tagArr)
-			tagSet.addAll(er.findByTagsContaining(s));
+			tagSet.addAll(er.findByTagsContainingOrderByCreatedDateDesc(s));
 		
 		return new ArrayList<>(tagSet);
 	}
@@ -83,9 +83,14 @@ public class EventService {
 						.toString()
 						.replaceAll("-", ""))
 				.toString();
-		HashMap<String, String> resultSet = im.editImage(e.getContent(), e.getCompany(), curDir);
+		String images = e.getImages();
+		HashMap<String, String> resultSet = im.editImage(e.getContent(), e.getCompany(), curDir, images);
+		System.out.println(resultSet.get("images"));
+		System.out.println(resultSet.get("content"));
 		e.setImages(resultSet.get("images"));
 		e.setContent(resultSet.get("content"));
+		
+		er.save(e);
 		
 		return ApiResponse.apiBuilder(true, SUCCESS);
 	}
@@ -116,7 +121,7 @@ public class EventService {
 	
 	
 	public List<Event> searchListByKeyword(String keyword) {  
-	    return er.searchListByKeyword(keyword);
+	    return er.searchListByKeywordAndDeletedOrderByCreatedDateDesc(keyword, false);
 	}
 
 	

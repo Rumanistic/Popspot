@@ -29,7 +29,7 @@ public class Views {
  	@Embeddable
     @Data
     public static class ViewsId implements Serializable {
- 		// 오늘 날짜 format YYYYMMDD 형식으로 저장 예정
+ 		// 오늘 날짜 format YYYYMMDDhh 형식으로 저장 예정
         @Column(name = "VEIW_DATE")
         private String viewDate;
 
@@ -48,13 +48,13 @@ public class Views {
  	@EmbeddedId
     private ViewsId viewsId;
  	
- 	
+ 	// 조회수 갯수 
  	@Column(name="VIEWCOUNT")
 	private int VIEWCOUNT;
  	
 	// 생성 시간 
  	@CreatedDate
-	@Column(name="CREATED_DATE")
+	@Column(name="CREATED_DATE" , updatable = false)
 	private LocalDateTime createdDate;
  	
  	// 수정 시간 
