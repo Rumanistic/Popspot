@@ -13,6 +13,7 @@ import {
   Button
 } from '../styles/EventDetailStyle'; // 여기에 폰트가 설정되어 있음
 import KakaoMap from '../component/Map';
+import ViewsCount from '../component/ViewsCount';
 
 function EventDetail() {
   const { no } = useParams(); // URL에서 이벤트 번호를 가져옴
@@ -89,6 +90,8 @@ function EventDetail() {
         }}
       >
         {likes ? '❤️' : '🩶'}
+        <ViewsCount no={no}/>
+        
       </span><span>{likeNo==0 ? null:likeNo}</span>
           {event.userId === sessionStorage.userId ? <Button onClick={() => doEdit()}> 수정 </Button> : <></>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           {event.userId === sessionStorage.userId ? <Button onClick={doDelete}> 삭제 </Button> : <></>}
