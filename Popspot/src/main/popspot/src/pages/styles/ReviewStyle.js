@@ -103,11 +103,13 @@ export const ReviewContent = styled.p`
   margin-bottom: 10px;
 `;
 
+// 평균 평점
 export const ReviewRating = styled.p`
-  font-size: 1.2rem;
-  color: #FFD700; /* 노란색으로 변경 */
+  font-size: 1.5rem;
+  color: #FFD700; /* 노란색 */
+  text-shadow: 0 0 5px #FFD700; /* 강조 */
+  text-align: center;
   font-weight: bold;
-  text-shadow: 0 0 5px #FFD700; /* 노란색 강조 */
 `;
 
 export const ReviewButton = styled.button`
@@ -185,5 +187,21 @@ export const LoginButton = styled.button`
 
   &:hover {
     background-color: #004A8F;
+  }
+`;
+// 탭 전환 버튼
+export const Button = styled.button`
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: 1px solid #006EB9;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: ${({ active }) => (active ? '#006EB9' : '#fff')};
+  color: ${({ active }) => (active ? '#fff' : '#006EB9')};
+
+  &:hover {
+    background-color: #004a8f;
+    color: white;
   }
 `;
