@@ -20,7 +20,7 @@ function EventDetail() {
   const [reviews, setReviews] = useState(null);
   const navigate = useNavigate();
   const [likeNo,setLikeNo] = useState(null);
-  const	userId = sessionStorage.userId;
+  const	userId = sessionStorage.userId||"";
   
   const [likes,setLikes] = useState(false);
   useEffect(() => {
@@ -60,11 +60,12 @@ function EventDetail() {
 	}
 
   const like = () => {
+	  if(userId!==""){
 	 axios.post(`/api/event/like/${no}/${userId}`)
 	 .then(()=>{
 		 setLikes(p =>!p)
 		 setLikeNo(p =>likes ? p-1 : p+1 )
-	 })
+	 })}
   }
 
   return (
