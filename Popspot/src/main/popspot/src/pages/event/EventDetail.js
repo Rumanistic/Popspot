@@ -32,7 +32,7 @@ function EventDetail() {
         setEvent(result.data.event);
         setReviews(result.data.review);
         axios
-          .get(`/api/Redis/views/${no}/increment`)
+          .get(`/api/redis/views/${no}/increment`)
           .then((result) => console.log('조회수 증가 완료', result.data))
           .catch((err) => console.log('조회수 증가 실패', err));
       })

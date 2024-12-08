@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/Redis")
+@RequestMapping("/api/redis")
 public class RedisController {
 
     private final RedisService redisService;
@@ -26,9 +26,9 @@ public class RedisController {
         return redisService.getViewCount(eventNo);
     }
 
-    @GetMapping("/all")
-    public ApiResponse getAllKeys() {
-        return redisService.getAllKeys();
+    @GetMapping("views/top/{number}")
+    public ApiResponse getTopKeys(@PathVariable("number") int number) {
+        return redisService.getTopNKeys(number);
     }
 
     // 삭제부분은 위험하니까 주석처리 
