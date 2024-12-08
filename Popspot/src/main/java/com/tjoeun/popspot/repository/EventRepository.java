@@ -21,7 +21,7 @@ public interface EventRepository extends JpaRepository<Event, Long>  {
 	
 	List<TagList> findTagsByDeleted(boolean b);
 
-	Set<Event> findByTagsContainingOrderByCreatedDateDesc(String s);
+	Set<Event> findByTagsContainingAndDeletedOrderByCreatedDateDesc(String s, boolean b);
 
 	List<Event> findTop8ByDeletedOrderByCreatedDateDesc(boolean b);
 	

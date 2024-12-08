@@ -73,7 +73,7 @@ public class ImageManager {
 				imgs.append(company).append("_").append(count);
 			}
 			
-			setTag = setTag.replaceFirst("<img[^>]*>", "image" + count++);
+			setTag = setTag.replaceFirst("<img[^>]*>", "");
 		}
 		
 		System.out.println(setTag);
@@ -123,14 +123,14 @@ public class ImageManager {
 	        	continue;
 	        }
 	        
-	        String existingPattern = "src=\"([^\"]+_image_\\d+\\.png)\"";
+	        String existingPattern = "src=\"([^\"]+_\\d+\\.png)\"";
 	        Pattern srcPattern = Pattern.compile(existingPattern);
 	        Matcher srcMatcher = srcPattern.matcher(imgTag);
 
 	        if (srcMatcher.find()) {
 	            String srcPath = srcMatcher.group(1); // 매칭된 src 경로
-	            String flag = srcPath.substring(srcPath.indexOf("_image_") + 7, srcPath.lastIndexOf(".")); // "image[number]" 추출
-	            matcher.appendReplacement(sb, "image" + flag); // 플래그로 대체
+	            String flag = srcPath.substring(srcPath.indexOf("_") + 1, srcPath.lastIndexOf(".")); // "image[number]" 추출
+	            matcher.appendReplacement(sb, ""); // 플래그로 대체
 	            imageNames.add("image" + flag); // 이미지 이름 리스트 추가
 	        }
 	    }
