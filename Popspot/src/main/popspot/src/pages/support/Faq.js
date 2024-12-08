@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { ContentHorizontalBar } from "../styles/UserSupportStyle";
 import './Faq.css';
 
-const userData = {userId: sessionStorage.getItem('userId') || '', permissions: sessionStorage.getItem('permissions') || ''}
-const isAdmin = userData.permissions.includes("admin");
-const userId = userData.userId;
 
 function Faq() {
+	const userData = {userId: sessionStorage.getItem('userId') || '', permissions: sessionStorage.getItem('permissions') || ''}
+	const isAdmin = userData.permissions.includes("admin");
+	const userId = userData.userId;
+	
 	const [faqList, setFaqList] = useState([]);
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -166,7 +167,7 @@ function Faq() {
 	function DeleteFaq(faqNo) {
 		console.log(faqNo);
 		if(window.confirm('등록된 FQA 항목을 삭제하시겠습니까?')) {
-			axios.delete(`/api/faqs/${faqNo}`)
+			axios.delete(`/api/support/faqs/${faqNo}`)
 					 .then(() => {
 						 	alert('삭제되었습니다.');
 						 	window.location.reload();
@@ -188,9 +189,9 @@ function Faq() {
 				userId
 			};
 			if(modalType === 'new') {
-				axios.post('/api/faqs/submit', formData)
+				axios.post('/api/support/faqs/submit', formData)
 						 .then(
-							 axios.get(`/api/faqs`)
+							 axios.get(`/api/support/faqs`)
 							 			.then(
 											result => {
 											 	setFaqList(result.data);
@@ -198,9 +199,9 @@ function Faq() {
 										)
 						 )
 			} else if(modalType === 'edit'){
-				axios.put(`/api/faqs/${faq.faqNo}`, formData)
+				axios.put(`/api/support/faqs/${faq.faqNo}`, formData)
 						 .then(
-							 axios.get(`/api/faqs`)
+							 axios.get(`/api/support/faqs`)
 							 			.then(
 											result => {
 											 	setFaqList(result.data);

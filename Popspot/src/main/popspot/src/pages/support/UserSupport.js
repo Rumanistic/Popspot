@@ -4,11 +4,11 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { RightFloatSpan } from "../styles/FaqStyle";
 
+const userId = sessionStorage.getItem('userId') || '';
+const userPermission = sessionStorage.getItem('permissions') || '';
 
 function UserSupport() {
 	const [width, setWidth] = useState(window.innerWidth);
-	const userId = sessionStorage.getItem('userId') || '';
-	const userPermission = sessionStorage.getItem('permissions') || '';
 	
 	useEffect(() => {
 		const getNowWidth = () => {
@@ -47,11 +47,12 @@ function UserSupportList({userId, userPermission}) {
 	const navigate = useNavigate();
 	
 	const showDetail = (url) => {
-		if(userId !== ''){
-			navigate(url);
+		if(userId === ''){
+			alert("로그인 후 확인 가능합니다.");
+			return;
 		}
 		
-		alert("로그인 후 확인 가능합니다.")
+		navigate(url);
 	}
 	
 	return (
@@ -76,7 +77,7 @@ function UserSupportList({userId, userPermission}) {
 			</RightFloatSpan>				
 			<ContentHorizontalBar width={'98%'} />
 			{sList.map((e, i) => {
-				if(e.secret !== 1){
+				if(userId !== '' || e.secret !== 1){
 					return (
 						<ContentHorizontalSpan key={i} redirect={'y'} onClick={() => showDetail(`/support/usersupport/detail/${e.inquiryNo}`)}>
 							<span className="no">{sList.length - i}</span>
@@ -95,7 +96,7 @@ function UserSupportList({userId, userPermission}) {
 							<span className="type">{getType(e.type)}</span>
 							<span className="secret"> 🔓 </span>
 							<span className="userId">{e.userId}</span>
-							<span className="title">{e.title}</span>
+							<span className="title">{e.inqTitle}</span>
 						</ContentHorizontalSpan>
 					);
 				}

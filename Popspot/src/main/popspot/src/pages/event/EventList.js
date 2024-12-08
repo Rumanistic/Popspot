@@ -12,7 +12,8 @@ import {
   ListContentTagsContainer, 
   ListHeaderContainer, 
   ListHeaderContainerHead1, 
-  StyledButton 
+  StyledButton,
+  StyledRegisterButton
 } from "../styles/ListStyle";
 import { RightFloatSpan } from "../styles/FaqStyle";
 import LikeCount from "../component/LikeCount";
@@ -56,7 +57,7 @@ function EventList({ tag }) {
         {userPermissions !== null && userPermissions.includes("planner") && 
           <div style={{ marginRight: '5px' }}>
             <RightFloatSpan>
-              <button onClick={() => navigate('/popup/submit')}>등록</button>
+			<StyledRegisterButton onClick={() => navigate('/popup/submit')}>등록</StyledRegisterButton>
             </RightFloatSpan>
           </div>
         }
@@ -119,39 +120,47 @@ function ShowTag({ tags, setList, location }) {
 }
 
 function ShowList({ list }) {
-	const { eList, rPoint } = list;
+	const { eList = [], rPoint = {} } = list; // 기본값 설정
 	const navigate = useNavigate();
 	const hyphenRemover = /-/g;
+	const userId = sessionStorage.userId || "";
+	const [cardCount, setCardCount] = useState(3); // 초기 카운트 설정
   
-	const [cardCount, setCardCount] = useState(3);
-  
+	// 날짜 형식 변환
 	const checkDir = (createdDate) => {
 	  const date = createdDate.replace(hyphenRemover, '');
 	  return date.substring(0, 8);
 	};
   
+	// 더보기 버튼 클릭 핸들러
 	const cardMore = () => {
-		setCardCount((prev) => prev + 3);
-	  };
-	  
+	  setCardCount((prev) => prev + 3);
+	};
   
+	// eList가 비어있을 경우 메시지 출력
+	if (!eList.length) {
+	  return <StyledMessage>등록된 이벤트가 없습니다.</StyledMessage>;
+	}
+  
+	// 모든 카드가 로드된 경우 더보기 버튼 숨김
 	const noMoreItems = cardCount >= eList.length;
   
 	return (
 	  <div>
 		<EventCardSpan>
-		  {eList.slice(0, cardCount).map(e => (
+		  {eList.slice(0, cardCount).map((e) => (
 			<Col4 onClick={() => navigate(`/event/${e.eventNo}`)} key={e.eventNo}>
 			  <EventCardSpanImage
-				src={`/img/${e.images !== null && e.images !== '' ? e.images.split(',')[0] : 'FullStar'}.jpg`}
+				src={`/img/${e.images?.split(',')[0] || 'default'}.jpg`}
 				onError={(event) => {
 				  event.target.src = `/img/${e.company}${checkDir(e.createdDate)}/${
-					e.images !== null && e.images !== '' ? e.images.split(',')[0] : 'FullStar'
+					e.images?.split(',')[0] || 'default'
 				  }.png`;
 				}}
 				alt="Event Image"
 			  />
 			  <span>{e.title}</span>
+			  <LikeCount no={e.eventNo} userId={userId} />
 			  <span>{e.address ? `📍 ${e.address}` : "주소 정보 없음"}</span>
 			  <span>{e.startDate} ~ {e.endDate}</span>
 			  <span style={{ display: 'flex', justifyContent: 'space-evenly' }}>
@@ -176,5 +185,4 @@ function ShowList({ list }) {
 	);
   }
   
-
 export default EventList;
