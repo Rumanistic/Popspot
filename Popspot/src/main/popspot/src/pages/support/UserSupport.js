@@ -10,6 +10,8 @@ const userPermission = sessionStorage.getItem('permissions') || '';
 function UserSupport() {
 	const [width, setWidth] = useState(window.innerWidth);
 	
+																	  
+   
 	useEffect(() => {
 		const getNowWidth = () => {
 			setWidth(window.innerWidth)
@@ -53,6 +55,7 @@ function UserSupportList({userId, userPermission}) {
 		}
 		
 		navigate(url);
+			 
 	}
 	
 	return (
@@ -116,14 +119,14 @@ function UserSupportList({userId, userPermission}) {
 }
 
 function getType(type){
-	switch(type){
-		case 1:
-			return '로그인';
-		case 2:
-			return '회원가입';
-		default:
-			return '기타'
-	}
+   switch(type){
+      case 1:
+         return '로그인';
+      case 2:
+         return '회원가입';
+      default:
+         return '기타'
+   }
 }
 
 
