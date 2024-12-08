@@ -106,7 +106,7 @@ function UserSupportList({userId, userPermission}) {
 				
 				return (
 					<ContentHorizontalSpan redirect={'n'}>
-						<span className="no">{i+1}</span>
+						<span className="no">{sList.length - i}</span>
 						<span className="type">{getType(e.type)}</span>
 						<span className="secret"> 🔒 </span>
 						<span className="userId">{e.userId}</span>

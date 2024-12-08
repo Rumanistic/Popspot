@@ -48,5 +48,5 @@ public interface EventRepository extends JpaRepository<Event, Long>  {
             "ORDER BY CREATED_DATE DESC",
 	    nativeQuery = true)
 	@QueryHints(@QueryHint(name = "org.hibernate.cacheable", value = "false"))
-	List<Event> searchListByKeywordAndDeletedOrderByCreatedDateDesc(String keyword, boolean b);
+	List<Event> searchListByKeywordAndDeletedOrderByCreatedDateDesc(@Param("keyword")String keyword, @Param("b")boolean b);
 }
