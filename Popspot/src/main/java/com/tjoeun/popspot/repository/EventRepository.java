@@ -35,13 +35,9 @@ public interface EventRepository extends JpaRepository<Event, Long>  {
 	@QueryHints(@QueryHint(name = "org.hibernate.cacheable", value = "false"))
 	List<Event> searchListByKeyword(@Param("keyword") String keyword);
 	
-<<<<<<< HEAD
-	
+
 	//좋아요 수로 정렬해서 가져오기
 //	List<Event> findLikeCountEvent();
-	
-	
-=======
 	@Query(value = "SELECT * FROM EVENT " +
             "WHERE 1 = 1" +
 			"	AND (LOWER(TITLE) LIKE LOWER('%' || :keyword || '%') " +
@@ -53,5 +49,4 @@ public interface EventRepository extends JpaRepository<Event, Long>  {
 	    nativeQuery = true)
 	@QueryHints(@QueryHint(name = "org.hibernate.cacheable", value = "false"))
 	List<Event> searchListByKeywordAndDeletedOrderByCreatedDateDesc(String keyword, boolean b);
->>>>>>> main
 }
