@@ -4,15 +4,14 @@ export const ContentContainer = styled.div`
   width: ${({ width }) => (width ? `${width}px` : '90%')};
   background-color: #fffcf7;
   padding: 20px;
-  margin: 20px auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 25px 0;
   font-family: 'Pretendard-Regular', sans-serif;
 `;
+
 
 export const ContentHorizontalBar = styled.div`
   width: ${({ width }) => (width ? width : '85%')};
@@ -69,20 +68,9 @@ export const ContentVerticalSpan = styled.div`
 
 export const RightFloatSpan = styled.span`
   display: flex;
+  justify-content: flex-end;  /* 오른쪽 정렬 */
   align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-
-  label {
-    font-size: 16px;
-    font-family: 'Pretendard-Regular', sans-serif;
-    margin-right: 10px;
-  }
-
-  input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-  }
+  gap: 8px;  /* 글자와 체크박스 간격 */
 `;
 
 
@@ -112,10 +100,9 @@ export const Label = styled.label`
 `;
 
 export const CheckboxLabel = styled.label`
-  font-size: 19px;
+  font-size: 13px;
   width: 100%;
   align-content: right;
-  margin-right: 5px; 
   font-family: 'Pretendard-Regular', sans-serif;
 `;
 
@@ -127,18 +114,14 @@ export const SecretCheckbox = styled.input`
 
 export const SubmitResetButtons = styled.div`
   display: flex;
-  justify-content: flext-start;
-  width: auto;
-  align-items: center;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 20%;
+  justify-content: flex-end;  /* 오른쪽 정렬 */
+  gap: 10px;  /* 버튼 간의 간격 */
+  margin-top: auto;  /* 남은 공간을 차지하여 하단으로 위치시킴 */
+
 
   input[type='reset'] {
-   background-color: lightpink;
+   background-color: white;
    font-size: 13px;
-   border-color: transparent;
-   border-radius: 10px;
    cursor: pointer;
    padding: 10px 10px;
    margin-left: 10px;
@@ -146,10 +129,9 @@ export const SubmitResetButtons = styled.div`
    width: auto;
   }
   input[type='submit'] {
-   background-color: lightpink;
+   background-color: #006EB9;
    font-size: 13px;
    border-color: transparent;
-   border-radius: 10px;
    cursor: pointer;
    padding: 10px 10px;
    margin-right: 150px;
