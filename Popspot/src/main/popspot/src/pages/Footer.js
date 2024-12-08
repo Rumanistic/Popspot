@@ -18,8 +18,6 @@ const Footer = () => {
     <FooterMain>
       <FooterHorizontalSpan style={{ justifyContent: 'start', padding: '5px 0', maxHeight: '50px' }}>
         <img src='/img/logo.png' alt='' style={{ height: '50px' }} />
-        <img src='/img/popspot.png' alt='' style={{ height: '90%', marginLeft: '10px' }} />
-        <img src='/img/tjoeun.png' alt='' style={{ height: '90%', marginLeft: '10px' }} />
       </FooterHorizontalSpan>
       <FooterHorizontalBar />
       <FooterHorizontalSpan>
@@ -36,7 +34,7 @@ const Footer = () => {
             └ 김현수(조장) 김솔 김요한 김효빈 최서진 현민환 <br />
           </p>
           <FooterHorizontalSpan style={{justifyContent: 'space-around'}}>
-	        	<p>Contact...</p>
+	        	<p>CONTACT</p>
             {members.map((member, i) => (
               <FooterVerticalSpan
                 key={i}
@@ -44,8 +42,8 @@ const Footer = () => {
                 onMouseLeave={() => setHovered(null)}
                 onClick={() => window.open(member.url, '_blank')}
               >
-                <Github color={hovered === i ? '#EE3224' : '#000000'} />
-                <GithubLabel style={{ color: hovered === i ? '#B49B57' : '#000000' }}>
+                <Github color={hovered === i ? '#006EB9' : '#FFFFFF'} />
+                <GithubLabel style={{ color: hovered === i ? '#006EB9' : '#FFFFFF' }}>
                   {member.name}<br />{member.githubId}
                 </GithubLabel>
               </FooterVerticalSpan>
