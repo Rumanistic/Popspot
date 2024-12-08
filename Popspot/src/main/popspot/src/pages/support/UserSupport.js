@@ -4,11 +4,11 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { RightFloatSpan } from "../styles/FaqStyle";
 
-const userId = sessionStorage.getItem('userId') || '';
-const userPermission = sessionStorage.getItem('permissions') || '';
 
 function UserSupport() {
 	const [width, setWidth] = useState(window.innerWidth);
+	const userId = sessionStorage.getItem('userId') || '';
+	const userPermission = sessionStorage.getItem('permissions') || '';
 	
 	useEffect(() => {
 		const getNowWidth = () => {
@@ -27,9 +27,9 @@ function UserSupport() {
 	return (
 		<ContentContainer width={width}>
 			<ContentVerticalSpan>
-				<ContentHorizontalBar borderpixel={3} />				
+				<ContentHorizontalBar width={'95%'} borderpixel={2} />				
 					<UserSupportList userId={userId} userPermission={userPermission}/>
-				<ContentHorizontalBar borderpixel={3} />
+				<ContentHorizontalBar width={'95%'} borderpixel={2} />
 			</ContentVerticalSpan>
 		</ContentContainer>
 	)
@@ -44,30 +44,21 @@ function UserSupportList({userId, userPermission}) {
 			.then(response => setSList(response.data));
 	}, []);
 	
-	const navigate = useNavigate();
-	
-	const showDetail = (url) => {
-		if(userId === ''){
-			alert("로그인 후 확인 가능합니다.");
-			return;
-		}
-		
-		navigate(url);
-	}
+	const navigate = useNavigate(); 
 	
 	return (
 		<ContentVerticalSpan style={{alignItems: 'center'}}>
 			<h2 style={{margin: '0 auto'}}>1:1 고객 문의</h2>
 			<RightFloatSpan>
-			{userId !== '' ?
+			{userId !== null ?
 					<input 
 						type="button" 
 						value={"문의사항 등록"}
-						style={{backgroundColor: '#ff8f8f',
+						style={{backgroundColor: '#006EB9',
 								color: 'white',
-								fontSize:'15px', 
-								borderRadius: '10px', 
-								padding: '10px', 
+								fontSize:'15px',  
+								padding: '5px',
+								marginLeft: '800px', 
 								borderColor: 'transparent'			
 						      }}					
 						onClick={() => navigate('/support/usersupport/register')}
@@ -75,28 +66,28 @@ function UserSupportList({userId, userPermission}) {
 					<span style={{color: '#000'}}>로그인 후에 문의 가능합니다!</span> 
 			}
 			</RightFloatSpan>				
-			<ContentHorizontalBar width={'98%'} />
+			<ContentHorizontalBar width={'100%'} borderpixel={2} />
 			{sList.map((e, i) => {
-				if(userId !== '' || e.secret !== 1){
+				if(e.secret !== 1){
 					return (
-						<ContentHorizontalSpan key={i} redirect={'y'} onClick={() => showDetail(`/support/usersupport/detail/${e.inquiryNo}`)}>
+						<ContentHorizontalSpan key={i} redirect={'y'} onClick={() => navigate(`/support/usersupport/detail/${e.supportNo}`)}>
 							<span className="no">{sList.length - i}</span>
 							<span className="type">{getType(e.type)}</span>
 							<span className="secret"/>
 							<span className="userId">{e.userId}</span>
-							<span className="inqTitle">{e.inqTitle}</span>
+							<span className="title">{e.title}</span>
 						</ContentHorizontalSpan>
 					);
 				}
 				
 				if(e.userId === userId || userPermission.includes('admin')){
 					return(
-						<ContentHorizontalSpan key={i} redirect={'y'} onClick={() => navigate(`/support/usersupport/detail/${e.inquiryNo}`)}>
+						<ContentHorizontalSpan key={i} redirect={'y'} onClick={() => navigate(`/support/usersupport/detail/${e.supportNo}`)}>
 							<span className="no">{sList.length - i}</span>
 							<span className="type">{getType(e.type)}</span>
 							<span className="secret"> 🔓 </span>
 							<span className="userId">{e.userId}</span>
-							<span className="title">{e.inqTitle}</span>
+							<span className="title">{e.title}</span>
 						</ContentHorizontalSpan>
 					);
 				}

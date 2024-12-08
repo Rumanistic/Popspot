@@ -5,12 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { ContentHorizontalBar } from "../styles/UserSupportStyle";
 import './Faq.css';
 
+const userData = {userId: sessionStorage.getItem('userId') || '', permissions: sessionStorage.getItem('permissions') || ''}
+const isAdmin = userData.permissions.includes("admin");
+const userId = userData.userId;
 
 function Faq() {
-	const userData = {userId: sessionStorage.getItem('userId') || '', permissions: sessionStorage.getItem('permissions') || ''}
-	const isAdmin = userData.permissions.includes("admin");
-	const userId = userData.userId;
-	
 	const [faqList, setFaqList] = useState([]);
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +44,6 @@ function Faq() {
 
   return (
     <div>
-    	<h1 align='center' style={{fontSize: "35px", fontWeight: "bold"}}>   F A Q  
     	<ContentHorizontalBar width={'100%'} borderpixel={2} /> 
 			{
 				isAdmin &&
@@ -56,10 +54,9 @@ function Faq() {
 							modalTypeHandler('new'); 
 							faqHandler({});
 							headTypeHandler('추가');
-							}}>FAQ 추가</button>
+							}}> FAQ 추가</button>
 				</FaqStyle.RightFloatSpan>)
 			}
-    	</h1>
     	<section>
     		<article>
 					<ShowFaq faqList={faqList}/>
@@ -96,9 +93,9 @@ function Faq() {
 		                isAdmin && 
 		                (<FaqStyle.RightFloatSpan>
 		                  <button style={{backgroundColor: 'transparent', 
-										  borderRadius: '0',
-		                  				  float: 'right', 
-		                  				  color: '#006EB9'}} 
+													borderRadius: '0',
+													float: 'right', 
+													color: '#006EB9'}} 
                  				  onClick={() => {
 		                    openModalHandler(); 
 		                    modalTypeHandler('edit'); 
@@ -166,7 +163,7 @@ function Faq() {
 	function DeleteFaq(faqNo) {
 		console.log(faqNo);
 		if(window.confirm('등록된 FQA 항목을 삭제하시겠습니까?')) {
-			axios.delete(`/api/support/faqs/${faqNo}`)
+			axios.delete(`/api/faqs/${faqNo}`)
 					 .then(() => {
 						 	alert('삭제되었습니다.');
 						 	window.location.reload();
@@ -188,9 +185,9 @@ function Faq() {
 				userId
 			};
 			if(modalType === 'new') {
-				axios.post('/api/support/faqs/submit', formData)
+				axios.post('/api/faqs/submit', formData)
 						 .then(
-							 axios.get(`/api/support/faqs`)
+							 axios.get(`/api/faqs`)
 							 			.then(
 											result => {
 											 	setFaqList(result.data);
@@ -198,9 +195,9 @@ function Faq() {
 										)
 						 )
 			} else if(modalType === 'edit'){
-				axios.put(`/api/support/faqs/${faq.faqNo}`, formData)
+				axios.put(`/api/faqs/${faq.faqNo}`, formData)
 						 .then(
-							 axios.get(`/api/support/faqs`)
+							 axios.get(`/api/faqs`)
 							 			.then(
 											result => {
 											 	setFaqList(result.data);

@@ -2,23 +2,24 @@ import { styled } from 'styled-components';
 
 export const ContentContainer = styled.div`
   width: 100%; 
+  height: 90%; 
   font-size: 24px;
   font-family: 'Pretendard-Regular', sans-serif;
+  justify-content: center; 
+  align-items: center; 
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 25px 0;
 `;
 
 export const ContentHorizontalBar = styled.span`
   
   display: flex;
-  margin: 0 auto;
-  width: ${({ width }) => width || '93%'};
-  
-  background-color: #ff8f8f;
-  border: solid ${({ borderpixel }) => borderpixel || 1}px #ff8f8f;
+  margin: 10px auto;
+  width: 95%; 
+  height: 2px;
+  background-color: #006EB9; 
 `;
+  
 
 export const ContentHorizontalSpan = styled.span`
   display: flex;

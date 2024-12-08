@@ -17,6 +17,7 @@ import {
 } from "../styles/ListStyle";
 import { RightFloatSpan } from "../styles/FaqStyle";
 import LikeCount from "../component/LikeCount";
+import ViewsCount from "../component/ViewsCount";
 
 function EventList({ tag }) {
   const [list, setList] = useState({ eList: [], rPoint: {} });
@@ -159,6 +160,7 @@ function ShowList({ list }) {
 			  />
 			  <span>{e.title}</span>
 			  <LikeCount no={e.eventNo} userId={userId} />
+        <ViewsCount no={e.eventNo} />
 			  <span>{e.address ? `📍 ${e.address}` : "주소 정보 없음"}</span>
 			  <span>{e.startDate} ~ {e.endDate}</span>
 			  <span style={{ display: 'flex', justifyContent: 'space-evenly' }}>
