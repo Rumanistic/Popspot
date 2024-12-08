@@ -16,18 +16,15 @@ function UserSupportRegister() {
 	const [width, setWidth] = useState(window.innerWidth);
 	const navigate = useNavigate();
 	
-	// WYSIWYG 에디터 사용 시 HTML태그가 붙은 DOM 데이터 형식을 추가하는 상태라
-	// 에디터 DOM에 접근하기 위한 ref 생성
-	const editorRef = useRef(null);
-	
 	// 글 작성 시 빠진 항목 포커스를 위한 input ref 생성
 	const titleRef =useRef(null);
 	
 	const [inquiryData, setInquiryData] = useState({
 		userId: sessionStorage.getItem('userId'),
-		title: '',
+		userName: sessionStorage.getItem('name'),
+		inqTitle: '',
 		type: 1,
-		inquiry: '',
+		inqContent: '',
 		secret: 0
 	})
 	
@@ -69,16 +66,13 @@ function UserSupportRegister() {
 	}
 
 	const submitData = () => {
-		// 전송하기 전 wysiwyg 에디터 텍스트를 가져옴
-		const editorData = editorRef.current.getData();
 		
 		// 전송할 데이터를 업데이트하면서 새 변수에 담음
 		setInquiryData(
 			(inquiryData) => {
 				// 전송할 변수 submitData 생성
 				const submitData = {
-				...inquiryData,
-				inquiry: editorData
+				...inquiryData
 			};
 		
 			// axios를 실행할 doSubmit(전송할 데이터)
@@ -105,55 +99,46 @@ function UserSupportRegister() {
 	
 	return (
 	    <ContentContainer width={width}>
-	      <ContentHorizontalBar borderpixel={4} />
+	      <ContentHorizontalBar borderpixel={3} />
 	         <h2>1:1 문의사항 등록</h2>
-	      <ContentHorizontalBar width={'70%'} borderpixel={1} />
+	      <ContentHorizontalBar width={'85%'} borderpixel={1} />
 	      <ContentHorizontalSpan>
 	       	 <Label>문의사항</Label>
-	       	 <TitleInput ref={titleRef} name="title" placeholder="문의하실 내용을 간략하게 정리해주세요." onChange={dataChange} style={{ borderColor: '#006EB9', marginBottom: '30px' }} />
+	       	 <TitleInput ref={titleRef} name="inqTitle" placeholder="문의하실 내용을 간략하게 정리해주세요." onChange={dataChange} />
 	      </ContentHorizontalSpan>
-	     
+	      <ContentHorizontalBar width={'85%'} borderpixel={1} />
 	      <ContentHorizontalSpan>
 	         <Label>종류</Label>
-	        <SelectType name="type" onChange={dataChange} style={{border:'2px solid #006EB9'}}>
+	        <SelectType name="type" onChange={dataChange}>
 	          <option value={1}>&ensp;로그인</option>
 	          <option value={2}>&ensp;회원가입</option>
 	          <option value={9}>&ensp;기타</option>
 	        </SelectType>
 	      </ContentHorizontalSpan>
-		  
-		  <ContentHorizontalSpan>
-		     <Label width="40%">상세 문의 내용</Label>
-		     <ContentVerticalSpan>
-		     <textarea 
-		       name="inquiry" 
-		       value={inquiryData.inquiry}
-		       onChange={dataChange}
-		       placeholder="문의할 상세 내용을 입력하세요."
-		       style={{ width: '88%', height: '150px', padding: '10px', border: '2px solid #006EB9', margin: '10px 0 0 -62px'}} />
-		  
-			 <ContentHorizontalSpan>
-	       
+	      <ContentHorizontalBar width={'85%'} borderpixel={1} />
+	      <ContentHorizontalSpan>
+	         <Label width="40%">상세 내용 문의</Label>
+	      <ContentVerticalSpan>
+	         <textarea
+                name="inqContent"
+                onChange={dataChange}
+                rows="5"
+                required
+	         ></textarea>
+	      <ContentHorizontalSpan>
+	         <RightFloatSpan>
 	          <CheckboxLabel>비밀글 등록</CheckboxLabel>
-	          <SecretCheckbox name="secret" type="checkbox" onChange={dataChange} style={{margin: '0 0 0 -130px'}} />
-	          
+	          <SecretCheckbox name="secret" type="checkbox" onChange={dataChange} />
+	          </RightFloatSpan>
 	      </ContentHorizontalSpan>
 	      </ContentVerticalSpan>
 	      </ContentHorizontalSpan>
-		  
 	      <ContentHorizontalBar width={'85%'} borderpixel={1} />
 	      	<SubmitResetButtons>
-			  <input type="submit" value="등록" onClick={submitData} 
-					 style={{ borderRadius: '0',  
-						  	  color: 'white', 
-						      backgroundColor: '#006EB9',
-						      marginLeft: '1000px'}}/>
-	          <input type="reset" value="취소" onClick={handleCancel} 			
-			  		 style={{ borderRadius: '0', 
-			            	  borderColor: '#006EB9', 
-			                  color: '#006EB9', 
-			                  backgroundColor: 'white'}} />
+	          <input type="reset" value="취소" onClick={handleCancel} />
+	          <input type="submit" value="등록" onClick={submitData} />
 	 		</SubmitResetButtons>
+	      <ContentHorizontalBar borderpixel={3} />
 	    </ContentContainer>
 	  );
 	}
