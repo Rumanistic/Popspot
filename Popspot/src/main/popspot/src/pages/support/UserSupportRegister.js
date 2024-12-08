@@ -124,24 +124,23 @@ function UserSupportRegister() {
                 onChange={dataChange}
                 rows="5"
                 required
-	         ></textarea>
-	      <ContentHorizontalSpan>
-	         <RightFloatSpan>
-	          <CheckboxLabel>비밀글 등록</CheckboxLabel>
-	          <SecretCheckbox name="secret" type="checkbox" onChange={dataChange} />
-	          </RightFloatSpan>
-	      </ContentHorizontalSpan>
-	      </ContentVerticalSpan>
-	      </ContentHorizontalSpan>
-	      <ContentHorizontalBar width={'85%'} borderpixel={1} />
-	      	<SubmitResetButtons>
-	          <input type="reset" value="취소" onClick={handleCancel} />
-	          <input type="submit" value="등록" onClick={submitData} />
-	 		</SubmitResetButtons>
-	      <ContentHorizontalBar borderpixel={3} />
-	    </ContentContainer>
-	  );
-	}
-
+            ></textarea>
+         <ContentHorizontalSpan>
+            <RightFloatSpan>
+             <CheckboxLabel>비밀글 등록</CheckboxLabel>
+             <SecretCheckbox name="secret" type="checkbox" onChange={dataChange} />
+             </RightFloatSpan>
+         </ContentHorizontalSpan>
+         </ContentVerticalSpan>
+         </ContentHorizontalSpan>
+         <ContentHorizontalBar width={'85%'} borderpixel={1} />
+            <SubmitResetButtons>
+             <input type="reset" value="취소" onClick={handleCancel} />
+             <input type="submit" value="등록" onClick={submitData} />
+          </SubmitResetButtons>
+         <ContentHorizontalBar borderpixel={3} />
+       </ContentContainer>
+     );
+   }
 
 export default UserSupportRegister;
