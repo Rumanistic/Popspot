@@ -189,7 +189,7 @@ function EventEdit() {
 		const text = eventContentData;
 		const firstAlertIdx = text.indexOf("[alert]");
 		const splitText = text.substring(0, firstAlertIdx).split(/<(?:\/)?[a-zA-Z][^>]*>/);
-		const imgRegex = /^image[0-9]*$/;
+		const imgRegex = /^image[0-9]*/;
 		const hyphenRemover = /-/g;
 		
 		const checkDir = (createdDate) => {

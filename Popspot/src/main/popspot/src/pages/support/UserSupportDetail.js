@@ -13,13 +13,13 @@ function UserSupportDetail() {
 	const [supportData, setSupportData] = useState({
 		inquiryNo: 0,
 		userId: '',
-		title: '',
-		inquiry: '',
+		inqTitle: '',
+		inqContent: '',
 		type: 0,
-		inquiryCreatedDate: '',
+		inqCreatedDate: '',
 		reply: '',
 		adminId: '',
-		answeredDate: ''
+		replyCreatedDate: ''
 	})
 	const {no} = useParams();
 	const [state, setState] = useState(false);
@@ -47,14 +47,14 @@ function UserSupportDetail() {
 			
 			setSupportData({
 				...supportData,
-				supportNo: inquiry.supportNo,
+				inquiryNo: inquiry.inquiryNo,
 				userId: inquiry.userId,
 				inquiryCreatedDate: inquiry.createdDate,
-				inquiry: inquiry.inquiry,
-				title: inquiry.title,
+				inqContent: inquiry.inqContent,
+				inqTitle: inquiry.inqTitle,
 				type: inquiry.type,
 				...(reply && reply !== '' ? {
-					reply: reply.answer,
+					reply: reply.reply,
 			    adminId: reply.userId,
 			    answeredDate: reply.createdDate
 				} : {})
@@ -72,27 +72,27 @@ function UserSupportDetail() {
 			<ContentHorizontalBar borderpixel={3}/>
 				<ContentDetailBody>
 				{console.log(supportData)}
-					<p><label>제목 : </label><span>{supportData.title}</span></p>
+					<p><label>제목 : </label><span>{supportData.inqTitle}</span></p>
 					<ContentHorizontalBar width={'80%'}/>
 					<p><label>분류 : </label> <span>{supportData.type}</span></p>
 					<ContentHorizontalBar width={'80%'}/>
-					<span><p dangerouslySetInnerHTML={{__html: supportData.inquiry}}></p></span>
+					<span><p>{supportData.inqContent}</p></span>
 				</ContentDetailBody>
-				{supportData.answer !== '' ? <AnswerData /> : <span />}
-				
-				{
+				{supportData.reply !== '' ? <ReplyData supportData={supportData}/> : 
 					isAdmin &&
 					(<RightFloatSpan>
 						{!state ? <button onClick={stateChange}>문의사항 답변 등록</button> : <span />}
 					</RightFloatSpan>)
 				}
-				<RegisterAnswer state={state} supportNo={supportData.supportNo} reply={supportData.reply} stateChange={stateChange} />
+				
+				
+				<RegisterAnswer state={state} supportNo={supportData.inquiryNo} reply={supportData.reply} stateChange={stateChange} userId={userId}/>
 			<ContentHorizontalBar borderpixel={3}/>
 		</ContentContainer>
 	)
 }
 
-function RegisterAnswer({state, supportNo, reply, stateChange}) {
+function RegisterAnswer({state, supportNo, reply, stateChange, userId}) {
 	const [newReply, setNewReply] = useState(reply);
 	
 	const dataChange = (e) => {
@@ -106,7 +106,8 @@ function RegisterAnswer({state, supportNo, reply, stateChange}) {
 		console.log("등록한 답변:", newReply);
 		axios.post(`/api/support/user-support/${supportNo}/reply`, {
 	    reply: newReply,
-	    inquiryNo: supportNo
+	    inquiryNo: supportNo,
+	    userId
 		}, {
 	    headers: {
 	        'Content-Type': 'application/json; charset=UTF-8'  // UTF-8 설정
@@ -124,8 +125,14 @@ function RegisterAnswer({state, supportNo, reply, stateChange}) {
 	);
 }
 
-function AnswerData() {
-	
+function ReplyData({supportData}) {
+	return (
+		<>
+			{
+				<p>{supportData.reply}</p>
+			}
+		</>
+	);
 }
 
 export default UserSupportDetail;

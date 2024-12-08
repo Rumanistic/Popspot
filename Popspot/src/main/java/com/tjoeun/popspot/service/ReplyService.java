@@ -23,7 +23,13 @@ public class ReplyService {
 
 	public ApiResponse submit(Long no, InquiryReply ir) {
 		// TODO Auto-generated method stub
-		return null;
+		ir.setInquiryNo(no);
+		irr.save(ir);
+		
+		return ApiResponse.builder()
+				.success(true)
+				.message(SUCCESS)
+				.build();
 	}
 
 }

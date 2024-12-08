@@ -15,6 +15,7 @@ import {
   StyledButton 
 } from "../styles/ListStyle";
 import { RightFloatSpan } from "../styles/FaqStyle";
+import LikeCount from "../component/LikeCount";
 
 function EventList({ tag }) {
   const [list, setList] = useState({ eList: [], rPoint: {} });
@@ -65,6 +66,7 @@ function EventList({ tag }) {
         <ShowList list={list} />
       </ListContentContainer>
     </span>
+
   );
 }
 

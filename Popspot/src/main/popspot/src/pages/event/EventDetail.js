@@ -13,21 +13,48 @@ import {
   Button
 } from '../styles/EventDetailStyle'; // 여기에 폰트가 설정되어 있음
 import KakaoMap from '../component/Map';
+import ViewsCount from '../component/ViewsCount';
 
 function EventDetail() {
   const { no } = useParams(); // URL에서 이벤트 번호를 가져옴
   const [event, setEvent] = useState(null);
   const [reviews, setReviews] = useState(null);
   const navigate = useNavigate();
-
+  const [likeNo,setLikeNo] = useState(null);
+  const	userId = sessionStorage.userId;
+  
+  const [likes,setLikes] = useState(false);
   useEffect(() => {
+	
     axios.get(`/api/event/${no}`)
       .then(result => {
 			setEvent(result.data.event);
 		  	setReviews(result.data.review);
+        axios.get(`/api/Redis/views/${no}/increment`).then(
+          result =>{
+            console.log("조회수 증가 완료", result.data)
+          }
+        ).catch(
+          console.log("조회수 증가 실패", result.data)
+        )
 		  })
       .catch(err => console.error('이벤트 정보를 불러오는 중 오류가 발생했습니다.', err));
-  }, [no]);
+      
+      //좋아요 수 불러오기
+    axios.get(`/api/event/like/${no}`)
+    .then(result =>{
+		setLikeNo(result.data)
+	})
+	.catch( err => console.error("좋아요 수를 불러오는 중 오류가 발생했습니다.",err));
+	//좋아요 상태 체크
+	 axios.get(`/api/event/like/${no}/${userId}`)
+	 .then(result => {setLikes(result.data)})
+	 .catch( err => console.error("좋아요 상태를 불러오는 중 오류가 발생했습니다.",err));
+	 
+  }, [no,userId]);
+  
+  
+  
   
   const doDelete = () => {
 		axios.delete(`/api/event/${no}`)
@@ -40,7 +67,13 @@ function EventDetail() {
 		navigate('/popup/edit', {state: {event}})
 	}
 
-  
+  const like = () => {
+	 axios.post(`/api/event/like/${no}/${userId}`)
+	 .then(()=>{
+		 setLikes(p =>!p)
+		 setLikeNo(p =>likes ? p-1 : p+1 )
+	 })
+  }
 
   return (
     <div>
@@ -48,6 +81,18 @@ function EventDetail() {
         <EventContainer>
           {/* 이미지 출력 */}
           <EventTitle>{event.title}</EventTitle>
+          <span
+        onClick={like}
+        style={{
+          cursor: 'pointer',
+          fontSize: '24px',
+          color: likes ? 'red' : 'gray', // 좋아요 여부에 따라 색상 변경
+        }}
+      >
+        {likes ? '❤️' : '🩶'}
+        <ViewsCount no={no}/>
+        
+      </span><span>{likeNo==0 ? null:likeNo}</span>
           {event.userId === sessionStorage.userId ? <Button onClick={() => doEdit()}> 수정 </Button> : <></>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           {event.userId === sessionStorage.userId ? <Button onClick={doDelete}> 삭제 </Button> : <></>}
           <EventDetailItem>
@@ -84,7 +129,7 @@ function EventDetail() {
 const SetParagraph = ({content, company, createdDate}) => {
 	const text = content;
 	const splitText = text.split(/<(?:\/)?[a-zA-Z][^>]*>/).filter(list => !/\[alert\](?:!\s\w)*[가-힣]*(?:\s[가-힣]*)*/.test(list));
-	const imgRegex = /^image[0-9]*$/;
+	const imgRegex = /^image[0-9]*/;
 	const hyphenRemover = /-/g;
 	
 	const checkDir = (createdDate) => {
@@ -99,7 +144,7 @@ const SetParagraph = ({content, company, createdDate}) => {
 			{splitText.map((e, i) => {return (
 				imgRegex.test(e) ? 
 					<EventImages src={`/img/${company}${checkDir(createdDate)}/${company}_${e.substring(5)}.png`} alt='' key={i}/>:
-					<EventParagraph key={i}>{e}</EventParagraph>
+						<EventParagraph key={i}>{e}</EventParagraph>
 			)})}
 		</EventDetailItem>
 	)

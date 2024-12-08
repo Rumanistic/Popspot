@@ -21,7 +21,7 @@ public class InquiryService {
     private static final String NOT_FOUND = "조회실패";
     
 	public ApiResponse getAllInquiry() {
-		List<Inquiry> sList = ir.findAllByDeleted(false);
+		List<Inquiry> sList = ir.findAllByDeletedOrderByCreatedDateDesc(false);
 		
 		return ApiResponse.apiBuilder(true, SUCCESS, sList);
 	}
