@@ -95,10 +95,9 @@ function Faq() {
 		                isAdmin && 
 		                (<FaqStyle.RightFloatSpan>
 		                  <button style={{backgroundColor: 'transparent', 
-		                 				  borderColor: 'lightpink', 
-		                 				  float: 'right', 
-		                 				  marginLeft: '15px', 
-		                 				  color: 'black'}} 
+													borderRadius: '0',
+													float: 'right', 
+													color: '#006EB9'}} 
                  				  onClick={() => {
 		                    openModalHandler(); 
 		                    modalTypeHandler('edit'); 
