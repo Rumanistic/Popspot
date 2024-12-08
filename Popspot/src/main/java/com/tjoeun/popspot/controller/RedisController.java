@@ -1,8 +1,11 @@
 package com.tjoeun.popspot.controller;
 
+import com.tjoeun.popspot.config.ResponseBuilder;
 import com.tjoeun.popspot.domain.dto.ApiResponse;
 import com.tjoeun.popspot.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -10,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class RedisController {
 
     private final RedisService redisService;
+    
+    @Autowired
+    ResponseBuilder rb;
 
     @Autowired
     public RedisController(RedisService redisService) {
@@ -17,7 +23,7 @@ public class RedisController {
     }
 
     @GetMapping("views/{eventNo}/increment")
-    public ApiResponse incrementViewCount(@PathVariable("eventNo") String eventNo) {
+    public ApiResponse  incrementViewCount(@PathVariable("eventNo") String eventNo) {
         return redisService.incrementViewCount(eventNo);
     }
 
@@ -27,8 +33,9 @@ public class RedisController {
     }
 
     @GetMapping("views/top/{number}")
-    public ApiResponse getTopKeys(@PathVariable("number") int number) {
-        return redisService.getTopNKeys(number);
+    public ResponseEntity<Object> getTopKeys(@PathVariable("number") int number) {
+    	ApiResponse res = redisService.getTopNKeys(number);
+        return rb.buildResponse( res, HttpStatus.NOT_FOUND);
     }
 
     // 삭제부분은 위험하니까 주석처리 
