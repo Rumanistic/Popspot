@@ -15,7 +15,7 @@ useEffect(()=>{
 	 	
 	 	return(
 			 <>
-			<span> 👁️ {ViewsCount.toLocaleString()} 조회  </span>
+			<span> 👁️ {ViewsCount} 조회  </span>
 			 </>
 		 )
 }
