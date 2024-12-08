@@ -152,11 +152,9 @@ function ShowList({ list }) {
 		  {eList.slice(0, cardCount).map((e) => (
 			<Col4 onClick={() => navigate(`/event/${e.eventNo}`)} key={e.eventNo}>
 			  <EventCardSpanImage
-				src={`/img/${e.images?.split(',')[0] || 'default'}.jpg`}
+				src={`/img/${e.images !== null && e.images !== '' ? e.images.split(',')[0] : 'default'}.jpg`}
 				onError={(event) => {
-				  event.target.src = `/img/${e.company}${checkDir(e.createdDate)}/${
-					e.images?.split(',')[0] || 'default'
-				  }.png`;
+				  event.target.src = `/img/${e.images !== null && e.images !== '' ? e.company + checkDir(e.createdDate) + '/' + e.images.split(',')[0] : 'default'}.png`;
 				}}
 				alt="Event Image"
 			  />
