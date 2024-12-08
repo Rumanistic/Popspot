@@ -122,7 +122,7 @@ function ShowList({ list }) {
 	const { eList, rPoint } = list;
 	const navigate = useNavigate();
 	const hyphenRemover = /-/g;
-  
+    const userId = sessionStorage.userId||"";
 	const [cardCount, setCardCount] = useState(3);
   
 	const checkDir = (createdDate) => {
@@ -152,6 +152,7 @@ function ShowList({ list }) {
 				alt="Event Image"
 			  />
 			  <span>{e.title}</span>
+			  <LikeCount no={e.eventNo} userId={userId}/>
 			  <span>{e.address ? `📍 ${e.address}` : "주소 정보 없음"}</span>
 			  <span>{e.startDate} ~ {e.endDate}</span>
 			  <span style={{ display: 'flex', justifyContent: 'space-evenly' }}>

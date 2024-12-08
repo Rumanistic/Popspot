@@ -91,11 +91,13 @@ function EventDetail() {
         }}
       >
         {likes ? '❤️' : '🩶'}
+         </span><span>{likeNo==0 ? null:likeNo}</span>
+         
         <ViewsCount no={no}/>
         
-      </span><span>{likeNo==0 ? null:likeNo}</span>
-          {event.userId === sessionStorage.userId ? <Button onClick={() => doEdit()}> 수정 </Button> : <></>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          {event.userId === sessionStorage.userId ? <Button onClick={doDelete}> 삭제 </Button> : <></>}
+     
+          {event.userId === userId ? <Button onClick={() => doEdit()}> 수정 </Button> : <></>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          {event.userId === userId ? <Button onClick={doDelete}> 삭제 </Button> : <></>}
           <EventDetailItem>
             <EventHeading>운영 날짜</EventHeading>
             <EventParagraph>{event.startDate} - {event.endDate}</EventParagraph>
