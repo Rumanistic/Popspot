@@ -25,6 +25,13 @@ function EventDetail() {
       .then(result => {
 			setEvent(result.data.event);
 		  	setReviews(result.data.review);
+        axios.get(`/api/Redis/views/${no}/increment`).then(
+          result =>{
+            console.log("조회수 증가 완료", result.data)
+          }
+        ).catch(
+          console.log("조회수 증가 실패", result.data)
+        )
 		  })
       .catch(err => console.error('이벤트 정보를 불러오는 중 오류가 발생했습니다.', err));
   }, [no]);
