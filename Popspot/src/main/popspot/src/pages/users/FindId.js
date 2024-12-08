@@ -27,7 +27,7 @@ function FindId() {
     axios.post('/api/users/find-id', { email })
       .then(response => {
         if (response.status === 200) {
-          setResult(`아이디는 ${response.data.userId}입니다.`);
+          setUserId(`아이디는 ${response.data.userId}입니다.`);
         } else {
           setError('아이디를 찾을 수 없습니다.');
         }
