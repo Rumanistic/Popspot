@@ -1,87 +1,106 @@
 import styled from 'styled-components';
 
-// 컨테이너
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-start; /* 콘텐츠를 위쪽으로 정렬 */
   align-items: center;
-  justify-content: center;
   height: 100vh;
-  background-color: #f4f4f4;
+  background-color: #FFFFFF;
   font-family: 'Jeju Gothic', sans-serif;
   padding: 20px;
+  padding-top: 60px; /* 위쪽 여백 추가 */
 `;
 
-// 인풋 스타일
-export const Input = styled.input`
-  width: 100%;
-  max-width: 400px;
-  padding: 12px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+
+export const TabText = styled.span`
   font-size: 1.2rem;
   font-family: 'Jeju Gothic', sans-serif;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
+  color: ${(props) => (props.active ? '#006EB9' : '#888')};
+  cursor: pointer;
+  margin: 0 10px;
 
-  &:focus {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    border-color: #f08a5d;
-    outline: none;
+  &:hover {
+    color: #005bb5;
   }
 `;
 
-// 버튼 스타일
-export const Button = styled.button`
+export const Content = styled.div`
   width: 100%;
   max-width: 400px;
-  padding: 12px;
-  background-color: #f08a5d;
-  color: white;
-  border: none;
+  min-height: 400px;
+  text-align: center;
+  padding: 20px;
+  background-color: #F4F4F9;
   border-radius: 10px;
-  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+
+export const Input = styled.input`
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: 'Jeju Gothic', sans-serif;
+
+  &:focus {
+    border-color: #006EB9;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 110, 185, 0.3);
+  }
+`;
+
+export const Button = styled.button`
+  width: 100%;
+  max-width: 300px;
+  padding: 12px;
+  margin-top: 10px;
   font-size: 1.2rem;
   font-family: 'Jeju Gothic', sans-serif;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #006EB9;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
 
   &:hover {
-    background-color: #e76f51;
+    background-color: #005bb5;
     transform: translateY(-2px);
   }
 
   &:active {
-    background-color: #d1603d;
+    background-color: #004a9f;
     transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 `;
 
-// 에러 메시지 스타일
 export const ErrorMessage = styled.p`
-  color: #d9534f;
-  font-size: 1rem;
-  margin-bottom: 15px;
+  margin-top: 10px;
+  color: red;
+  font-size: 0.9rem;
   font-family: 'Jeju Gothic', sans-serif;
-  text-align: center;
-  background-color: #f8d7da;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #f5c6cb;
 `;
 
-// FindButton은 기존 Button 스타일을 상속하여 사용
-export const FindButton = styled(Button)`
-  background-color: #f08a5d;
+export const BackText = styled.span`
+  color: #006EB9;
+  cursor: pointer;
+  font-size: 1.0rem;
 
   &:hover {
-    background-color: #e76f51;
+    color: #338FD6;
   }
-
-  &:active {
-    background-color: #d1603d;
-  }
+`;
+export const StyledFindImg = styled.img`
+  width: 100px; 
+  height: 100px; 
 `;

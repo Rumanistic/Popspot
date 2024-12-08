@@ -12,13 +12,13 @@ import {
   ReviewItem,
   ReviewContent,
   NoReviews,
-  ReviewTextArea,
+  ReviewTextArea,  
   ReviewButton,
-  EditButton,
-  ReviewRating,
-  ReviewForm,  // ReviewForm 추가
-  LoginButton  // 로그인 버튼을 위한 스타일 추가 필요
-} from '../styles/ReviewStyle'; // LoginButton 스타일도 여기에 추가 필요
+  EditButton,     
+  ReviewForm,
+  LoginButton,
+  ReviewRating      
+} from '../styles/ReviewStyle';
 
 function Review({ eventNo, eventTitle, reviews }) {
   const [review, setReview] = useState([...reviews]);
@@ -138,7 +138,11 @@ function Review({ eventNo, eventTitle, reviews }) {
 
   return (
     <ReviewContainer>
-      <ReviewTitle>{eventTitle} 리뷰</ReviewTitle>
+      <ReviewTitle>
+  {eventTitle} 리뷰
+  <img src={`${process.env.PUBLIC_URL}/review.png`} alt="리뷰 아이콘"   style={{ width: '24px', height: '24px', marginLeft: '10px' }}/>
+</ReviewTitle>
+
 
       {/* 리뷰 작성 폼 */}
       {savedUser ? (
