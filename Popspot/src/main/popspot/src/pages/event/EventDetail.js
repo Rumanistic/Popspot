@@ -13,6 +13,7 @@ import {
   Button
 } from '../styles/EventDetailStyle'; // 여기에 폰트가 설정되어 있음
 import KakaoMap from '../component/Map';
+import ViewsCount from '../component/ViewsCount';
 
 function EventDetail() {
   const { no } = useParams(); // URL에서 이벤트 번호를 가져옴
@@ -29,6 +30,13 @@ function EventDetail() {
       .then(result => {
 			setEvent(result.data.event);
 		  	setReviews(result.data.review);
+        axios.get(`/api/Redis/views/${no}/increment`).then(
+          result =>{
+            console.log("조회수 증가 완료", result.data)
+          }
+        ).catch(
+          console.log("조회수 증가 실패", result.data)
+        )
 		  })
       .catch(err => console.error('이벤트 정보를 불러오는 중 오류가 발생했습니다.', err));
       
@@ -82,6 +90,8 @@ function EventDetail() {
         }}
       >
         {likes ? '❤️' : '🩶'}
+        <ViewsCount no={no}/>
+        
       </span><span>{likeNo==0 ? null:likeNo}</span>
           {event.userId === sessionStorage.userId ? <Button onClick={() => doEdit()}> 수정 </Button> : <></>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           {event.userId === sessionStorage.userId ? <Button onClick={doDelete}> 삭제 </Button> : <></>}

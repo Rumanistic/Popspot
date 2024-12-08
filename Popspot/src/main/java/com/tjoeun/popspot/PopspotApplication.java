@@ -13,5 +13,5 @@ public class PopspotApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PopspotApplication.class, args);
 	}
-
 }
+
