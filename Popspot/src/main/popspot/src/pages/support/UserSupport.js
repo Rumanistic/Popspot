@@ -10,6 +10,8 @@ const userPermission = sessionStorage.getItem('permissions') || '';
 function UserSupport() {
 	const [width, setWidth] = useState(window.innerWidth);
 	
+																	  
+   
 	useEffect(() => {
 		const getNowWidth = () => {
 			setWidth(window.innerWidth)
@@ -53,6 +55,7 @@ function UserSupportList({userId, userPermission}) {
 		}
 		
 		navigate(url);
+			 
 	}
 	
 	return (
