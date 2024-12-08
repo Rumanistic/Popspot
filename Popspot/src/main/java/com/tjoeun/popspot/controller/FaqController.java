@@ -27,7 +27,7 @@ public class FaqController {
     ResponseBuilder rb;
 	
 	@GetMapping
-	public ResponseEntity<ApiResponse> getAllFaqs() {
+	public ResponseEntity<Object> getAllFaqs() {
 		ApiResponse res = fs.getAllFaqs();
 		
 		return rb.buildResponse(res, HttpStatus.NO_CONTENT);

@@ -18,6 +18,7 @@ import com.tjoeun.popspot.domain.Event;
 import com.tjoeun.popspot.domain.dto.ApiResponse;
 import com.tjoeun.popspot.service.EventReviewService;
 import com.tjoeun.popspot.service.EventService;
+import com.tjoeun.popspot.service.LikeCountService;
 import com.tjoeun.popspot.service.ReviewService;
 
 @RestController
@@ -35,37 +36,40 @@ public class EventController {
 	@Autowired
     ResponseBuilder rb;
 	
+	@Autowired
+	LikeCountService lcs;
+	
+	
 	@GetMapping("/lists")
-	public ResponseEntity<ApiResponse> getAllList() {
+	public ResponseEntity<Object> getAllList() {
 		ApiResponse res = ers.getAllList();
-		
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
+		
 	}
 	
 	@PostMapping("/submit")
 	public ResponseEntity<ApiResponse> submitEvent(@RequestBody Event e) throws Exception {
 		ApiResponse res = es.submitEvent(e);
-		
-		return rb.buildResponse(res, HttpStatus.BAD_REQUEST);
+		return rb.buildCreatedResponse(res, HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("/tags")
-	public ResponseEntity<ApiResponse> getAllTags() {
+	public ResponseEntity<Object> getAllTags() {
 		ApiResponse res = es.getAllTags();
 		
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
 	}
 	
 	@GetMapping("/search/tags")
-	public ResponseEntity<ApiResponse> searchListByTag(@RequestParam(name="tags") String tags) {
+	public ResponseEntity<Object> searchListByTag(@RequestParam(name="tags") String tags) {
 		ApiResponse res = ers.searchListByTag(tags);
 		
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
 	}
 	
 	@GetMapping("/{no}")
-	public ResponseEntity<ApiResponse> getEvent(@PathVariable(name="no") Long eventNo) {
-		ApiResponse res = es.getEvent(eventNo);
+	public ResponseEntity<Object> getEvent(@PathVariable(name="no") Long eventNo) {
+		ApiResponse res = ers.getEvent(eventNo);
 		
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
 	}
@@ -77,7 +81,7 @@ public class EventController {
 		) throws Exception {
 		ApiResponse res = es.editEvent(e);
 		
-		return rb.buildResponse(res, HttpStatus.BAD_REQUEST);
+		return rb.buildNoContentResponse(res, HttpStatus.BAD_REQUEST);
 	}
 	
 	@DeleteMapping("/{no}")
@@ -86,21 +90,44 @@ public class EventController {
 		) throws Exception {
 		ApiResponse res = es.deleteEvent(eventNo);
 		
-		return rb.buildResponse(res, HttpStatus.BAD_REQUEST);
+		return rb.buildNoContentResponse(res, HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("/recent-events")
-	public ResponseEntity<ApiResponse> getRecentEvents() {
+	public ResponseEntity<Object> getRecentEvents() {
 		ApiResponse res = es.getRecentEvents();
 		
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
 	}
 	
 	@GetMapping("/search/keyword")
-	public ResponseEntity<ApiResponse> searchListByKeyword(@RequestParam(name="keyword") String keyword) {
+	public ResponseEntity<Object> searchListByKeyword(@RequestParam(name="keyword") String keyword) {
 		System.out.println("검색 매소드 실행확인 검색값: "+keyword);
-		ApiResponse res = ers.searchListByKeyword(keyword);
+		ApiResponse kes = ers.searchListByKeyword(keyword);
 		
+		return rb.buildResponse(kes, HttpStatus.NOT_FOUND);
+	}
+	
+	//좋아요 등록/취소
+	@PostMapping("/like/{no}/{userId}")
+	public ResponseEntity<Object> like(@PathVariable(name="no") Long eventNo,@PathVariable(name="userId") String userId){
+		ApiResponse res = lcs.likeCount(eventNo,userId);
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
 	}
+	
+	//좋아요체크
+	@GetMapping("/like/{no}/{userId}")
+	public ResponseEntity<Object> likeget(@PathVariable(name="no") Long eventNo,@PathVariable(name="userId") String userId){
+		ApiResponse res = lcs.likeget(eventNo,userId);
+;		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
+	}
+	
+	//좋아요 수 가져오기
+	@GetMapping("/like/{no}")
+	public ResponseEntity<Object> likeNo(@PathVariable(name="no") Long eventNo){
+		ApiResponse kes = lcs.likeNo(eventNo);
+		return rb.buildResponse(kes, HttpStatus.NOT_FOUND);
+	}
+	
+	
 }

@@ -30,29 +30,29 @@ public class UserController {
 	 * @param defaultStatus
 	 * @return
 	 */	
-	@PostMapping("/signup")
+	@PostMapping("/sign-up")
 	public ResponseEntity<ApiResponse> signUp(@RequestBody Users user) {
 		ApiResponse res = us.setUser(user);
 		
-		return rb.buildResponse(res, HttpStatus.BAD_REQUEST);
+		return rb.buildNoContentResponse(res, HttpStatus.BAD_REQUEST);
 	}
 	
 	@PostMapping("/check/{userId}")
 	public ResponseEntity<ApiResponse> checkUsername(@PathVariable(name="userId") String userId) {
 		ApiResponse res = us.checkDuplicatedId(userId);
 		
-		return rb.buildResponse(res, HttpStatus.CONFLICT);
+		return rb.buildNoContentResponse(res, HttpStatus.CONFLICT);
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<ApiResponse> login(@RequestBody Users user) {
+	public ResponseEntity<Object> login(@RequestBody Users user) {
 		ApiResponse res = us.loginUser(user);
 	    
 		return rb.buildResponse(res, HttpStatus.UNAUTHORIZED);
 	}
 	
 	@PostMapping("/find-id")
-	public ResponseEntity<ApiResponse> findId(@RequestBody LoginRequest lr){
+	public ResponseEntity<Object> findId(@RequestBody LoginRequest lr){
 		ApiResponse res = us.findId(lr);
 		
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
@@ -62,34 +62,34 @@ public class UserController {
 	public ResponseEntity<ApiResponse> findPassword(@RequestBody LoginRequest lr){
 		ApiResponse res = us.findPassword(lr);
 		
-		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
+		return rb.buildNoContentResponse(res, HttpStatus.NOT_FOUND);
 	}
 	
 	@PostMapping("/change-password")
 	public ResponseEntity<ApiResponse> changePassword(@RequestBody LoginRequest lr){
 		ApiResponse res = us.changePassword(lr);
 		
-		return rb.buildResponse(res, HttpStatus.BAD_REQUEST);
+		return rb.buildNoContentResponse(res, HttpStatus.BAD_REQUEST);
 	}
 	
 	@PostMapping("/withdraw")
 	public ResponseEntity<ApiResponse> withdraw(@RequestBody Users user){
 		ApiResponse res = us.deleteUser(user);
 		
-		return rb.buildResponse(res, HttpStatus.BAD_REQUEST);
+		return rb.buildNoContentResponse(res, HttpStatus.BAD_REQUEST);
 	}
 	
 	@PostMapping("/verify-password")
-	public ResponseEntity<ApiResponse> verifyPassword(@RequestBody LoginRequest lr){
+	public ResponseEntity<Object> verifyPassword(@RequestBody LoginRequest lr){
 		ApiResponse res = us.verifyPassword(lr);
 		
 		return rb.buildResponse(res, HttpStatus.UNAUTHORIZED);
 	}
 	
-	@PostMapping("/update-info")
+	@PostMapping("/update-user-info")
 	public ResponseEntity<ApiResponse> updateUserInfo(@RequestBody Users user){
 		ApiResponse res = us.updateUserInfo(user);
 		
-		return rb.buildResponse(res, HttpStatus.BAD_REQUEST);
+		return rb.buildNoContentResponse(res, HttpStatus.BAD_REQUEST);
 	}
 }

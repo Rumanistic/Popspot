@@ -36,14 +36,14 @@ public class UserSupportController {
 	ResponseBuilder rb;
 	
 	@GetMapping
-	public ResponseEntity<ApiResponse> getAllInquiry() {
+	public ResponseEntity<Object> getAllInquiry() {
 		ApiResponse res = is.getAllInquiry();
 		
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
 	}
 	
 	@GetMapping("/{no}")
-	public ResponseEntity<ApiResponse> getOneInquiry(@PathVariable(name="no") Long no) {
+	public ResponseEntity<Object> getOneInquiry(@PathVariable(name="no") Long no) {
 		ApiResponse res = irs.getOneInquiry(no);
 		
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);

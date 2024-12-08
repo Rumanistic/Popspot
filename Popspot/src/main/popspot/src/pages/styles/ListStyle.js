@@ -2,20 +2,14 @@ import { styled } from 'styled-components';
 
 export const ListContainer = styled.section`
   width: 100%;
-  background-color: #fffcf7; /* 부드러운 아이보리 배경 */
-  padding: 20px;
-  border-radius: 20px;
+  background-color: #FFFFFF;
+  padding: 20px 30px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-/*  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  }*/
 `;
 
 export const StarImg = styled.img`
-  width: 35px;
+  width: 15px;
 `;
 
 export const ListHeaderContainer = styled.div`
@@ -26,7 +20,7 @@ export const ListHeaderContainer = styled.div`
 
 export const ListHeaderContainerHead1 = styled.h1`
   font-size: 2.8rem;
-  color: #ff6b6b; /* 귀여운 느낌의 핑크톤 */
+  color: #1F2933; 
   font-weight: 700;
   text-align: center;
   margin: 0;
@@ -34,156 +28,137 @@ export const ListHeaderContainerHead1 = styled.h1`
   font-family: 'Jeju Gothic', sans-serif;
 `;
 
-export const ViewChangeSpanContainer = styled.span`
-  position: relative;
-  float: right;
-  display: inline-flex;
-  background-color: rgba(255, 153, 102, 0.2); /* 부드러운 오렌지톤 */
-  width: 90px;
-  height: 40px;
-  border-radius: 40px;
-`;
-
-export const ViewChangeSpanHamburger = styled.span`
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  width: 25px;
-  height: 25px;
-  background-image: url('/img/hamburger.png');
-  background-size: cover;
-  background-position: center;
-  opacity: ${({islistview}) => islistview === 'list' ? '1' : '0.4'};
-  z-index: 1;
-`;
-
-export const ViewChangeSpanDot = styled.span`
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 25px;
-  height: 25px;
-  background-image: url('/img/dot.png');
-  background-size: cover;
-  background-position: center;
-  opacity: ${({islistview}) => islistview === 'list' ? '0.4' : '1'};
-  z-index: 1;
-`;
-
-export const ViewChangeSpan = styled.span`
-  position: absolute;
-  display: inline-block;
-  left: ${({islistview}) => islistview === 'list' ? '0px' : '40px'};
-  transition: left 0.3s ease;
-  width: 44px;
-  height: 40px;
-  background-color: rgba(255, 153, 102, 0.7);
-  border-radius: 40px;
-`;
-
-export const EventListSpan = styled.span`
-  display: inline-flex;
-  flex-wrap: wrap;
-  background-color: rgba(255, 228, 196, 0.4); /* 살구톤 */
-  margin-top: 20px;
-  border-radius: 15px;
-  padding: 15px;
-`;
-
-export const Col12 = styled.div`
-	padding: 5px;
-  min-width: 100%;
-  max-height: 400px;
-  min-height: 400px;
-  margin-bottom: 20px;
-  border-radius: 15px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const EventListSpanImage = styled.img`
-	width: auto;
-  height: auto;
-  max-width: 400px;
-  max-height: 400px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-`;
-
 export const EventCardSpan = styled.span`
-  display: inline-flex;
-  flex-wrap: wrap;
-  background-color: rgba(255, 228, 196, 0.4); /* 살구톤 */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  background-color: rgba(0, 110, 185, 0.1);
   margin-top: 20px;
-  border-radius: 15px;
-  padding: 15px;
+  padding: 20px;
+  border: 1px solid #E5E7EB;
 `;
+
 
 export const Col4 = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  max-width: 31.9%;
-  margin: 10px;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
-  background-color: #fdf7d8; /* 부드러운 노란빛으로 배경색 설정 */
+  background-color: #1F2933;
+  color: #FFFFFF;
+  padding: 15px;
+  border: 1px solid #E5E7EB;
 
   &:hover {
     transform: scale(1.05);
-    background-color: #ffe4e1; /* 호버 시 부드러운 핑크톤으로 변경 */
+    background-color: #006EB9;
+    color: #FFFFFF;
   }
 `;
 
-
-
 export const EventCardSpanImage = styled.img`
-  min-width: 80%;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border: 1px solid #E5E7EB;
 `;
 
 export const ListContentContainer = styled.section`
   display: inline-flex;
-  margin-top: 20px;
-  border-radius: 15px;
+  margin-top: 30px;
   padding: 15px;
-  background-color: #fffcf7;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #E5E7EB;
+  gap: 40px;
+  overflow-y: auto;
 `;
 
 export const ListContentTagsContainer = styled.aside`
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  min-width: 250px;
-  padding: 10px;
-  max-width: 250px;
-  justify-content: center;
+  min-width: 300px;
+  padding: 15px;
+  max-width: 300px;
+  justify-content: flex-start;
+  border: 1px solid #E5E7EB;
 `;
 
 export const ListContentTag = styled.span`
-  display: inline-flex; /* 태그가 글씨 크기에 맞도록 inline-flex 사용 */
-  align-items: center; /* 태그 안의 텍스트를 수직으로 중앙 정렬 */
-  justify-content: center; /* 텍스트가 태그 안에서 중앙에 위치 */
-  padding: 5px 10px; /* 텍스트 주변의 여백을 줄임 */
-  border: ${({ value }) =>
-    value ? 'solid 1px rgba(255, 153, 102, 0.9)' : 'solid 1px rgba(255, 153, 102, 0.8)'}; 
-  border-radius: 30px; /* 태그의 모서리를 둥글게 */
-  background-color: ${({ value }) => (value ? 'rgba(255, 153, 102, 0.9)' : 'white')};
-  color: ${({ value }) => (value ? 'white' : 'black')};
-  font-size: 1rem; /* 텍스트 크기를 적절히 설정 */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border: ${({ value }) => (value ? 'solid 1px #006EB9' : 'solid 1px #E5E7EB')};
+  background-color: ${({ value }) => (value ? '#006EB9' : '#FFFFFF')};
+  color: ${({ value }) => (value ? '#FFFFFF' : '#1F2933')};
+  font-size: 0.9rem;
   margin: 5px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
   cursor: pointer;
-  user-select: none;
+  text-transform: capitalize;
 
   &:hover {
-    background-color: ${({ value }) =>
-      value ? 'rgba(255, 102, 51, 1)' : 'rgba(255, 153, 102, 0.4)'};
+    background-color: ${({ value }) => (value ? '#005BB5' : '#F4F4F9')};
   }
 `;
 
+export const StyledButton = styled.button`
+  padding: 10px 20px;
+  margin: 20px auto;
+  display: block;
+  border: 2px solid #006EB9;
+  background-color: #FFFFFF;
+  color: #006EB9;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: #006EB9;
+    color: #FFFFFF;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+`;
+
+export const StyledMessage = styled.div`
+  color: #1F2933;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+  text-transform: uppercase;
+`;
+
+// 네모난 등록 버튼 스타일
+export const StyledRegisterButton = styled.button`
+  padding: 10px 20px;
+  background-color: #006EB9; /* 버튼 배경색 */
+  color: #FFFFFF; /* 버튼 텍스트 색상 */
+  font-size: 1rem;
+  font-weight: bold;
+  border: 2px solid #005BB5; /* 테두리 */
+  border-radius: 0; /* 둥근 테두리 제거 */
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-align: center; 
+  white-space: nowrap; 
+
+  &:hover {
+    background-color: #005BB5; /* 호버 시 어두운 블루 */
+    transform: translateY(-2px); /* 약간 위로 올라가는 애니메이션 */
+  }
+
+  &:active {
+    background-color: #004A9D; /* 클릭 시 더 어두운 블루 */
+    transform: translateY(0); /* 클릭 시 원래 위치 */
+  }
+`;

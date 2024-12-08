@@ -9,7 +9,8 @@ import {
   ErrorMessage,
   Button,
   SignupButton,
-  FindButton
+  FindText,
+  StyledLoginImg
 } from './styles/LoginStyle'; 
 
 function Login({ setUser }) {
@@ -24,8 +25,8 @@ function Login({ setUser }) {
     // 서버에 로그인 요청 보내기
     axios.post('/api/users/login', { userId, userPwd }) // userIdOrEmail 필드로 전송
     .then(response => {
-      if (response.data.success) {
-					const loginData = response.data.data
+      if (response.status === 200) {
+					const loginData = response.data
 					let permissions = ['user'];
 		          // Storage에 사용자 정보 저장
 		          // Storage.setItem('user', userId);
@@ -49,7 +50,7 @@ function Login({ setUser }) {
           // 메인 페이지로 이동
           navigate('/main');
         } else {
-        setError(response.data.message);
+        setError(response.message);
       }
     })
     .catch(error => {
@@ -63,17 +64,14 @@ function Login({ setUser }) {
   };
 
   const handleFindId = () => {
-    navigate('/find-id'); // 아이디 찾기 페이지로 이동
-  };
-
-  const handleFindPassword = () => {
-    navigate('/find-password'); // 비밀번호 찾기 페이지로 이동
+    navigate('/find-id'); 
   };
 
   return (
     <Container>
       <LoginContainer>
         <form onSubmit={handleLogin}>
+        <StyledLoginImg src="/login.png" alt="Login" /> <br />
           <Title>Login</Title>
           <Input
             type="text"
@@ -92,12 +90,10 @@ function Login({ setUser }) {
           <SignupButton type="button" onClick={handleSignUp}>
             회원가입
           </SignupButton>
-          <FindButton type="button" onClick={handleFindId}>
-            아이디 찾기
-          </FindButton>
-          <FindButton type="button" onClick={handleFindPassword}>
-            비밀번호 찾기
-          </FindButton>
+          <br /><br />
+          <FindText type="button" onClick={handleFindId}>
+            아이디 찾기 / 비밀번호 찾기
+          </FindText>
         </form>
       </LoginContainer>
     </Container>

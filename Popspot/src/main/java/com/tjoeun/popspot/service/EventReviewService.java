@@ -1,5 +1,6 @@
 package com.tjoeun.popspot.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tjoeun.popspot.domain.Event;
+import com.tjoeun.popspot.domain.Review;
 import com.tjoeun.popspot.domain.dto.ApiResponse;
 import com.tjoeun.popspot.domain.mapping.ReviewPoint;
 
@@ -74,6 +76,18 @@ public class EventReviewService {
 		return ApiResponse.apiBuilder(false, NOT_FOUND);
 	}
 
+	public ApiResponse getEvent(Long eventNo) {
+		Event e = es.getEvent(eventNo);
+		List<Review> r = rs.getReview(eventNo);
+		
+		HashMap<String, Object> result = new HashMap<>();
+		
+		result.put("event", e);
+		result.put("review", r);
+		
+		return ApiResponse.apiBuilder(true, SUCCESS, result);
+	}
+	
 	public ApiResponse searchListByKeyword(String keyword) {
 	    HashMap<String, Object> result = new HashMap<>();
 	    List<Event> eList = es.searchListByKeyword(keyword);
@@ -101,8 +115,9 @@ public class EventReviewService {
 	        result.put("rPoint", rPoint); // 해당 이벤트의 리뷰 포인트 매핑
 	        return ApiResponse.apiBuilder(true, SUCCESS, result);
 	    }
-
-	    return ApiResponse.apiBuilder(false, NOT_FOUND);
+	    // 검색 결과가 없는 경우에도 빈 eList와 rPoint 반환
+	    result.put("eList", new ArrayList<>()); // 빈 리스트
+	    result.put("rPoint", new HashMap<>());  // 빈 매핑 객체
+	    return ApiResponse.apiBuilder(true, NOT_FOUND, result);
 	}
-
 }

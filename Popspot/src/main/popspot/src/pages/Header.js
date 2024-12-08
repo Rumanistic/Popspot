@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './styles/HeaderStyle.css'; // CSS 파일 import
+import axios from "axios";
 
 function Header({user, setUser}) {
   // 로그인 상태를 관리하는 state
@@ -20,13 +20,15 @@ function Header({user, setUser}) {
   const searchKeyword = () => {
     axios.get(`/api/event/search/keyword`, { params: { keyword: searchQuery } })
       .then((response) => {
-        if (response.data.success) {
-          setSearchResults(response.data.data); // 검색 결과 전달
+        if (response.data.eList.length > 0) {
+          setSearch(true);
+          // setSearchResults(response.data); // 검색 결과 전달
           setSearchQuery('');
-          console.log('검색결과 헤더확인 : ', response.data.data);
-          navigate('/popup', { state: searchResults });
+          console.log('검색결과 헤더확인 : ', response);
+          navigate('/popup', { state: response.data });
         } else {
           alert("검색 결과가 없습니다.");
+          setSearchQuery('');
         }
       })
       .catch((error) => {
@@ -34,21 +36,24 @@ function Header({user, setUser}) {
       });
   };
 
-  const navigateAndClearSearch = (path) => {
-    setSearchQuery(''); // 검색창 비우기
-    navigate(path); // 이동
-  };
+  function EnterKeyDown(e) {
+    if (e.key === 'Enter') {
+      if (searchQuery.trim()) {
+        searchKeyword(); // 검색 실행
+      }
+    }
+  }
 
   return (
     <header className="header-all">
       <img src="/img/logo.png" alt="" style={{float: 'left'}}/>
-      <span className="header-logo" onClick={() => { navigateAndClearSearch('/') }}>
+      <span className="header-logo" onClick={() => { navigate('/') }}>
         POPSPOT
       </span>
       <nav className="header-nav-menu">
         <ul className="nav-menu-container">
-          <li className="nav-menu-content" onClick={() => { navigateAndClearSearch('/popup') }}>Pop-up</li>
-          <li className="nav-menu-content" onClick={() => { navigateAndClearSearch('/support/faq') }}>Support</li>
+          <li className="nav-menu-content" onClick={() => { navigate('/popup') }}>Pop-up</li>
+          <li className="nav-menu-content" onClick={() => { navigate('/support/faq') }}>Support</li>
           
 	        {/* 검색 버튼 추가 */}
 	        <li className="nav-menu-search-container">
@@ -63,8 +68,9 @@ function Header({user, setUser}) {
 	          		<span style={{display: 'flex'}}>
 	          			<input 
 	          				className="nav-menu-search-text"
-                    value={searchQuery}
 	          				onChange={(e) => {setSearchQuery(e.target.value)}}
+                    onKeyDown={EnterKeyDown}
+                    value={searchQuery}
           				/>
 	          			<img 
 			          		src="/favicon.png" 

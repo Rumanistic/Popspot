@@ -2,32 +2,30 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start; /* 콘텐츠를 위쪽으로 정렬 */
   align-items: center;
   height: 100vh;
-  background-color: #fdfdfd;
-  font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
+  background-color: #FFFFFF;
+  font-family: 'Jeju Gothic', sans-serif;
+  padding: 20px;
+  padding-top: 60px; 
 `;
 
 export const LoginContainer = styled.div`
   width: 400px;
   padding: 40px;
-  background-color: #fffaf0;
+  background-color: #F4F4F9;
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
   font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-  }
 `;
 
 export const Title = styled.h2`
   font-size: 2.4rem;
-  color: #333;
+  color: #1F2933;
   margin-bottom: 25px;
   font-weight: 700;
   font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
@@ -54,8 +52,8 @@ export const ErrorMessage = styled.p`
 export const Button = styled.button`
   padding: 0;
   margin-top: 15px; /* 간격 조정 */
-  background-color: #e67e22;
-  color: white;
+  background-color: #006EB9;
+  color: #FFFFFF;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -70,7 +68,7 @@ export const Button = styled.button`
   font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
 
   &:hover {
-    background-color: #d35400;
+    background-color: #338FD6;
   }
 
   &:active {
@@ -79,20 +77,29 @@ export const Button = styled.button`
 `;
 
 export const SignupButton = styled(Button)`
-  background-color: #e67e22;
+  background-color: #006EB9;
 
   &:hover {
-    background-color: #d35400;
+    background-color: #338FD6;
   }
 `;
 
-export const FindButton = styled(Button)`
-  background-color: #f5b041; /* 더 밝은 살구색 */
+export const FindText = styled.span`
+  color: #006EB9;
+;
+  cursor: pointer;
+
   &:hover {
-    background-color: #e59866; /* 호버 시 약간 어두운 살구색 */
+    color: #338FD6;
   }
 
   &:active {
-    background-color: #d98840; /* 클릭 시 더 어두운 오렌지 */
+    color: #d98840;
   }
+`;
+
+
+export const StyledLoginImg = styled.img`
+  width: 50px; 
+  height: 50px; 
 `;

@@ -1,83 +1,79 @@
 import styled from 'styled-components';
 
 export const MyPageContainer = styled.div`
-  max-width: 500px; /* 크기를 조금 줄여서 맞춤 */
+  max-width: 500px;
   margin: 50px auto;
   padding: 40px;
-  background-color: #fffaf0; /* 부드러운 크림 색상 */
-  border-radius: 20px;
+  background-color: #FFFFFF; /* 주조색 */
+  border: 1px solid #1F2933; /* 보조색 */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: 'Pretendard-Regular', sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-align: center;
 `;
 
 export const MyPageTitle = styled.h2`
-  font-size: 1.8rem; /* 제목 크기 조정 */
-  color: #f08a5d; /* 코랄 색상 */
+  font-size: 1.8rem;
+  color: #1F2933; /* 보조색 */
   margin-bottom: 20px;
-  font-family: 'Pretendard-Regular', sans-serif;
-  font-weight: 700;
+  font-weight: bold;
+  border-bottom: 2px solid #006EB9; /* 강조색 */
+  padding-bottom: 10px;
 `;
 
 export const InputField = styled.input`
-  width: calc(100% - 40px); /* 필드 양옆에 여유 공간 확보 */
+  width: 100%;
   padding: 15px;
   margin-bottom: 20px;
-  border-radius: 10px;
-  border: 2px solid #f39c12; /* 따뜻한 오렌지 색상 */
-  background-color: #fff;
+  border: 1px solid #1F2933; /* 보조색 */
+  background-color: #FFFFFF; /* 주조색 */
   font-size: 1.1rem;
-  color: #333;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-  font-family: 'Pretendard-Regular', sans-serif;
+  color: #1F2933; /* 보조색 */
+  box-sizing: border-box;
 
   &:focus {
     outline: none;
-    border-color: #f08a5d; /* 코랄 색상 */
-    box-shadow: 0 2px 8px rgba(240, 138, 93, 0.3);
+    border-color: #006EB9; /* 강조색 */
+    box-shadow: 0 2px 8px rgba(0, 110, 185, 0.3);
   }
 `;
 
 export const MyPageButton = styled.button`
-  width: 100%; /* 버튼이 전체 너비에 맞도록 설정 */
+  width: 100%;
   padding: 15px;
-  background: linear-gradient(135deg, #f08a5d, #e76f51); /* 코랄 그라데이션 */
-  color: white;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
+  background-color: #006EB9; /* 강조색 */
+  color: #FFFFFF; /* 주조색 */
+  border: 1px solid #1F2933; /* 보조색 */
   font-size: 1.2rem;
-  font-family: 'Pretendard-Regular', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 8px rgba(240, 138, 93, 0.2);
-  
+
   &:hover {
-    background: linear-gradient(135deg, #e76f51, #f08a5d); /* 반대로 그라데이션 */
+    background-color: #004A8F; /* 강조색 다크 */
     transform: translateY(-3px);
   }
 
   &:active {
-    transform: scale(0.95);
-    box-shadow: 0 2px 4px rgba(240, 138, 93, 0.3);
+    transform: scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 110, 185, 0.3);
   }
 `;
 
 export const InfoContainer = styled.div`
   margin-top: 20px;
   padding: 20px;
-  background-color: #fffcf7; /* 부드러운 배경 */
-  border-radius: 15px;
+  background-color: #F9F9F9; /* 약간의 배경색 변화 */
+  border: 1px solid #1F2933; /* 보조색 */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 `;
 
 export const ErrorMessage = styled.p`
-  color: #ff6347;
+  color: #FF6347; /* 오류 메시지 색상 */
   font-size: 1rem;
   margin-bottom: 20px;
   font-weight: bold;
-  background-color: #ffe6e6;
+  background-color: #FFE6E6; /* 오류 배경 */
   padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #FF6347;
   text-align: center;
 `;
