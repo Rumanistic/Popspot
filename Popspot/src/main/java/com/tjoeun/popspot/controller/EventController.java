@@ -18,6 +18,7 @@ import com.tjoeun.popspot.domain.Event;
 import com.tjoeun.popspot.domain.dto.ApiResponse;
 import com.tjoeun.popspot.service.EventReviewService;
 import com.tjoeun.popspot.service.EventService;
+import com.tjoeun.popspot.service.LikeCountService;
 import com.tjoeun.popspot.service.ReviewService;
 
 @RestController
@@ -35,17 +36,20 @@ public class EventController {
 	@Autowired
     ResponseBuilder rb;
 	
+	@Autowired
+	LikeCountService lcs;
+	
+	
 	@GetMapping("/lists")
 	public ResponseEntity<Object> getAllList() {
 		ApiResponse res = ers.getAllList();
-		
 		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
+		
 	}
 	
 	@PostMapping("/submit")
 	public ResponseEntity<ApiResponse> submitEvent(@RequestBody Event e) throws Exception {
 		ApiResponse res = es.submitEvent(e);
-		
 		return rb.buildCreatedResponse(res, HttpStatus.BAD_REQUEST);
 	}
 	
@@ -103,4 +107,31 @@ public class EventController {
 		
 		return rb.buildResponse(kes, HttpStatus.NOT_FOUND);
 	}
+	
+	//좋아요 등록/취소
+	@PostMapping("/like/{no}/{userId}")
+	public ResponseEntity<Object> like(@PathVariable(name="no") Long eventNo,@PathVariable(name="userId") String userId){
+		ApiResponse res = lcs.likeCount(eventNo,userId);
+		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
+	}
+	
+	//좋아요체크
+	@GetMapping("/like/{no}/{userId}")
+	public ResponseEntity<Object> likeget(@PathVariable(name="no") Long eventNo,@PathVariable(name="userId") String userId){
+		ApiResponse res = lcs.likeget(eventNo,userId);
+;		return rb.buildResponse(res, HttpStatus.NOT_FOUND);
+	}
+	
+	//좋아요 수 가져오기
+	@GetMapping("/like/{no}")
+	public ResponseEntity<Object> likeNo(@PathVariable(name="no") Long eventNo){
+		ApiResponse kes = lcs.likeNo(eventNo);
+		return rb.buildResponse(kes, HttpStatus.NOT_FOUND);
+	}
+	
+	
+	
+	
+
+	
 }
