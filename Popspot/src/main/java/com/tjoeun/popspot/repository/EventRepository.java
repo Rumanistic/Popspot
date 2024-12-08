@@ -21,7 +21,7 @@ public interface EventRepository extends JpaRepository<Event, Long>  {
 	
 	List<TagList> findTagsByDeleted(boolean b);
 
-	Set<Event> findByTagsContainingOrderByCreatedDateDesc(String s);
+	Set<Event> findByTagsContainingAndDeletedOrderByCreatedDateDesc(String s, boolean b);
 
 	List<Event> findTop8ByDeletedOrderByCreatedDateDesc(boolean b);
 	
@@ -48,5 +48,5 @@ public interface EventRepository extends JpaRepository<Event, Long>  {
             "ORDER BY CREATED_DATE DESC",
 	    nativeQuery = true)
 	@QueryHints(@QueryHint(name = "org.hibernate.cacheable", value = "false"))
-	List<Event> searchListByKeywordAndDeletedOrderByCreatedDateDesc(String keyword, boolean b);
+	List<Event> searchListByKeywordAndDeletedOrderByCreatedDateDesc(@Param("keyword")String keyword, @Param("b")boolean b);
 }

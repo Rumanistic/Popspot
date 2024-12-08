@@ -67,7 +67,7 @@ public class EventService {
 	public List<Event> searchListByTag(String[] tagArr) {
 		Set<Event> tagSet = new HashSet<>();
 		for(String s : tagArr)
-			tagSet.addAll(er.findByTagsContainingOrderByCreatedDateDesc(s));
+			tagSet.addAll(er.findByTagsContainingAndDeletedOrderByCreatedDateDesc(s, false));
 		
 		return new ArrayList<>(tagSet);
 	}
