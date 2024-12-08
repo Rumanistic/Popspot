@@ -19,8 +19,12 @@ function EventDetail() {
   const [event, setEvent] = useState(null);
   const [reviews, setReviews] = useState(null);
   const navigate = useNavigate();
-
+  const [likeNo,setLikeNo] = useState(null);
+  const	userId = sessionStorage.userId;
+  
+  const [likes,setLikes] = useState(false);
   useEffect(() => {
+	
     axios.get(`/api/event/${no}`)
       .then(result => {
 			setEvent(result.data.event);
@@ -34,7 +38,22 @@ function EventDetail() {
         )
 		  })
       .catch(err => console.error('이벤트 정보를 불러오는 중 오류가 발생했습니다.', err));
-  }, [no]);
+      
+      //좋아요 수 불러오기
+    axios.get(`/api/event/like/${no}`)
+    .then(result =>{
+		setLikeNo(result.data)
+	})
+	.catch( err => console.error("좋아요 수를 불러오는 중 오류가 발생했습니다.",err));
+	//좋아요 상태 체크
+	 axios.get(`/api/event/like/${no}/${userId}`)
+	 .then(result => {setLikes(result.data)})
+	 .catch( err => console.error("좋아요 상태를 불러오는 중 오류가 발생했습니다.",err));
+	 
+  }, [no,userId]);
+  
+  
+  
   
   const doDelete = () => {
 		axios.delete(`/api/event/${no}`)
@@ -47,7 +66,13 @@ function EventDetail() {
 		navigate('/popup/edit', {state: {event}})
 	}
 
-  
+  const like = () => {
+	 axios.post(`/api/event/like/${no}/${userId}`)
+	 .then(()=>{
+		 setLikes(p =>!p)
+		 setLikeNo(p =>likes ? p-1 : p+1 )
+	 })
+  }
 
   return (
     <div>
@@ -55,6 +80,16 @@ function EventDetail() {
         <EventContainer>
           {/* 이미지 출력 */}
           <EventTitle>{event.title}</EventTitle>
+          <span
+        onClick={like}
+        style={{
+          cursor: 'pointer',
+          fontSize: '24px',
+          color: likes ? 'red' : 'gray', // 좋아요 여부에 따라 색상 변경
+        }}
+      >
+        {likes ? '❤️' : '🩶'}
+      </span><span>{likeNo==0 ? null:likeNo}</span>
           {event.userId === sessionStorage.userId ? <Button onClick={() => doEdit()}> 수정 </Button> : <></>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           {event.userId === sessionStorage.userId ? <Button onClick={doDelete}> 삭제 </Button> : <></>}
           <EventDetailItem>
