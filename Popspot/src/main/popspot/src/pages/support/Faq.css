@@ -1,15 +1,11 @@
 button {
+	background-color: #ff8f8f;
+	color: white;
 	font-size:15px; 
+	border-radius: 10px;
 	padding: 5px; 
 	margin-top: 10px;
-	font-weight: bold;
-	background-color: #ffffff;
-	color: #006EB9;
-	border:2px solid #006EB9;
-	border-radius: 0;
-	cursor: pointer;
+	border-color: transparent;
 	
 };
-
-
 

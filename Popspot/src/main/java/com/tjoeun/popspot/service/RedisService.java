@@ -20,34 +20,38 @@ public class RedisService {
 
     // 조회수 증가
     public ApiResponse incrementViewCount(String eventNo) {
+    	
         try {
-            Long newCount = redisRepository.incrementViewCount(eventNo);
-            return ApiResponse.apiBuilder(true, "조회수 증가 성공", newCount);
+            Double newCount = redisRepository.incrementViewCount(eventNo);
+            int intCount = (newCount != null) ? newCount.intValue() : 0; // null인 경우 0으로 처리
+            return ApiResponse.apiBuilder(true, "조회수 증가 성공", intCount);
         } catch (Exception e) {
             System.err.println("RedisService Error (incrementViewCount): " + e.getMessage());
             return ApiResponse.apiBuilder(false, "조회수 증가 실패");
         }
     }
 
-    // 조회수 조회
+ // 조회수 조회
     public ApiResponse getViewCount(String eventNo) {
         try {
-            Long count = redisRepository.getViewCount(eventNo);
-            return ApiResponse.apiBuilder(true, "조회수 반환 성공", count);
+            // Double 값을 반환받아 int로 변환
+            Double count = redisRepository.getViewCount(eventNo);
+            int intCount = (count != null) ? count.intValue() : 0; // null인 경우 0으로 처리
+            return ApiResponse.apiBuilder(true, "조회수 반환 성공", intCount);
         } catch (Exception e) {
             System.err.println("RedisService Error (getViewCount): " + e.getMessage());
             return ApiResponse.apiBuilder(false, "조회수 반환 실패");
         }
     }
 
-    // 모든 조회수 반환
-    public ApiResponse getAllViewCounts() {
+    // 상위 N개의 인기 조회수 반환
+    public ApiResponse getTopNKeys(int n) {
         try {
-            Map<String, Long> allCounts = redisRepository.getAllViewCounts();
-            return ApiResponse.apiBuilder(true, "모든 조회수 반환 성공", allCounts);
+            Set<String> topKeys = redisRepository.getTopNKeys(n);
+            return ApiResponse.apiBuilder(true, "상위 조회수 반환 성공", topKeys);
         } catch (Exception e) {
-            System.err.println("RedisService Error (getAllViewCounts): " + e.getMessage());
-            return ApiResponse.apiBuilder(false, "모든 조회수 반환 실패");
+            System.err.println("RedisService Error (getTopNKeys): " + e.getMessage());
+            return ApiResponse.apiBuilder(false, "상위 조회수 반환 실패");
         }
     }
 
@@ -61,19 +65,4 @@ public class RedisService {
             return ApiResponse.apiBuilder(false, "조회수 삭제 실패");
         }
     }
-
-    // 모든 조회수의 키만 반환
-    public ApiResponse getAllKeys() {
-        try {
-            // 모든 키 가져오기
-            Set<String> keys = redisRepository.getAllKeys();
-            return ApiResponse.apiBuilder(true, "모든 조회수 키 반환 성공", keys);
-        } catch (Exception e) {
-            System.err.println("RedisService Error (getAllKeys): " + e.getMessage());
-            return ApiResponse.apiBuilder(false, "모든 조회수 키 반환 실패");
-        }
-    }
-    
-    
-    
 }

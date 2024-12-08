@@ -5,7 +5,7 @@ function ViewsCount ({no}){
 	const [ViewsCount,setViews] = useState(0);
 
 useEffect(()=>{
-	axios.get(`/api/Redis/${no}`)
+	axios.get(`/api/redis/${no}`)
 	 	.then(result => {
 			console.log("현재 이벤트 조회수 ",result.data )
 			setViews(result.data.data)}
