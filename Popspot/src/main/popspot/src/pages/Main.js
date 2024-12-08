@@ -9,9 +9,8 @@ const Main = ({setTag}) => {
   const [banner, setBanner] = useState(0);
   const [list, setList] = useState(0);
   const [banners, setBanners] = useState([]);
-  const [animate, setAnimate] = useState(false);
   const [lists, setLists] = useState([]);
-
+  
   const navigate = useNavigate();
   
 	const tagRemover = /<[^>]*>/g;
@@ -43,6 +42,22 @@ const Main = ({setTag}) => {
 
   const totalBanners = 3;
   
+  const nextBanner = () => {
+    if (banner < totalBanners - 1) {
+      setBanner(banner + 1);
+    } else {
+			setBanner(0);
+		}
+  };
+  
+  const prevBanner = () => {
+    if (banner > 0) {
+      setBanner(banner - 1);
+    } else {
+			setBanner(2);
+		}
+  };
+  
   const nextList = () => {
     if (list < 5) {
       setList(list + 1);
@@ -58,36 +73,29 @@ const Main = ({setTag}) => {
 			setList(4);
 		}
   };
-
-  const nextBanner = () => setBanner((prev) => (prev + 1) % banners.length);
-  const prevBanner = () => setBanner((prev) => (prev - 1 + banners.length) % banners.length);
-
+  
   const setTagEvent = (lists, list, i, num) => {
 		setTag(lists[(list + i)% lists.length].tags.split(',')[num])
 	};
 
-  // 3초마다 배너 애니메이션이 끝난 뒤 배너 변경
+  // 3초마다 다음 이미지로 변경
   useEffect(() => {
-    const interval = setInterval(() => {
-      setAnimate(true); // 애니메이션 시작
-      setBanner((prev) => (prev + 1) % banners.length); // 배너 변경
-      setTimeout(() => setAnimate(false), 1000); // 1초 후 애니메이션 종료
-    }, 3000);
+    const interval = setInterval(nextBanner, 5000);
     return () => clearInterval(interval);
-  }, [banners.length]);
+  }, []);
 
   return (
     <>
-      <section className='main_container'>
-      {banners.length > 1 ? 
-        <figure>
-          <img  
+      <section className='main_container'> 
+        {banners.length > 1 ? 
+	        <figure style={{ maxHeight: '700px' }}>
+          	<img  
             src={parseImgSrc(banners[banner])}
             alt="Main" 
-            className={`main_image ${animate ? "slide-in" : ""}`}
+            className="main_image" 
             onClick={() => navigate(`/event/${banners[banner].eventNo}`)}
             style={{cursor: 'pointer'}}
-          />
+          	/>
           	<div className="overlay_text">
             <h1 className="overlay_title">{banners[banner].title}</h1>
             <h3 className="overlay_detail">{
@@ -99,39 +107,24 @@ const Main = ({setTag}) => {
 								.substring(0, 80)}...`
 						}</h3>
           </div>
-
-          <div className="main_button_container">
-              <button onClick={prevBanner} className="main_toggle_button"> &lt; </button>
-              <button onClick={nextBanner} className="main_toggle_button"> &gt; </button>
-          </div>
-
-          <div className="indicators"> {/* 슬라이드 인디케이터 */}
-            {banners.map((_, index) => (
-              <div
-                key={index}
-                className={`indicator ${
-                index === banner ? 'active' : 'inactive'
-                }`}
-              ></div>
-            ))}
-          </div>
-        </figure> : null}
+	      </figure> : null}
+        <div className="main_button_container">
+          <button onClick={prevBanner} className="main_toggle_button"> &lt; </button>
+          <button onClick={nextBanner} className="main_toggle_button"> &gt; </button>
+        </div>
       </section>
+
 
       <section className="list_container">
         <h2 className='list_main_name'>POP IN POP-UP</h2>
-        <h2 class="rotated_background_text">POPSPOT POPSPOT POPSPOT POPSPOT POPSPOT POPSPOT POPSPOT POPSPOT POPSPOT</h2>
         <div className="list_items"> 
+            <img className="list_btn" src='/img/lt.png' alt='' onClick={() => prevList()}/>
             <div className="list_items_container">
-              <div className="list_btn_container">
-                <button className="list_btn" onClick={() => prevList()}>&lt;</button>
-                <button className="list_btn" onClick={() => nextList()}>&gt;</button>
-              </div>
               {lists.length > 1 && lists.map((e, i) => (
                 <article className="list_item" key={i} onClick={() => navigate(`/event/${lists[(list + i)% lists.length].eventNo}`)}>
                   <img src={parseImgSrc(lists[(list + i)% lists.length])} alt="list_img" className="list_img" />
                   <div className="text_content">
-                  <h3 className="list_subtitle"> &lt; {lists[(list + i) % lists.length].title} &gt; </h3>
+                    <h3 className="list_subtitle">{lists[(list + i)% lists.length].title}</h3>
                     <p className="list_detail">{
 											`${lists[(list + i)% lists.length]
 													.content
@@ -152,7 +145,7 @@ const Main = ({setTag}) => {
                 </article>
               ))}
             </div>
-            {/* <img className="list_btn" src='/img/gt.png' alt='' onClick={() => nextList()}/> */}
+            <img className="list_btn" src='/img/gt.png' alt='' onClick={() => nextList()}/>
         </div>
       </section>
     </>
