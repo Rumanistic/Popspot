@@ -11,7 +11,8 @@ const Footer = () => {
     { name: '김요한', githubId: '@Zionoi', url: 'https://github.com/Zionoi' },
     { name: '김효빈', githubId: '@0biin0', url: 'https://github.com/0biin0' },
     { name: '최서진', githubId: '@seojinchoiiii', url: 'https://github.com/seojinchoiiii' },
-    { name: '현민환', githubId: '@setYourId', url: 'https://github.com/' }
+    { name: '현민환', githubId: '@setYourId', url: 'https://github.com/' },
+    { name: '장광진', githubId: '@alfus17',url:'https://github.com/alfus17' }
   ];
 
   return (
@@ -22,7 +23,7 @@ const Footer = () => {
       <FooterHorizontalBar />
       <FooterHorizontalSpan>
         <FooterContentSpan>
-          <p>
+        <p style={{ margin: '0 235px' }}>
             더조은컴퓨터아카데미<br /><br />
             자바&클라우드 활용 풀스택 취업캠프과정 세미프로젝트
           </p>
@@ -31,7 +32,7 @@ const Footer = () => {
         <FooterContentSpan>
         	<p>
             ◎ 제작 참여<br />
-            └ 김현수(조장) 김솔 김요한 김효빈 최서진 현민환 <br />
+            └ 김현수(조장) 김솔 김요한 김효빈 최서진 현민환 장광진<br />
           </p>
           <FooterHorizontalSpan style={{justifyContent: 'space-around'}}>
 	        	<p>CONTACT</p>
