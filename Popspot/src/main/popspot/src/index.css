@@ -12,6 +12,69 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Freesentation';
+  src: url('/src/fonts/Freesentation-1Thin.ttf') format('truetype'); /* Thin */
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Freesentation';
+  src: url('/src/fonts/Freesentation-2ExtraLight.ttf') format('truetype'); /* ExtraLight */
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Freesentation';
+  src: url('/src/fonts/Freesentation-3Light.ttf') format('truetype'); /* Light */
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Freesentation';
+  src: url('/src/fonts/Freesentation-4Regular.ttf') format('truetype'); /* Regular */
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Freesentation';
+  src: url('/src/fonts/Freesentation-5Medium.ttf') format('truetype'); /* Medium */
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Freesentation';
+  src: url('/src/fonts/Freesentation-6SemiBold.ttf') format('truetype'); /* SemiBold */
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Freesentation';
+  src: url('/src/fonts/Freesentation-7Bold.ttf') format('truetype'); /* Bold */
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Freesentation';
+  src: url('/src/fonts/Freesentation-8ExtraBold.ttf') format('truetype'); /* ExtraBold */
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Freesentation';
+  src: url('/src/fonts/Freesentation-9Black.ttf') format('truetype'); /* Black */
+  font-weight: 900;
+  font-style: normal;
+}
+
 body {
   font-family: 'Pretendard-Regular' sans-serif;
   position: relative;

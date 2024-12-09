@@ -65,6 +65,13 @@ function UserSupportDetail() {
    const stateChange = () => {
       setState(!state);
    }
+
+   const updateReply = (newReply) => {
+      setSupportData(prevData => ({
+         ...prevData,
+         reply: newReply
+      }));
+   }
    
    
    return (
@@ -86,13 +93,13 @@ function UserSupportDetail() {
             }
             
             
-            <RegisterAnswer state={state} supportNo={supportData.inquiryNo} reply={supportData.reply} stateChange={stateChange} userId={userId}/>
+            <RegisterAnswer state={state} supportNo={supportData.inquiryNo} reply={supportData.reply} stateChange={stateChange} userId={userId}  updateReply={updateReply}/>
          <ContentHorizontalBar borderpixel={3}/>
       </ContentContainer>
    )
 }
 
-function RegisterAnswer({state, supportNo, reply, stateChange, userId}) {
+function RegisterAnswer({state, supportNo, reply, stateChange, userId, updateReply}) {
    const [newReply, setNewReply] = useState(reply);
    
    const dataChange = (e) => {
@@ -112,7 +119,11 @@ function RegisterAnswer({state, supportNo, reply, stateChange, userId}) {
        headers: {
            'Content-Type': 'application/json; charset=UTF-8'  // UTF-8 설정
        }
+      }).then(() => {
+         updateReply(newReply);
       })
+      .catch(error => console.error('답변 등록 오류:', error));
+   
       stateChange();
    }
    

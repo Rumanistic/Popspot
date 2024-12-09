@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './styles/HeaderStyle.css'; // CSS 파일 import
+import './styles/HeaderStyle.css';
 import axios from "axios";
+import { FaSearch } from "react-icons/fa";
+import React, { useEffect} from "react";
 
 function Header({user, setUser}) {
   // 로그인 상태를 관리하는 state
@@ -9,12 +11,15 @@ function Header({user, setUser}) {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false); // 검색 모달 추가
+  const [tags, setTags] = useState([]);
 
   const handleLogout = () => {
     sessionStorage.clear();
     setUser(null);
     alert("로그아웃 되었습니다!");
     navigate('/main'); // 메인 페이지로 이동
+    window.location.reload();
   };
 
   const searchKeyword = () => {
@@ -44,56 +49,95 @@ function Header({user, setUser}) {
     }
   }
 
+  const handleTagClick = (tag) => {
+    axios.get(`/api/event/search/tags`, { params: { tags: tag } })
+      .then((response) => navigate('/popup', { state: response.data }))
+      .catch((error) => console.error("태그 검색 오류:", error));
+  };
+
+  function EnterKeyDown(e) {
+    if (e.key === 'Enter' && searchQuery.trim()) {
+      searchKeyword();
+    }
+  }
+
+  useEffect(() => {
+    fetchTags(); // 컴포넌트가 마운트될 때 태그 가져오기
+  }, []);
+
+  const fetchTags = () => {
+    axios.get(`/api/event/tags`) // 서버에서 태그 가져오기
+      .then((response) => setTags(response.data))
+      .catch((error) => console.error("태그 가져오기 오류:", error));
+  };
+
   return (
     <header className="header-all">
-      <img src="/img/logo.png" alt="" style={{float: 'left'}}/>
-      <span className="header-logo" onClick={() => { navigate('/') }}>
-        POPSPOT
-      </span>
-      <nav className="header-nav-menu">
-        <ul className="nav-menu-container">
-          <li className="nav-menu-content" onClick={() => { navigate('/popup') }}>Pop-up</li>
-          <li className="nav-menu-content" onClick={() => { navigate('/support/faq') }}>Support</li>
+      <img 
+       src="/img/logo.png" 
+       alt="logoimg" 
+       className="logo-image"
+       style={{ cursor: "pointer" }}
+       onClick={() => { navigate('/') }}
+      />
+
+      {/* 네비게이션 메뉴 */}
+      <div className="header-nav-menu">
+        <div className="nav-menu-container">
+          <div className="nav-menu-content" onClick={() => { navigate('/popup') }} style={{ cursor: "pointer" }}>POPUP</div>
+          <div className="nav-menu-content" onClick={() => { navigate('/support/faq') }} style={{ cursor: "pointer" }}>SUPPORT</div>
           
-	        {/* 검색 버튼 추가 */}
-	        <li className="nav-menu-search-container">
-	          <span className={`nav-menu-search-content ${search ? 'expanded':''}`}>
-	          	<img 
-	          		src="/img/search-icon.png" 
-	          		alt="Search" 
-	          		className="search-icon"
-	          		onClick={() => {setSearch(!search)}}
-          		/>
-          		{search && 
-	          		<span style={{display: 'flex'}}>
-	          			<input 
-	          				className="nav-menu-search-text"
-	          				onChange={(e) => {setSearchQuery(e.target.value)}}
+          <FaSearch
+            className="search-icon"
+            onClick={() => setModalOpen(true)}
+            style={{ cursor: "pointer" }}
+          />
+        </div>
+        {/* 모달창 안 검색으로 바꿈 */}
+        {isModalOpen && (
+          <div className="modal-overlay" onClick={() => setModalOpen(false)}> 
+            <div className="modal-box" onClick={(e) => e.stopPropagation()}> 
+              <span className="nav-menu-search-content">
+                <span className="nav-menu-search">
+                  <input 
+                    className="nav-menu-search-text"
+                    onChange={(e) => {setSearchQuery(e.target.value)}}
                     onKeyDown={EnterKeyDown}
                     value={searchQuery}
-          				/>
-	          			<img 
-			          		src="/favicon.png" 
-			          		alt="Search" 
-			          		className="search-icon"
-			          		onClick={searchKeyword}
-		          		/>
-	          		</span>
-          		}
-	          </span>
-	        </li>
-
-        </ul>
+                    placeholder="SEARCH KEYWORD"
+                  />
+                  <FaSearch
+                    alt="Search" 
+                    className="search-button"
+                    onClick={searchKeyword}
+                    style={{ cursor: "pointer" }}
+                  />
+                  <div className="tag-container"> {/* 태그 추가 */}
+                  {tags.slice(0, 7).map((tag, index) => (
+                      <span
+                        key={index}
+                        className="tag-item"
+                        onClick={() => handleTagClick(tag)}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </span>
+              </span>
+            </div>
+          </div>
+        )}
         {user ? (
 					<span className={"header-login"}>
-            <span>{user}님 환영합니다!&ensp;&ensp;&ensp;</span>
-            <span className="nav-menu-content" onClick={() => { navigate('/mypage') }}>My Page</span>
-            <span className="nav-menu-content" onClick={handleLogout}>LogOut</span>
+            <span className="login-content">{user}님</span>
+            <span className="login-content" onClick={() => { navigate('/mypage') }}>마이페이지</span>
+            <span className="login-content" onClick={handleLogout}>로그아웃</span>
           </span>
         ) : (
-          <span className={"header-login"} onClick={() => { navigate('/login') }}>Login</span>
+          <span className={"header-login"} onClick={() => { navigate('/login') }}>로그인</span>
         )}
-      </nav>
+      </div>
     </header>
   );
 }

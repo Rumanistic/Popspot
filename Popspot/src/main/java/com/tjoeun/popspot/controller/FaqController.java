@@ -28,8 +28,8 @@ public class FaqController {
 	
 	@GetMapping
 	public ResponseEntity<Object> getAllFaqs() {
-		ApiResponse res = fs.getAllFaqs();
 		
+		ApiResponse res = fs.getAllFaqs();
 		return rb.buildResponse(res, HttpStatus.NO_CONTENT);
 	}
 	
