@@ -102,7 +102,6 @@ public class EventController {
 	
 	@GetMapping("/search/keyword")
 	public ResponseEntity<Object> searchListByKeyword(@RequestParam(name="keyword") String keyword) {
-		System.out.println("검색 매소드 실행확인 검색값: "+keyword);
 		ApiResponse kes = ers.searchListByKeyword(keyword);
 		
 		return rb.buildResponse(kes, HttpStatus.NOT_FOUND);

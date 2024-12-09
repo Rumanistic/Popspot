@@ -22,21 +22,21 @@ figure {
 }
 
 /* 슬라이드 애니메이션 */
-@keyframes slide-left {
+/* @keyframes slide-left {
     0% {
-      transform: translateX(100%); /* 오른쪽 화면 밖에서 시작 */
+      transform: translateX(100%);
       opacity: 0;
     }
     10%,
     90% {
-      transform: translateX(0); /* 화면 중앙 */
+      transform: translateX(0); 
       opacity: 1;
     }
     100% {
-      transform: translateX(-100%); /* 왼쪽 화면 밖으로 나감 */
+      transform: translateX(-100%);
       opacity: 0;
     }
-}
+} */
 
 /*
 .overlay_main_text {

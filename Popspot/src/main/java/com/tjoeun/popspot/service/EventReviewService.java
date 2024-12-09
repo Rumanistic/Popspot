@@ -91,9 +91,6 @@ public class EventReviewService {
 	public ApiResponse searchListByKeyword(String keyword) {
 	    HashMap<String, Object> result = new HashMap<>();
 	    List<Event> eList = es.searchListByKeyword(keyword);
-	    System.out.println("er이벤트리스트 확인 : "+eList);
-	    System.out.println("er이벤트리스트 갯수확인 : "+eList.size());
-
 	    if (eList.size() > 0) {
 	        // 검색된 이벤트의 eventNo만 추출
 	        Set<Long> eventNos = new HashSet<>();
