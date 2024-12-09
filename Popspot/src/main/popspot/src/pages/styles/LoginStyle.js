@@ -16,7 +16,7 @@ export const LoginContainer = styled.div`
   width: 400px;
   padding: 40px;
   background-color: #F4F4F9;
-  border-radius: 15px;
+  border: 1px solid #ddd; /* 둥근 모서리를 제거하고 테두리 추가 */
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
@@ -33,10 +33,10 @@ export const Title = styled.h2`
 
 export const Input = styled.input`
   display: block;
-  width: 100%;
+  width: 94.5%;
   padding: 10px;
+  align-items: center;
   margin-bottom: 10px;
-  border-radius: 5px;
   border: 1px solid #ddd;
   font-size: 1.2rem;
   font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
@@ -54,8 +54,7 @@ export const Button = styled.button`
   margin-top: 15px; /* 간격 조정 */
   background-color: #006EB9;
   color: #FFFFFF;
-  border: none;
-  border-radius: 50px;
+  border: 1px solid #006EB9;
   cursor: pointer;
   width: 100%;
   height: 50px;
@@ -66,6 +65,7 @@ export const Button = styled.button`
   font-weight: bold;
   transition: background-color 0.3s ease, transform 0.3s ease;
   font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
+  border-radius: 0; /* 둥근 모서리 제거 */
 
   &:hover {
     background-color: #338FD6;
@@ -86,7 +86,6 @@ export const SignupButton = styled(Button)`
 
 export const FindText = styled.span`
   color: #006EB9;
-;
   cursor: pointer;
 
   &:hover {
@@ -98,8 +97,9 @@ export const FindText = styled.span`
   }
 `;
 
-
 export const StyledLoginImg = styled.img`
   width: 50px; 
   height: 50px; 
+  border: 1px solid #ddd; /* 테두리 추가 */
+  object-fit: cover; /* 이미지 비율 유지 */
 `;
