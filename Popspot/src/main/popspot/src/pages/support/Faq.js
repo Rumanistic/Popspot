@@ -7,82 +7,88 @@ import './Faq.css';
 
 
 function Faq() {
-	const userData = {userId: sessionStorage.getItem('userId') || '', permissions: sessionStorage.getItem('permissions') || ''}
-	const isAdmin = userData.permissions.includes("admin");
-	const userId = userData.userId;
-	
-	const [faqList, setFaqList] = useState([]);
+   const userData = {userId: sessionStorage.getItem('userId') || '', permissions: sessionStorage.getItem('permissions') || ''}
+   const isAdmin = userData.permissions.includes("admin");
+   const userId = userData.userId;
+   
+   const [faqList, setFaqList] = useState([]);
 
-	const [isOpen, setIsOpen] = useState(false);
-	const [modalType, setModalType] = useState('');
-	const [faq, setFaq] = useState({});
-	const [headType, setHeadType] = useState('');
+   const [isOpen, setIsOpen] = useState(false);
+   const [modalType, setModalType] = useState('');
+   const [faq, setFaq] = useState({});
+   const [headType, setHeadType] = useState('');
 
-	const navigate = useNavigate();
+   const navigate = useNavigate();
 
-	const openModalHandler = () => {
-		setIsOpen(!isOpen);
+   const openModalHandler = () => {
+      setIsOpen(!isOpen);
+   }
+
+   const modalTypeHandler = (type) => {
+      setModalType(type);
+   }
+
+   const faqHandler = (faq) => {
+      setFaq(faq);
+   }
+
+   const headTypeHandler = (headType) => {
+      setHeadType(headType)
+   }
+
+   useEffect(() => {
+     getFaq();
+   }, []);
+
+	const getFaq = () =>{
+		 axios.get(`/api/support/faqs`).then(result => {
+         setFaqList(result.data);
+         
+      });
 	}
-
-	const modalTypeHandler = (type) => {
-		setModalType(type);
-	}
-
-	const faqHandler = (faq) => {
-		setFaq(faq);
-	}
-
-	const headTypeHandler = (headType) => {
-		setHeadType(headType)
-	}
-
-	useEffect(() => {
-		axios.get(`/api/support/faqs`).then(result => {
-			setFaqList(result.data);
-			
-		});
-	}, []);
-
   return (
     <div>
-    	<h1 align='center' style={{fontSize: "35px", fontWeight: "bold"}}>   F A Q  
-    	<ContentHorizontalBar width={'100%'} borderpixel={2} /> 
-			{
-				isAdmin &&
-				(<FaqStyle.RightFloatSpan>
-			  	    	<button style={{float: 'right', padding: '10px'}} 
-			  	    		onClick={() => {
-							openModalHandler(); 
-							modalTypeHandler('new'); 
-							faqHandler({});
-							headTypeHandler('추가');
-							}}>FAQ 추가</button>
-				</FaqStyle.RightFloatSpan>)
-			}
-    	</h1>
-    	<section>
-    		<article>
-					<ShowFaq faqList={faqList}/>
-    		</article>
-    		<article>
-    			<FaqStyle.FaqH3>찾으시는 내용이 없나요 ❓</FaqStyle.FaqH3>
-    			<FaqStyle.RightFloatSpan>
-					<button style={{alignContent: 'center'}} 
-				    	onClick={() => {
-						navigate('/support/usersupport')}}>고객지원 문의하기</button>
-				</FaqStyle.RightFloatSpan>
-    		</article>
-    		
-    	</section>
-			{
-				isOpen && (<Modal isOpen={isOpen} modalType={modalType} faq={faq} onClose={openModalHandler} headType={headType}/>)
-			}
-
+       <h1 align='center' style={{fontSize: "35px", fontWeight: "bold"}}>   F A Q  
+       <ContentHorizontalBar width={'100%'} borderpixel={2} /> 
+         {
+            isAdmin &&
+            (<FaqStyle.RightFloatSpan>
+                     <button style={{float: 'right', padding: '10px'}} 
+                        onClick={() => {
+                     openModalHandler(); 
+                     modalTypeHandler('new'); 
+                     faqHandler({});
+                     headTypeHandler('추가');
+                     }}>FAQ 추가</button>
+            </FaqStyle.RightFloatSpan>)
+         }
+       </h1>
+       <section>
+          <article>
+               <ShowFaq faqList={faqList}/>
+          </article>
+          <article>
+             <FaqStyle.FaqH3>찾으시는 내용이 없나요 ❓</FaqStyle.FaqH3>
+             <FaqStyle.RightFloatSpan>
+               <button style={{alignContent: 'center'}} 
+                   onClick={() => {
+                  navigate('/support/usersupport')}}>고객지원 문의하기</button>
+            </FaqStyle.RightFloatSpan>
+          </article>
+          
+       </section>
+         {
+            isOpen && (<Modal isOpen={isOpen} modalType={modalType} faq={faq} onClose={openModalHandler} headType={headType}/>)
+         }
     </div>
   );
 
 	// ShowFaq 컴포넌트
 	function ShowFaq({ faqList }) {
+		
+		if (!Array.isArray(faqList) || faqList.length === 0) {
+    return <p>FAQ가 없습니다.</p>; 
+  }
 		  return ( 
 		    <span>
 		      {faqList.map((faq, i) => (
@@ -96,10 +102,9 @@ function Faq() {
 		                isAdmin && 
 		                (<FaqStyle.RightFloatSpan>
 		                  <button style={{backgroundColor: 'transparent', 
-		                 				  borderColor: 'lightpink', 
-		                 				  float: 'right', 
-		                 				  marginLeft: '15px', 
-		                 				  color: 'black'}} 
+													borderRadius: '0',
+													float: 'right', 
+													color: '#006EB9'}} 
                  				  onClick={() => {
 		                    openModalHandler(); 
 		                    modalTypeHandler('edit'); 
@@ -137,29 +142,29 @@ function Faq() {
 													onChange={(e) => {onQuestionChange(e.target.value)}} 
 												/></FaqStyle.FormLabel><br /><br />
         <FaqStyle.FormLabel>답변: <FaqStyle.FormTextArea 
-        									name="answer" 
-        									placeholder='답변을 입력해주세요.'
-        									value={answer}
-        									onChange={(e) => {onAnswerChange(e.target.value)}}
-      									></FaqStyle.FormTextArea></FaqStyle.FormLabel>
+                                   name="answer" 
+                                   placeholder='답변을 입력해주세요.'
+                                   value={answer}
+                                   onChange={(e) => {onAnswerChange(e.target.value)}}
+                                 ></FaqStyle.FormTextArea></FaqStyle.FormLabel>
       </FaqStyle.ModalFormContentArea>
-		);
-	}
-	
-	function EditFaq({faq, onQuestionChange, onAnswerChange}) {
-		return (
-			<FaqStyle.ModalFormContentArea>
-				<FaqStyle.FormLabel>질문: <FaqStyle.FormInput 
-													name="question" 
-													type="text" 
-													defaultValue={faq.question}
-													onChange = {(e) => {onQuestionChange(e.target.value)}} 
-												/></FaqStyle.FormLabel><br /><br />
+      );
+   }
+   
+   function EditFaq({faq, onQuestionChange, onAnswerChange}) {
+      return (
+         <FaqStyle.ModalFormContentArea>
+            <FaqStyle.FormLabel>질문: <FaqStyle.FormInput 
+                                       name="question" 
+                                       type="text" 
+                                       defaultValue={faq.question}
+                                       onChange = {(e) => {onQuestionChange(e.target.value)}} 
+                                    /></FaqStyle.FormLabel><br /><br />
         <FaqStyle.FormLabel>답변: <FaqStyle.FormTextArea 
-        									name="answer" 
-        									defaultValue={faq.answer}
-        									onChange = {(e) => {onAnswerChange(e.target.value)}}
-      									></FaqStyle.FormTextArea></FaqStyle.FormLabel>
+                                   name="answer" 
+                                   defaultValue={faq.answer}
+                                   onChange = {(e) => {onAnswerChange(e.target.value)}}
+                                 ></FaqStyle.FormTextArea></FaqStyle.FormLabel>
       </FaqStyle.ModalFormContentArea>
 		);
 	}
@@ -191,22 +196,12 @@ function Faq() {
 			if(modalType === 'new') {
 				axios.post('/api/support/faqs/submit', formData)
 						 .then(
-							 axios.get(`/api/support/faqs`)
-							 			.then(
-											result => {
-											 	setFaqList(result.data);
-											}
-										)
+							()=>getFaq()	
 						 )
 			} else if(modalType === 'edit'){
 				axios.put(`/api/support/faqs/${faq.faqNo}`, formData)
 						 .then(
-							 axios.get(`/api/support/faqs`)
-							 			.then(
-											result => {
-											 	setFaqList(result.data);
-											}
-										)
+							()=>{getFaq()}			
 						 )
 			}
 			onClose();
@@ -244,10 +239,10 @@ function Faq() {
 	          </FaqStyle.FormButtonArea>
 					</form>
         </FaqStyle.ModalContentArea>
-			{/* 버튼 만들고 axios으로 API 통신해서 나머지 만들기 */}
+         {/* 버튼 만들고 axios으로 API 통신해서 나머지 만들기 */}
       </FaqStyle.ModalBackgroundArea>
-		)
-	}
+      )
+   }
 }
 
 export default Faq;

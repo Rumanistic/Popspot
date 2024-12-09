@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import './styles/Main.css';
 import './styles/Main_list.css';
 import axios from 'axios';
+import { BiChevronRight } from "react-icons/bi";
+import { BiChevronLeft } from "react-icons/bi";
 
 const Main = ({setTag}) => {
 	const [events, setEvents] = useState([]);
@@ -88,38 +90,56 @@ const Main = ({setTag}) => {
     <>
       <section className='main_container'> 
         {banners.length > 1 ? 
-	        <figure style={{ maxHeight: '700px' }}>
+	        <figure>
           	<img  
-            src={parseImgSrc(banners[banner])}
-            alt="Main" 
-            className="main_image" 
-            onClick={() => navigate(`/event/${banners[banner].eventNo}`)}
-            style={{cursor: 'pointer'}}
+              src={parseImgSrc(banners[banner])}
+              alt="Main" 
+              className="main_image" 
+              onClick={() => navigate(`/event/${banners[banner].eventNo}`)}
+              style={{cursor: 'pointer'}}
           	/>
           	<div className="overlay_text">
-            <h1 className="overlay_title">{banners[banner].title}</h1>
-            <h3 className="overlay_detail">{
-							`${banners[banner]
-								.content
-								.replace(tagRemover, '')
-								.replace(imgRemover, '')
-								.replace(alertRemover, '')
-								.substring(0, 80)}...`
-						}</h3>
-          </div>
-	      </figure> : null}
-        <div className="main_button_container">
-          <button onClick={prevBanner} className="main_toggle_button"> &lt; </button>
-          <button onClick={nextBanner} className="main_toggle_button"> &gt; </button>
-        </div>
+              <h1 className="overlay_title">{banners[banner].title}</h1>
+              <h3 className="overlay_detail">
+                {`${banners[banner]
+                  .content
+                  .replace(tagRemover, '')
+                  .replace(imgRemover, '')
+                  .replace(alertRemover, '')
+                  .substring(0, 80)}...`
+                }
+              </h3>
+            </div>
+
+            <div className="main_button_container">
+              <button onClick={prevBanner} className="main_toggle_button"> <BiChevronLeft /></button>
+              <button onClick={nextBanner} className="main_toggle_button"><BiChevronRight /></button>
+            </div>
+            <div className="indicators"> {/* 슬라이드 인디케이터 */}
+              {banners.map((_, index) => (
+              <div
+                key={index}
+                className={`indicator ${
+                index === banner ? 'active' : 'inactive'
+                }`}
+              ></div>
+              ))}
+            </div>
+          </figure> : null}
       </section>
 
 
       <section className="list_container">
         <h2 className='list_main_name'>POP IN POP-UP</h2>
+        <h2 class="rotated_background_text">POPSPOT POPSPOT POPSPOT POPSPOT POPSPOT POPSPOT POPSPOT POPSPOT POPSPOT</h2>
+        
         <div className="list_items"> 
-            <img className="list_btn" src='/img/lt.png' alt='' onClick={() => prevList()}/>
-            <div className="list_items_container">
+          <div className="list_items_container">
+            <div className="list_btn_container">
+              <BiChevronLeft className="list_btn" onClick={() => prevList()} style={{ cursor: "pointer" }} />
+              <BiChevronRight className="list_btn" onClick={() => nextList()} style={{ cursor: "pointer" }} />
+            </div>
+          
               {lists.length > 1 && lists.map((e, i) => (
                 <article className="list_item" key={i} onClick={() => navigate(`/event/${lists[(list + i)% lists.length].eventNo}`)}>
                   <img src={parseImgSrc(lists[(list + i)% lists.length])} alt="list_img" className="list_img" />
@@ -145,7 +165,6 @@ const Main = ({setTag}) => {
                 </article>
               ))}
             </div>
-            <img className="list_btn" src='/img/gt.png' alt='' onClick={() => nextList()}/>
         </div>
       </section>
     </>

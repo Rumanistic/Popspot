@@ -21,7 +21,7 @@ public class FaqService {
     private static final String NOT_FOUND = "조회실패";
 
 	public ApiResponse getAllFaqs() {
-		List<Faq> fList = fr.findByDeleted(false);
+		List<Faq> fList = fr.findByDeletedOrderByFaqNo(false);
 		
 		return fList.size() > 0 ? 
 				ApiResponse.apiBuilder(true, SUCCESS, fList) : ApiResponse.apiBuilder(false, NOT_FOUND);

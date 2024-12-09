@@ -1,108 +1,152 @@
 /* 전체 리스트 컨테이너 */
 .list_container {
-    display: flex; /* Flexbox 사용 */
+    display: flex;
     flex-direction: column;
-    align-items: center; /* 중앙 정렬 */
-    margin: 0 4% 4%;
+    align-items: center; 
+    margin: 0 6.5%;
+    overflow: hidden;
+    font-family: 'Freesentation';
+    justify-content: center;
 }
 
-/* 리스트 항목들을 감싸는 div */
-.list_items {
-    display: flex; /* Flexbox 사용 */
-    flex-direction: row; /* 수평 방향으로 정렬 */
-    gap: 20px; /* 항목 간의 간격 조정 */
-    align-items: center;
-    justify-content: center; /* 중앙 정렬 */
-    font-family: 'Pretendard-Regular', sans-serif; /*기본 폰트 적용*/
-    overflow: hidden;
-}
+/* 배경 텍스트 */
+.rotated_background_text {
+    position: absolute;
+    left: 0; 
+    font-size: 150px; 
+    color: rgba(0, 0, 0, 0.1); 
+    font-weight: 900;
+    white-space: nowrap; 
+    margin-right: 50px;
+    z-index: -1;
+    animation: slideInfinite 35s linear infinite;
+  }
+  
+    @keyframes slideInfinite {
+        0% {
+        transform: translateX(0); 
+        }
+        100% {
+        transform: translateX(-50%);
+        }
+    }
 
 /* 리스트 메인 제목 */
 .list_main_name {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     width: 100%;
-    font-weight: bold;
-    font-size: 42px;
-    text-align: left; /* 글씨를 왼쪽으로 정렬 */
-    margin: 17px 0; /* 제목과 리스트 항목 간의 간격 */
-    font-family: 'Pretendard-Regular', sans-serif; /*기본 폰트 적용*/
+    font-weight: 900;
+    font-size: 40px;
+    justify-content: center;
+    margin: 30px;
+    color: #1F2933;
+    background: #fff;
+    z-index: 1 !important;
 }
 
-.list_btn {
-	/*max-width: 60px;
-	max-height: 277.5px;*/
-	max-width: 80px;
-	max-height: 370px;
-	cursor: pointer;
+    /* 메인 제목 양 옆 선 */
+    .list_main_name::before,
+    .list_main_name::after {
+    position: absolute;
+    content: ""; 
+    height: 1px;
+    background: #006EB9;
+    width: calc(45.5% - 80px);
+    z-index: 0;
+    }
+    /* 왼쪽 선 */
+    .list_main_name::before {
+        left: 0;
+        z-index: 0;
+    }
+    /* 오른쪽 선 */
+    .list_main_name::after {
+        right: 0;
+        z-index: 0;
+    }
+
+/* 리스트 항목 전체 */
+.list_items {
+    display: flex; 
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+
 }
 
-.list_content {
-    position: relative; /* 버튼 위치를 리스트 항목 기준으로 맞추기 위한 설정 */
-    display: flex; /* Flexbox 사용 */
-    flex-direction: row; /* 수평 방향으로 정렬 */
-    justify-content: space-between; /* 양쪽 끝으로 정렬 */
-    width: 100%; /* 전체 너비 사용 */
-    align-items: center; /* 세로 중앙 정렬 */
-    height: 300px; /* 적절한 높이 설정 */
-    padding: 0 50px; /* 좌우 여백 추가 */
-}
-
-
+/* 리스트 전체 */
 .list_items_container {
     display: flex;
     overflow: hidden;
-    transition: transform 0.5s ease-in-out; /* 부드러운 슬라이드 애니메이션 */
     width: 100%;
+    align-items: center;
+    padding-bottom: 50px;
 }
 
-/* 리스트 아이템 */
+/* 리스트 좌우 버튼 전체 */
+.list_btn_container {
+    position: absolute;
+    display: flex; 
+    left: 0; 
+    right: 0; 
+    justify-content: space-between;
+    margin: 0 6%;
+}
+
+    /* 리스트 좌우 버튼 */
+    .list_btn {
+        font-size: 50px;
+        color:#1F2933;
+        cursor: pointer;
+    }
+
+/* 리스트 각각 */
 .list_item {
-    width: 33.33%; /* 3개가 한 화면에 보이도록 설정 */
+    width: 33.33%;
+}
+
+/* 리스트 글 전체 */
+.list_content {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: 300px;
+
+}
+
+/* 이미지, 제목, 내용 */
+.list_item {
     flex-shrink: 0;
 }
 
-/* 리스트 이미지 */
-.list_img {
-    height: 200px; /* 이미지의 높이를 설정 */
-    width: auto; /* 이미지의 너비를 자동으로 설정 */
-    margin-bottom: 10px; /* 이미지와 텍스트 사이의 간격 */
-}
+    /* 리스트 이미지 */
+    .list_img {
+        height: 200px; 
+        width: auto; 
+        margin-bottom: 10px;
+    }
 
-/* 리스트 이미지 제목 */
-.list_subtitle {
-    font-weight: bold; /* 제목 두께 설정 */
-    text-align: left; /* 왼쪽 정렬 */
-}
+    /* 리스트 이미지 제목 */
+    .list_subtitle {
+        font-weight: 700;
+        font-size: 19px;
+        text-align: center;
+    }
 
-/* 리스트 이미지 내용 */
-.list_detail {
-    display: block; /* 기본 블록 요소 */
-    text-align: left; /* 왼쪽 정렬 */
-}
+    /* 리스트 이미지 내용 */
+    .list_detail {
+        font-weight: 500;
+        font-size: 14px;
+        text-align: center;
+    }
 
-/* 리스트 하위 키워드 버튼 */
+/* 리스트 하위 키워드 */
 .list_button {
-    border: none; /* 테두리 제거 */
-    background-color: #ff440062; /* 반투명 배경 */
-}
-
-.list_carousel_button_container{
-    position: absolute;
-    top: 50%; /* 세로 중앙 정렬 */
-    transform: translateY(-50%);
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    z-index: 1; /* 버튼을 다른 요소 위로 올리기 */
-}
-
-.list_carousel-button {
-    position: absolute;
-    top: 50%; /* 세로 중앙 정렬 */
-    transform: translateY(-50%);
-    background-color: #ff440062; /* 반투명 배경 */
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    
+    font-weight: 900;
+    font-size: 13px;
+    color: #fff;
+    background-color: #006EB9;
+    border-radius: 15px;
 }
