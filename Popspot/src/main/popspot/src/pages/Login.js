@@ -47,8 +47,10 @@ function Login({ setUser }) {
 					}
 					sessionStorage.setItem('permissions', permissions);
 					setUser(loginData.name);
+					
           // 메인 페이지로 이동
           navigate('/main');
+          window.location.reload();
         } else {
         setError(response.message);
       }

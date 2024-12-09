@@ -161,4 +161,4 @@ export const StyledRegisterButton = styled.button`
     background-color: #004A9D; /* 클릭 시 더 어두운 블루 */
     transform: translateY(0); /* 클릭 시 원래 위치 */
   }
-`;
+`; 

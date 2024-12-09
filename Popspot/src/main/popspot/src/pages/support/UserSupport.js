@@ -44,7 +44,7 @@ function UserSupportList({userId, userPermission}) {
 		axios
 			.get('/api/support/user-support')
 			.then(response => setSList(response.data));
-	}, []);
+	}, [userId]);
 	
 	const navigate = useNavigate();
 	
