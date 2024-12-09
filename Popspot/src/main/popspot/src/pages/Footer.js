@@ -8,7 +8,7 @@ const Footer = () => {
   const members = [
     { name: '김현수', githubId: '@rumanistic', url: 'https://github.com/rumanistic' },
     { name: '김솔', githubId: '@ksks0911', url: 'https://github.com/ksks0911' },
-    { name: '김요한', githubId: '@setYourId', url: 'https://github.com/' },
+    { name: '김요한', githubId: '@Zionoi', url: 'https://github.com/Zionoi' },
     { name: '김효빈', githubId: '@0biin0', url: 'https://github.com/0biin0' },
     { name: '최서진', githubId: '@seojinchoiiii', url: 'https://github.com/seojinchoiiii' },
     { name: '현민환', githubId: '@setYourId', url: 'https://github.com/' }
