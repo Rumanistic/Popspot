@@ -77,14 +77,15 @@ function Header({user, setUser}) {
        src="/img/logo.png" 
        alt="logoimg" 
        className="logo-image"
+       style={{ cursor: "pointer" }}
        onClick={() => { navigate('/') }}
       />
 
       {/* 네비게이션 메뉴 */}
       <div className="header-nav-menu">
         <div className="nav-menu-container">
-          <div className="nav-menu-content" onClick={() => { navigate('/popup') }}>POPUP</div>
-          <div className="nav-menu-content" onClick={() => { navigate('/support/faq') }}>SUPPORT</div>
+          <div className="nav-menu-content" onClick={() => { navigate('/popup') }} style={{ cursor: "pointer" }}>POPUP</div>
+          <div className="nav-menu-content" onClick={() => { navigate('/support/faq') }} style={{ cursor: "pointer" }}>SUPPORT</div>
           
           <FaSearch
             className="search-icon"
