@@ -60,17 +60,17 @@ function UserSupportList({userId, userPermission}) {
 	
 	return (
 		<ContentVerticalSpan style={{alignItems: 'center'}}>
-			<h2 style={{margin: '0 auto'}}>1:1 고객 문의</h2>
+			<h2 style={{margin:'-10px 0 0 -90px'}}>1:1 고객 문의</h2>
 			<RightFloatSpan>
 			{userId !== '' ?
 					<input 
 						type="button" 
 						value={"문의사항 등록"}
-						style={{backgroundColor: '#ff8f8f',
+						style={{backgroundColor: '#006EB9',
 								color: 'white',
-								fontSize:'15px', 
-								borderRadius: '10px', 
-								padding: '10px', 
+								fontSize:'14px', 
+								marginLeft: '600px', 
+								padding: '5px', 
 								borderColor: 'transparent'			
 						      }}					
 						onClick={() => navigate('/support/usersupport/register')}
@@ -78,7 +78,6 @@ function UserSupportList({userId, userPermission}) {
 					<span style={{color: '#000'}}>로그인 후에 문의 가능합니다!</span> 
 			}
 			</RightFloatSpan>				
-			<ContentHorizontalBar width={'98%'} />
 			{sList.map((e, i) => {
 				if(userId !== '' || e.secret !== 1){
 					return (

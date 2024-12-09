@@ -77,13 +77,17 @@ function UserSupportDetail() {
    return (
       <ContentContainer width={width}>
          <ContentHorizontalBar borderpixel={3}/>
+		 <h2>1:1 문의사항</h2>
+		 <ContentHorizontalBar borderpixel={3}/>
             <ContentDetailBody>
             {console.log(supportData)}
-               <p><label>제목 : </label><span>{supportData.inqTitle}</span></p>
-               <ContentHorizontalBar width={'80%'}/>
-               <p><label>분류 : </label> <span>{supportData.type}</span></p>
-               <ContentHorizontalBar width={'80%'}/>
-               <span><p>{supportData.inqContent}</p></span>
+               <p><label style={{ fontSize: '20px', fontWeight: 'bold', marginRight: '80px'}}>제목  </label>
+			   <span style={{ textDecoration: 'underline', 	textDecorationColor: '#006EB9', textUnderlineOffset: '4px'}}>{supportData.inqTitle}</span></p>
+               <p><label style={{ fontSize: '20px', fontWeight: 'bold', marginRight: '80px'}}>분류  </label> 
+			   <span style={{ textDecoration: 'underline', 	textDecorationColor: '#006EB9', textUnderlineOffset: '4px'}}>{supportData.type}</span></p>
+               
+              <label style={{ fontSize: '20px', fontWeight: 'bold', marginRight: '80px'}}>문의내용  </label> 
+			  <span style={{ textDecoration: 'underline', 	textDecorationColor: '#006EB9', textUnderlineOffset: '4px'}}><p>{supportData.inqContent}</p></span>
             </ContentDetailBody>
             {supportData.reply !== '' ? <ReplyData supportData={supportData}/> : 
                isAdmin &&
@@ -91,10 +95,10 @@ function UserSupportDetail() {
                   {!state ? <button onClick={stateChange}>문의사항 답변 등록</button> : <span />}
                </RightFloatSpan>)
             }
-            
-            
+
             <RegisterAnswer state={state} supportNo={supportData.inquiryNo} reply={supportData.reply} stateChange={stateChange} userId={userId}  updateReply={updateReply}/>
          <ContentHorizontalBar borderpixel={3}/>
+
       </ContentContainer>
    )
 }

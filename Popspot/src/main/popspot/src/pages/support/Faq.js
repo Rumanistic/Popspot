@@ -50,11 +50,11 @@ function Faq() {
   return (
     <div>
     	<h1 align='center' style={{fontSize: "35px", fontWeight: "bold"}}>   F A Q  
-    	<ContentHorizontalBar width={'100%'} borderpixel={2} /> 
+    	<ContentHorizontalBar width={'100%'} borderpixel={3} /> 
 			{
 				isAdmin &&
 				(<FaqStyle.RightFloatSpan>
-			  	    	<button style={{float: 'right', padding: '10px'}} 
+			  	    	<button style={{float: 'right', padding: '10px', borderColor: 'white', fontSize: '20px', marginRight: '15px'}} 
 			  	    		onClick={() => {
 							openModalHandler(); 
 							modalTypeHandler('new'); 
@@ -69,9 +69,9 @@ function Faq() {
 					<ShowFaq faqList={faqList}/>
     		</article>
     		<article>
-    			<FaqStyle.FaqH3>찾으시는 내용이 없나요 ❓</FaqStyle.FaqH3>
+    			<FaqStyle.FaqH3>찾으시는 내용이 없나요 ?</FaqStyle.FaqH3>
     			<FaqStyle.RightFloatSpan>
-					<button style={{alignContent: 'center'}} 
+					<button style={{alignContent: 'center', backgroundColor: '#006EB9', color: 'white'}} 
 				    	onClick={() => {
 						navigate('/support/usersupport')}}>고객지원 문의하기</button>
 				</FaqStyle.RightFloatSpan>
@@ -103,10 +103,10 @@ function Faq() {
 		              {
 		                isAdmin && 
 		                (<FaqStyle.RightFloatSpan>
-		                  <button style={{backgroundColor: 'transparent', 
-													borderRadius: '0',
-													float: 'right', 
-													color: '#006EB9'}} 
+		                  <button style={{float: 'right', 
+									      marginLeft: '15px', 
+									      color: '#006EB9'}} 
+
                  				  onClick={() => {
 		                    openModalHandler(); 
 		                    modalTypeHandler('edit'); 
@@ -114,9 +114,9 @@ function Faq() {
 		                    headTypeHandler('수정');
 		                  }}>수정</button>&emsp;
 		                  <button style={{backgroundColor: 'transparent', 
-		                  				  borderColor: 'lightpink', 
-		                  				  float: 'right', 
-		                  				  color: 'black'}} 
+						  				  borderRadius: '0',
+						  		          float: 'right', 
+						  		          color: '#006EB9'}} 
                   				  onClick={() => 
 		                  	(DeleteFaq(faq.faqNo))}>삭제</button>
 		                </FaqStyle.RightFloatSpan>)
@@ -214,7 +214,7 @@ function Faq() {
         <FaqStyle.ModalContentArea onClick={e => e.stopPropagation()}>
         	<FaqStyle.ModalHeadArea>
         		<FaqStyle.ModalHeadH2>FAQ {headType}</FaqStyle.ModalHeadH2>
-	          <FaqStyle.ModalCloseButton onClick={onClose}>✖️</FaqStyle.ModalCloseButton>
+	          <FaqStyle.ModalCloseButton onClick={onClose}>X</FaqStyle.ModalCloseButton>
         	</FaqStyle.ModalHeadArea>
 					<form name="faqForm" onSubmit={doSubmit}>
 	          {

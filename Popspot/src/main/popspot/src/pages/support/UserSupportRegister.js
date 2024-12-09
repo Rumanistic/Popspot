@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate} from 'react-router-dom';
-import { ContentContainer, ContentHorizontalBar, ContentHorizontalSpan, ContentVerticalSpan } from "../styles/UserSupportStyle";
+import { ContentContainer, ContentHorizontalBar, ContentHorizontalSpan, ContentVerticalSpan } from "../styles/UserSupportRegisterStyle";
 import { RightFloatSpan } from "../styles/FaqStyle";
 import axios from 'axios';
 import { 
@@ -9,8 +9,9 @@ import {
   Label,
   CheckboxLabel,
   SecretCheckbox,
-  SubmitResetButtons
-} from "../styles/UserSupportStyle";
+  SubmitResetButtons,
+  Textarea
+} from "../styles/UserSupportRegisterStyle";
 
 function UserSupportRegister() {
 	const [width, setWidth] = useState(window.innerWidth);
@@ -99,46 +100,48 @@ function UserSupportRegister() {
 	
 	return (
 	    <ContentContainer width={width}>
-	      <ContentHorizontalBar borderpixel={3} />
+	      <ContentHorizontalBar borderpixel={4} style={{marginBottom: '5px', marginTop: '-10px'}}/>
 	         <h2>1:1 문의사항 등록</h2>
 	      <ContentHorizontalBar width={'85%'} borderpixel={1} />
+		  
 	      <ContentHorizontalSpan>
 	       	 <Label>문의사항</Label>
-	       	 <TitleInput ref={titleRef} name="inqTitle" placeholder="문의하실 내용을 간략하게 정리해주세요." onChange={dataChange} />
+	       	 <TitleInput ref={titleRef} name="inqTitle" placeholder="문의하실 내용을 간략하게 정리해주세요." onChange={dataChange} 
+			 							style={{ borderColor: '#006EB9', marginBottom: '30px'}}/>
 	      </ContentHorizontalSpan>
-	      <ContentHorizontalBar width={'85%'} borderpixel={1} />
 	      <ContentHorizontalSpan>
 	         <Label>종류</Label>
-	        <SelectType name="type" onChange={dataChange}>
+	        <SelectType name="type" onChange={dataChange} style={{borderColor: '#006EB9', marginBottom: '30px'}}>
 	          <option value={1}>&ensp;로그인</option>
 	          <option value={2}>&ensp;회원가입</option>
 	          <option value={9}>&ensp;기타</option>
 	        </SelectType>
 	      </ContentHorizontalSpan>
-	      <ContentHorizontalBar width={'85%'} borderpixel={1} />
+		  
 	      <ContentHorizontalSpan>
-	         <Label width="40%">상세 내용 문의</Label>
-	      <ContentVerticalSpan>
-	         <textarea
+	         <Label>문의 내용</Label>
+	         <Textarea
                 name="inqContent"
                 onChange={dataChange}
                 rows="5"
                 required
-	         ></textarea>
+	         ></Textarea>
 	      <ContentHorizontalSpan>
-	         <RightFloatSpan>
+	  
 	          <CheckboxLabel>비밀글 등록</CheckboxLabel>
 	          <SecretCheckbox name="secret" type="checkbox" onChange={dataChange} />
-	          </RightFloatSpan>
+	          
 	      </ContentHorizontalSpan>
-	      </ContentVerticalSpan>
+	      
 	      </ContentHorizontalSpan>
+		  
 	      <ContentHorizontalBar width={'85%'} borderpixel={1} />
 	      	<SubmitResetButtons>
-	          <input type="reset" value="취소" onClick={handleCancel} />
-	          <input type="submit" value="등록" onClick={submitData} />
+			   <input type="submit" value="등록" onClick={submitData} 
+			   		  style={{backgroundColor: '#006EB9', color: 'white', borderRadius:'0px', marginLeft: '800px', padding:'4px'}}/>
+			   <input type="reset" value="취소" onClick={handleCancel} 
+			   		  style={{backgroundColor: 'white', color: '#006EB9', borderColor:'#006EB9', borderRadius:'0px', padding:'4px'}}/>
 	 		</SubmitResetButtons>
-	      <ContentHorizontalBar borderpixel={3} />
 	    </ContentContainer>
 	  );
 	}
