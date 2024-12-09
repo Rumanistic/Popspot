@@ -44,6 +44,7 @@ export const Button = styled.button`
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
   margin-bottom: 20px; /* 버튼 사이의 간격 조정 */
+  border-radius: 0;
 
   &:hover {
     background-color: #e76f51; /* 호버 시 약간 어두운 코랄색 */
