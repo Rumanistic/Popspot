@@ -37,12 +37,15 @@ function Faq() {
    }
 
    useEffect(() => {
-      axios.get(`/api/support/faqs`).then(result => {
+     getFaq();
+   }, []);
+
+	const getFaq = () =>{
+		 axios.get(`/api/support/faqs`).then(result => {
          setFaqList(result.data);
          
       });
-   }, []);
-
+	}
   return (
     <div>
        <h1 align='center' style={{fontSize: "35px", fontWeight: "bold"}}>   F A Q  
@@ -82,6 +85,10 @@ function Faq() {
 
 	// ShowFaq 컴포넌트
 	function ShowFaq({ faqList }) {
+		
+		if (!Array.isArray(faqList) || faqList.length === 0) {
+    return <p>FAQ가 없습니다.</p>; 
+  }
 		  return ( 
 		    <span>
 		      {faqList.map((faq, i) => (
@@ -189,22 +196,12 @@ function Faq() {
 			if(modalType === 'new') {
 				axios.post('/api/support/faqs/submit', formData)
 						 .then(
-							 axios.get(`/api/support/faqs`)
-							 			.then(
-											result => {
-											 	setFaqList(result.data);
-											}
-										)
+							()=>getFaq()	
 						 )
 			} else if(modalType === 'edit'){
 				axios.put(`/api/support/faqs/${faq.faqNo}`, formData)
 						 .then(
-							 axios.get(`/api/support/faqs`)
-							 			.then(
-											result => {
-											 	setFaqList(result.data);
-											}
-										)
+							()=>{getFaq()}			
 						 )
 			}
 			onClose();
