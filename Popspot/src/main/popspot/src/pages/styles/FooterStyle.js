@@ -11,7 +11,7 @@ export const FooterMain = styled.footer`
 export const FooterHorizontalSpan = styled.span`
 	display: flex;
 	flex-flow: row;
-	justify-content: space-evenly;
+	justify-content: center;
 	align-items: center;
 `;
 
@@ -21,6 +21,7 @@ export const FooterVerticalSpan = styled.span`
 	justify-content: space-evenly;
 	align-items: center;
 	text-align: center;
+	margin: 0 10px;
 `;
 
 export const FooterVerticalBar = styled.span`
@@ -35,10 +36,9 @@ export const FooterHorizontalBar = styled.span`
 `;
 
 export const FooterContentSpan = styled.span`
-	width: 35%;
-	min-height: 100px;
 	height: auto;
 	color: #FFFFFF;
+	padding: 0 45px;
 `;
 
 export const GithubLabel = styled.label`
