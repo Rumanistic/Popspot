@@ -14,8 +14,10 @@ function Support() {
     	<SupportStyle.AsideNavContainer>
     		<SupportStyle.AsideNavMenuContainer>
     			<ul>
-	    			<SupportStyle.NavMenuContent onClick={() => { navigate('/support/faq')}}>FAQ</SupportStyle.NavMenuContent>
-	    			<SupportStyle.NavMenuContent onClick={() => { navigate('/support/usersupport')}}>1:1 고객지원</SupportStyle.NavMenuContent>
+	    			<SupportStyle.NavMenuContent onClick={() => { navigate('/support/faq')}}>FAQ</SupportStyle.NavMenuContent> 
+				</ul>
+				<ul>
+					<SupportStyle.NavMenuContent onClick={() => { navigate('/support/usersupport')}}>1:1 고객지원</SupportStyle.NavMenuContent>
     			</ul>
     		</SupportStyle.AsideNavMenuContainer>
     	</SupportStyle.AsideNavContainer>

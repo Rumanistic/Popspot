@@ -30,10 +30,11 @@ public class ReviewService {
     
 	public List<ReviewPoint> getReviewPointAvg(Set<Long> eNos) {
 		Set<ReviewPoint> pointSet = new HashSet<>();
+		System.out.println("리뷰서비스 eNos 넘어오는지 확인 : " + eNos);
         for(Long eventNo : eNos) {
             pointSet.addAll(rr.findAllByEventNoAndDeleted(eventNo, 0));
         }
-        
+        System.out.println("리뷰서비스 데이터 처리후 pointSet : " + pointSet.toString());
         return new ArrayList<>(pointSet);
 	}
 

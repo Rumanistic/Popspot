@@ -1,4 +1,22 @@
-import './EventSubmit.css';
+import {
+	EventContainer,
+	TitleInput,
+	DetailItem,
+	SubInput,
+	TagContainer,
+	TagInput,
+	Tag,
+	DeleteButton,
+	SelectTime,
+	EditableParagraph,
+	AddressInput,
+	AddressButton,
+	MapContainer,
+	SubmitButton,
+	DateContainer,
+	TitleContainer,
+	TitleImage
+  } from '../styles/EventSubmitStyle';
 import SemiCalendar from '../component/SemiCalendar';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -227,130 +245,131 @@ function EventEdit() {
 		hashedContent();
 	}, [])
 
-  return (
-    <div>
-    	<div className="event-container">
-    		<h1><input name="title" onChange={dataChange} placeholder='타이틀을 입력해주세요!' value={eventData.title}/></h1>
-  			<div className="event-detail-item">
-          <h3><input name="company" onChange={dataChange} placeholder='회사(상호)명을 입력해주세요!' value={eventData.company}/></h3>
-        </div>
-        <div className="event-detail-item">
-          {spans.map((s, i) => {
-						return(
-							<label key={i} style={{marginRight: '2px', marginLeft: '2px'}}>{s} <button value={s} onClick={(e) => {deleteItem(e.target.value)}}>x</button></label>
-						)
-					})}
-        	<input name="tags" value={value} onChange={(e) => {setValue(e.target.value)}} onKeyDown={onKeyPressed} placeholder='태그를 입력 후 엔터를 눌러주세요!(최대 5개)' />
-        </div>
-        <div className="event-detail-item">
-          <h3>운영 날짜</h3>
-          <p className='event-submit-p'>
-            <SemiCalendar d={eventData.startDate} onChangeDate={setStartCalendarDate}/> 
-            &nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp; 
-            <SemiCalendar d={eventData.endDate} onChangeDate={setEndCalendarDate}/>
-          </p>
-        </div>
-
-        <div className="event-detail-item">
-          <h3>운영 시간</h3>
-          <p className='event-submit-p'>
-          	<span>
-	            <select className='event-submit-time' name='hour' onChange={setOTime}>
-	            	{HOURS.map((e, i) => {
-									return(
-										<option key={i} value={e}>{e >= 10 ? e : '0' + e}</option>
-									)
-								})}
-	            </select>:
-	            <select className='event-submit-time' name='min' onChange={setOTime}>
-	            	{MINS.map((e, i) => {
-									return(
-										<option key={i} value={e}>{e >= 10 ? e : '0' + e}</option>
-									)
-								})}
-	            </select>
-          	</span>
-            &nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp; 
-            <span>
-	            <select className='event-submit-time' name='hour' onChange={setCTime}>
-	            	{HOURS.map((e, i) => {
-									return(
-										<option key={i} value={e}>{e >= 10 ? e : '0' + e}</option>
-									)
-								})}
-	            </select>:
-	            <select className='event-submit-time' name='min' onChange={setCTime}>
-	            	{MINS.map((e, i) => {
-									return(
-										<option key={i} value={e}>{e >= 10 ? e : '0' + e}</option>
-									)
-								})}
-	            </select>
-          	</span>
-          </p>
-        </div>
-
-        <div className="event-detail-item">
-          <h3>상세 정보</h3>
-          <p contentEditable={true} 
-	          onInput={contentChange} 
-	          style={{backgroundColor:'beige'}}>
-          	{hashedContent() }
-          </p>
-          <span>{cLen}/4000bytes</span>
-        </div>
-
-        <div className="event-detail-item">
-		<h3>위치</h3>
-            <input
-                type="text"
-                id="searchAddress"
-                value={address}
-                placeholder="주소를 입력해주세요"
-                readOnly
-                style={{
-                    width: '70%',
-                    padding: '8px',
-                    fontSize: '14px',
-                    marginRight: '10px',
-                }}
-            />
-            <button
-                onClick={searchAddress}
-                style={{
-                    padding: '8px 16px',
-                    backgroundColor: '#f06565',
-                    color: '#fff',
-                    border: 'none',
-                    cursor: 'pointer',
-                }}
-            >
-                주소 검색
-            </button>
-            <div
-                id="map"
-                style={{
-                    width: '100%',
-                    height: '350px',
-                    marginTop: '10px',
-                    display: 'none',
-                }}
-            ></div>
-        </div>
-
-        <div className="event-detail-item">
-          <h3>안내 및 주의사항</h3>
-          <textarea 
-          	value={alert}
-          	onChange={(e) => {setAlert(e.target.value)}}
-          >
-          	
-          </textarea>
-        </div>
-	      <button onClick={submitData}>등록</button>
-      </div>
-    </div>
-  );
-}
-
+	return (
+		<EventContainer>
+		 <TitleContainer>
+	 <h1>행사 수정</h1>
+	 <TitleImage src="/register.png" alt="등록 이미지" />
+   </TitleContainer>
+   
+		  <h1>
+			<TitleInput
+			  name="title"
+			  onChange={(e) => setEventData({ ...eventData, title: e.target.value })}
+			  placeholder="타이틀을 입력해주세요!"
+			/>
+		  </h1>
+		  <DetailItem>
+			<h3>
+			  <SubInput
+				name="company"
+				onChange={(e) => setEventData({ ...eventData, company: e.target.value })}
+				placeholder="회사(상호)명을 입력해주세요!"
+			  />
+			</h3>
+		  </DetailItem>
+		  <DetailItem>
+		  <TagContainer>
+			 {spans.map((tag, index) => (
+			   <Tag key={index}>
+				 {tag}
+				 <DeleteButton onClick={() => deleteItem(tag)}>x</DeleteButton>
+			   </Tag>
+			 ))}
+		   </TagContainer>
+		   <TagInput
+			 name="tags"
+			 value={value}
+			 onChange={(e) => setValue(e.target.value)}
+			 onKeyDown={onKeyPressed}
+			 placeholder="태그를 입력 후 엔터를 눌러주세요!(최대 5개)"
+		   />
+		  </DetailItem>
+		  <DetailItem>
+	 <h3>운영 날짜</h3>
+	 <DateContainer>
+	   <SemiCalendar
+		 d={eventData.startDate}
+		 onChangeDate={(date) => setEventData({ ...eventData, startDate: date })}
+	   />
+	   ~
+	   <SemiCalendar
+		 d={eventData.endDate}
+		 onChangeDate={(date) => setEventData({ ...eventData, endDate: date })}
+	   />
+	 </DateContainer>
+   </DetailItem>
+   
+   
+		  <DetailItem>
+			<h3>운영 시간</h3>
+			<p>
+			  <span>
+				<SelectTime name="hour" onChange={(e) => setOpenTime({ ...openTime, hour: e.target.value })}>
+				  {HOURS.map((h, i) => (
+					<option key={i} value={h}>
+					  {h}
+					</option>
+				  ))}
+				</SelectTime>
+				:
+				<SelectTime name="min" onChange={(e) => setOpenTime({ ...openTime, min: e.target.value })}>
+				  {MINS.map((m, i) => (
+					<option key={i} value={m}>
+					  {m < 10 ? `0${m}` : m}
+					</option>
+				  ))}
+				</SelectTime>
+			  </span>
+			  &nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
+			  <span>
+				<SelectTime name="hour" onChange={(e) => setCloseTime({ ...closeTime, hour: e.target.value })}>
+				  {HOURS.map((h, i) => (
+					<option key={i} value={h}>
+					  {h}
+					</option>
+				  ))}
+				</SelectTime>
+				:
+				<SelectTime name="min" onChange={(e) => setCloseTime({ ...closeTime, min: e.target.value })}>
+				  {MINS.map((m, i) => (
+					<option key={i} value={m}>
+					  {m < 10 ? `0${m}` : m}
+					</option>
+				  ))}
+				</SelectTime>
+			  </span>
+			</p>
+		  </DetailItem>
+		  <DetailItem>
+			<h3>상세 정보</h3>
+			<EditableParagraph contentEditable onInput={contentChange}>
+			  여기다 상세 정보를 입력하세요.
+			</EditableParagraph>
+			<span>{cLen}/4000 bytes</span>
+		  </DetailItem>
+		  <DetailItem>
+			<h3>위치</h3>
+			<AddressInput type="text" value={address} placeholder="주소를 입력해주세요" readOnly />
+			<AddressButton onClick={searchAddress}>주소 검색</AddressButton>
+			<MapContainer id="map" />
+		  </DetailItem>
+		  <DetailItem>
+			<h3>안내 및 주의사항</h3>
+			<textarea
+			  onChange={(e) => setAlert(e.target.value)}
+			  placeholder="안내 및 주의사항을 입력해주세요."
+			  style={{
+				width: '100%',
+				height: '100px',
+				border: '1px solid #1F2933',
+				padding: '10px',
+				fontSize: '1rem',
+			  }}
+			/>
+		  </DetailItem>
+		  <SubmitButton onClick={submitData}>등록</SubmitButton>
+		</EventContainer>
+	  );
+	}
 export default EventEdit;

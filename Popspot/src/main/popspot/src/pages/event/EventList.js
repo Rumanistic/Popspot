@@ -125,7 +125,7 @@ function ShowList({ list }) {
 	const navigate = useNavigate();
 	const hyphenRemover = /-/g;
 	const userId = sessionStorage.userId || "";
-	const [cardCount, setCardCount] = useState(3); // 초기 카운트 설정
+	const [cardCount, setCardCount] = useState(6); // 초기 카운트 설정
   
 	// 날짜 형식 변환
 	const checkDir = (createdDate) => {
@@ -135,7 +135,7 @@ function ShowList({ list }) {
   
 	// 더보기 버튼 클릭 핸들러
 	const cardMore = () => {
-	  setCardCount((prev) => prev + 3);
+	  setCardCount((prev) => prev + 6);
 	};
   
 	// eList가 비어있을 경우 메시지 출력

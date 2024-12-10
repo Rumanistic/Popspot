@@ -1,75 +1,61 @@
 import styled from 'styled-components';
 
-//전체 배경
+// 전체 컨테이너 
 export const SupportContainer = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
   margin: auto;
-  padding: 20px 20px 20px 20px;
   min-height: 80vh;
   background-color: white; 
-  border-radius: 20px;
-  font-family: 'Pretendard-Regular' sans-serif;
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
-// FAQ & 고객문의 사이드
+// 네비게이션 컨테이너
 export const AsideNavContainer = styled.aside`
-  min-width: 200px;
-  background-color: #fffcf7; 
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  margin-right: 20px;
-}
+  display: flex;
+  flex-direction: row;
+  justify-content: center; 
+  align-items: center; 
+  margin-bottom: -25px;
+  background-color: white; 
+  padding: 15px 0; /* 위아래 여백 */
+  width: 100%; 
 `;
 
-// FAQ & 고객문의 버튼
+// 메뉴 컨테이너 
 export const AsideNavMenuContainer = styled.nav`
-  width: 100%;
+  display: inline-flex; 
+  flex-direction: row; 
+  gap: 20px; 
+  justify-content: center; 
+  align-items: center; 
+  width: auto; 
 `;
 
-// 고객문의 버튼
-export const RegisterButton = styled.button`
-  background-color:  #ff8f8f;
-  font-size: 20px;
-  padding: 10px 20px;
-  border-radius: 10px; 
-  border-color: transparent; 
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #ffcccc;
-  }
-`;
-
-// FAQ & 고객문의 버튼
+// 버튼 스타일
 export const NavMenuContent = styled.li`
   list-style: none;
-  padding: 10px 20px;
-  margin: 35px 0;
-  font-size: 1.2rem;
-  background-color: #FFA2A2; 
-  border-radius: 10px;
+  color: #006EB9; 
+  font-size: 1.3rem; 
+  font-weight: bold; 
+  padding: 8px 16px; 
+  margin: 0; 
+  background-color: transparent;
+  border: none; 
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  border-bottom: ${(props) => (props.isActive ? '2px solid #006EB9' : 'none')}; /* 활성화된 버튼 하단선 */
+  transition: color 0.3s ease, border-bottom 0.3s ease;
 
   &:hover {
-    background-color: #ffcccc;
-    transform: scale(1.05); 
-  }
-
-  &:active {
-    background-color: #ffb3b3;
+    color: #004a89; /* 호버 시 더 진한 파란색 */
   }
 `;
 
-// 고객문의 틀
+// 컨텐츠 영역 (FAQ & 1:1 고객지원 내용 포함)
 export const SectionContainer = styled.section`
   flex-grow: 1;
-  background-color: #fffcf7;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  background-color: white; /* 배경 흰색 */
   margin: 0 auto;
 `;

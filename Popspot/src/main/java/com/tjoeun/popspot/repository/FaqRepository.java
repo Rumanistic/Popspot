@@ -9,5 +9,5 @@ import com.tjoeun.popspot.domain.Faq;
 
 @Repository
 public interface FaqRepository extends JpaRepository<Faq, Long>{
-	List<Faq> findByDeleted(boolean deleted);
+	List<Faq> findByDeletedOrderByFaqNo(boolean deleted);
 }

@@ -1,77 +1,144 @@
-/* 메인 이미지와 텍스트를 토탈 감싸는 */
+/* 메인감싸는거 */
+figure {
+    position: relative;
+    height: 700px;
+    margin: 0;
+}
+
+/* 메인 전체 */
 .main_container {
-    position: relative; /* 자식 요소의 절대 위치를 기준으로 설정 */
+    justify-content: center;
 }
 
 /* 메인 이미지 */
 .main_image {
-    width: 100%;
-    height: 700px; /* 원하는 높이 */
-    object-fit: cover; /* 이미지 비율 유지하며 잘라냄 */
+    position: relative;
+    width: 80%;
+    height: 700px;
+    object-fit: cover; /* 비율 유지하며 잘라냄 */
     margin: auto;
     display: block;
-    position: relative;
+    animation: slide-left 5s infinite; /* 슬라이드 애니메이션 적용 */
 }
 
-/* 메인위에 입혀질 텍스트 */
+/* 슬라이드 애니메이션 */
+/* @keyframes slide-left {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    10%,
+    90% {
+      transform: translateX(0); 
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+} */
+
+/*
+.overlay_main_text {
+    position: absolute;
+    top: 20%;
+    bottom: 100px; 
+    left: 2%;
+    color: white;
+    text-align: left;
+    transform: none;
+}
+    .overlay_main_title {
+        font-family: 'Freesentation-9Black';
+        margin: 15px;
+        font-size: 60px;
+    }
+    .overlay_main_detail {
+        margin: 20px;
+        background-Color:#006EB9;
+        display: inline;
+    }
+*/
+    
+/* 제목, 부제목 전체 */
 .overlay_text {
-    position: relative; /* 절대 위치 설정 */
-    bottom: 50px; /* 하단에서 20px 위에 위치 */
-    left: 50%; /* 수평 중앙 정렬 */
-    transform: translate(-50%, -50%); /* 중앙 정렬을 위한 변환 */
-    color: white; /* 텍스트 색상 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-    padding: 10px; /* 패딩 */
-    font-size: calc(1rem + 1vw); /* 기본 폰트 크기 설정 (비율 유지) */
-    font-family: 'Pretendard-Regular', sans-serif; /*기본 폰트 적용*/
-    text-shadow: 2px 2px 5px #000;
+    position: relative;
+    bottom: 120px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    font-family: 'Freesentation';
 }
 
-/* 메인위에 입혀질 텍스트 - 제목 */
-.overlay_title {
-    margin: 5px; /* 기본 마진 제거 */
-    font-size: calc(1.0rem + 1vw); /* 글씨 크기 설정 (비율 유지) */
-    color: white; /* 텍스트 색상 (필요에 따라 조정 가능) */
-}
+    /* 제목 */
+    .overlay_title {
+        font-weight: 900;
+        font-size: 30px;
+        color: white;
+        margin: 15px;
+    }
 
-/* 메인위에 입혀질 텍스트 - 부제목 */
-.overlay_detail {
-    margin: 0; /* 기본 마진 제거 */
-    font-size: calc(0.7rem + 0.5vw); /* 글씨 크기 설정 (비율 유지) */
-    font-weight: normal; /* 글씨 두께 설정 (bold로 설정) */
-    color: white; /* 텍스트 색상 (필요에 따라 조정 가능) */
-}
+    /* 부제목 */
+    .overlay_detail {
+        font-size: 20px;
+        font-weight: 600;
+        color: white;
+    }
 
-/* 버튼 컨테이너 */
+/* 메인 이미지 좌우 넘김 버튼 */
 .main_button_container {
-position: absolute; /* 절대적으로 위치 설정 */
-top: 80%; /* 이미지 하단에서 80% 위치 */
-left: 0; /* 왼쪽 정렬 */
-right: 0; /* 오른쪽 정렬 */
-display: flex; /* Flexbox 사용 */
-justify-content: space-between; /* 버튼을 양 끝으로 배치 */
-align-items: center; /* 세로 중앙 정렬 */
-transform: translateY(-50%); /* 중앙 정렬 */
-padding: 0 80px; /* 좌우 패딩 (상대적 크기 조정) */
+    position: absolute;
+    display: flex; 
+    transform: translateY(-50%);
+    top: 50%; 
+    left: 0; 
+    right: 0; 
+    justify-content: space-between; 
+    padding: 0 200px; 
 }
 
 /* 버튼 스타일 */
 .main_toggle_button {
-padding: 10px 15px; /* 버튼 패딩 */
-background-color: rgba(68, 32, 32, 0); /* 반투명 배경 */
-color: rgb(255, 255, 255); /* 버튼 텍스트 색상 */
-border: none; /* 테두리 제거 */
-cursor: pointer; /* 커서 변경 */
-font-size: calc(1rem + 1vw); /* 글씨 크기 설정 (비율 유지) */
-width: 80px; /* 버튼 너비 설정 (상대적 크기 조정) */
-height: 40px; /* 버튼 높이 설정 (원하는 크기로 조정 가능) */
-border-radius: 5px; /* 버튼 모서리 둥글게 */
-transition: background-color 0.3s; /* 배경색 전환 효과 */
-font-family: 'Pretendard-Regular', sans-serif; /*기본 폰트 적용*/
-
+    padding: 10px 15px;
+    background-color: rgba(0, 0, 0, 0);
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    font-size: calc(1rem + 1vw);
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-family: 'Malgun Gothic';
 }
 
 /* 버튼 호버(눌렀을때) 효과 */
 .main_toggle_button:hover {
-    background-color: #00000000; /* 호버 시 배경색 변경 */
+    color: #006EB9;
+    transition: color 0.3s ease;
 }
+
+/* 인디케이터 컨테이너 */
+.indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+  
+/* 인디케이터 스타일 */
+.indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #1f293334;
+    transition: background-color 0.3s ease;
+}
+    /* 인디케이터 색 */
+    .indicator.active {
+        background-color: #006EB9;
+    }

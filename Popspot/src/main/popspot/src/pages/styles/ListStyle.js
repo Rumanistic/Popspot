@@ -31,12 +31,13 @@ export const ListHeaderContainerHead1 = styled.h1`
 export const EventCardSpan = styled.span`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
+  gap: 2vw;
   background-color: rgba(0, 110, 185, 0.1);
-  margin-top: 20px;
-  padding: 20px;
-  border: 1px solid #E5E7EB;
+  margin-top: 2vh; 
+  padding: 2vw;
+  border: 0.1vw solid #E5E7EB; 
 `;
+
 
 
 export const Col4 = styled.div`
@@ -51,7 +52,6 @@ export const Col4 = styled.div`
   border: 1px solid #E5E7EB;
 
   &:hover {
-    transform: scale(1.05);
     background-color: #006EB9;
     color: #FFFFFF;
   }
@@ -73,19 +73,19 @@ export const ListContentContainer = styled.section`
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid #E5E7EB;
   gap: 40px;
-  overflow-y: auto;
 `;
 
 export const ListContentTagsContainer = styled.aside`
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  min-width: 300px;
+  min-width: 15vw; /* 최소 너비를 15%로 설정 */
+  max-width: 15vw; /* 최대 너비를 15%로 설정 */
   padding: 15px;
-  max-width: 300px;
   justify-content: flex-start;
   border: 1px solid #E5E7EB;
 `;
+
 
 export const ListContentTag = styled.span`
   display: inline-flex;
@@ -161,4 +161,4 @@ export const StyledRegisterButton = styled.button`
     background-color: #004A9D; /* 클릭 시 더 어두운 블루 */
     transform: translateY(0); /* 클릭 시 원래 위치 */
   }
-`;
+`; 

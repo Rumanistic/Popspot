@@ -2,23 +2,24 @@ import { styled } from 'styled-components';
 
 export const ContentContainer = styled.div`
   width: 100%; 
-  font-size: 24px;
+  height: 90%;
+  font-size: 20px;
   font-family: 'Pretendard-Regular', sans-serif;
+  justify-content: center; 
+  align-items: center; 
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 25px 0;
 `;
 
 export const ContentHorizontalBar = styled.span`
   
   display: flex;
-  margin: 0 auto;
-  width: ${({ width }) => width || '93%'};
-  
-  background-color: #ff8f8f;
-  border: solid ${({ borderpixel }) => borderpixel || 1}px #ff8f8f;
+  margin: 10px auto;
+  width: 95%; 
+  height: 2px;
+  background-color: #006EB9; 
 `;
+  
 
 export const ContentHorizontalSpan = styled.span`
   display: flex;
@@ -34,6 +35,10 @@ export const ContentHorizontalSpan = styled.span`
     min-height: 35px;
     display: flex;
     align-items: center;
+  }
+  
+  .label {
+	text-align: left;
   }
 
   .no {
@@ -72,14 +77,18 @@ export const ContentVerticalSpan = styled.span`
 
 export const ContentDetailBody = styled.section`
   min-width: 90%;
-  text-align: center;
+  justify-content: center;
+  text-align: left;
+  margin-left: 200px;
+  margin-bottom: 20px;
   font-family: 'Pretendard-Regular', sans-serif;
-  margin-bottom: 10px;
 `;
 
 export const label = styled.span`
   margin-left: 100px;
-`
+  margin-bottom: 15px;
+  `;
+
 
 export const StyledButton = styled.button`
   font-size: 16px;
@@ -122,7 +131,7 @@ export const SelectType = styled.select`
 `;
 
 export const Label = styled.label`
-  font-size: 20px;
+  font-size: 15px;
   width: ${({ width }) => width || '30%'};
   height: 20px;
   justify-content: center;
@@ -136,15 +145,26 @@ export const RightFloatSpan = styled.span`
   background-color: #ff8f8f;
 `;
 
+export const Textarea = styled.textarea`
+  width: 540px;  
+  height: 50px; 
+  padding: 10px;
+  margin: 30px 0 0px 290px;
+  position: absolute;
+  font-size: 16px;
+  font-family: 'Pretendard-Regular', sans-serif;
+  resize: none;  
+`;
+
 export const CheckboxLabel = styled.label`
-  font-size: 19px;
+  font-size: 15px;
+  margin: 
   color: black;
   font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const SecretCheckbox = styled.input`
   cursor: pointer;
-  margin: 0;
   padding: 0;
 `;
 
