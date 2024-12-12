@@ -83,10 +83,11 @@ public class EventService {
 						.toString()
 						.replaceAll("-", ""))
 				.toString();
+		System.out.println("editEvent : " + e);
 		String images = e.getImages();
 		HashMap<String, String> resultSet = im.editImage(e.getContent(), e.getCompany(), curDir, images);
-		System.out.println(resultSet.get("images"));
-		System.out.println(resultSet.get("content"));
+		System.out.println("editEvent : "+resultSet.get("images"));
+		System.out.println("editEvent : " + resultSet.get("content"));
 		e.setImages(resultSet.get("images"));
 		e.setContent(resultSet.get("content"));
 		

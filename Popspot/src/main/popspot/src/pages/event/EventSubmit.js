@@ -228,7 +228,9 @@ import {
        <DetailItem>
          <h3>상세 정보</h3>
          <EditableParagraph contentEditable onInput={contentChange}>
-           여기다 상세 정보를 입력하세요.
+            여기다 상세 정보를 입력하세요.<br/>
+          	이미지의 경우 클립보드의 복사 - 붙여넣기로 삽입이 가능합니다.<br/>
+          	단락이 끝났을 경우 Enter를, 끝나지 않았을 경우 Shift + Enter를 눌러 줄바꿈해주세요.
          </EditableParagraph>
          <span>{cLen}/4000 bytes</span>
        </DetailItem>
