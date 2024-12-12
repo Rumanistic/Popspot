@@ -80,7 +80,7 @@ function EventDetail() {
       {event ? (
         <EventContainer>
           <EventTitle>{event.title}</EventTitle>
-           <SetParagraph content={event.content} company={event.company} createdDate={event.createdDate} />
+           <SetParagraph content={event.content} company={event.company} createdDate={event.createdDate} images={event.images} />
           <span
             onClick={like}
             style={{
@@ -163,7 +163,7 @@ function EventDetail() {
   );
 }
 
-const SetParagraph = ({content, company, createdDate}) => {
+const SetParagraph = ({content, company, createdDate, images}) => {
    const text = content;
    const splitText = text.split(/<(?:\/)?[a-zA-Z][^>]*>/).filter(list => !/\[alert\](?:!\s\w)*[가-힣]*(?:\s[가-힣]*)*/.test(list));
    const hyphenRemover = /-/g;
@@ -176,9 +176,7 @@ const SetParagraph = ({content, company, createdDate}) => {
    
    return (
       <EventDetailItem>
-         {splitText.map((e, i) => {return (
-               <EventImages src={`/img/${company}${checkDir(createdDate)}/${company}_${e.substring(5)}.png`} alt='' key={i}/>
-         )})}
+               <EventImages src={`/img/${company}${checkDir(createdDate)}/${images}.png`} alt='' />
       </EventDetailItem>
    )
 }
