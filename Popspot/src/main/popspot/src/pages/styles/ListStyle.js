@@ -14,12 +14,15 @@ export const StarImg = styled.img`
 
 export const ListHeaderContainer = styled.div`
   display: flex;
-  align-items: center; /* 수직 정렬 */
-  justify-content: space-between; /* 양 끝 정렬 */
-  position: relative; /* 제목을 플렉스 중앙에 배치 */
+  align-items: flex-start; /* 드롭다운과 버튼을 위쪽 정렬 */
+  justify-content: space-between; /* 제목과 나머지 오른쪽 정렬 */
+  flex-wrap: wrap; /* 요소가 겹치지 않고 줄바꿈 가능 */
+  position: relative;
   width: 100%;
   margin-bottom: 30px;
+  gap: 10px; /* 드롭다운과 버튼 사이의 간격 */
 `;
+
 
 export const ListHeaderContainerHead1 = styled.h1`
   font-size: 2.8rem;
@@ -38,7 +41,13 @@ export const EventCardSpan = styled.span`
   background-color: rgba(0, 110, 185, 0.1);
   margin-top: 2vh; 
   padding: 2vw;
-  border: 0.1vw solid #E5E7EB; 
+  border: 0.1vw solid #E5E7EB;
+
+  /* 높이 고정 또는 최소 높이 설정 */
+  min-height: 600px; /* 리스트 컨테이너 최소 높이 */
+  height: auto; /* 자동 높이 조정 */
+
+  // align-items: start;
 `;
 
 
@@ -53,8 +62,12 @@ export const Col4 = styled.div`
   color: #FFFFFF;
   padding: 15px;
   border: 1px solid #E5E7EB;
+  width: 272px;
+  height: 357px;
+  transition: background-color 0.3s ease, color 0.3s ease;  
 
   &:hover {
+    cursor: pointer;
     background-color: #006EB9;
     color: #FFFFFF;
   }
@@ -76,7 +89,12 @@ export const ListContentContainer = styled.section`
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid #E5E7EB;
   gap: 40px;
+
+  /* 고정된 높이 설정 */
+  min-height: 700px; /* 최소 높이 */
+  height: auto; /* 내용에 따라 조정 가능 */
 `;
+
 
 export const ListContentTagsContainer = styled.aside`
   display: flex;
@@ -102,7 +120,8 @@ export const ListContentTag = styled.span`
   margin: 5px;
   cursor: pointer;
   text-transform: capitalize;
-
+  
+  
   &:hover {
     background-color: ${({ value }) => (value ? '#005BB5' : '#F4F4F9')};
   }
@@ -153,6 +172,9 @@ export const StyledRegisterButton = styled.button`
   transition: background-color 0.3s ease, transform 0.3s ease;
   text-align: center;
   white-space: nowrap;
-  position: absolute; /* 버튼을 오른쪽 끝에 고정 */
-  right: 0; /* 부모 컨테이너의 오른쪽 끝 */
+
+  /* 절대 위치 제거 후 Flexbox로 배치 */
+  position: relative; /* 절대 위치에서 벗어남 */
+  margin-top: 10px; /* 드롭다운과 간격 확보 */
+  align-self: flex-end; /* 오른쪽 정렬 */
 `;

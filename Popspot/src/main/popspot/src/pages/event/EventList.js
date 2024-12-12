@@ -61,26 +61,40 @@ function EventList({ tag }) {
   return (
     <span>
       <ListHeaderContainer>
-        <ListHeaderContainerHead1>Pop-up List</ListHeaderContainerHead1>
-        <div style={{ display: 'inline-block', justifyContent: 'space-evenly', alignItems: 'center' }}>
-          {/* 정렬 옵션 드롭다운 */}
-          <select
-            value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
-            style={{ padding: '5px 10px', fontSize: '14px', borderRadius: '5px' }}
-          >
-            <option value="latest">최신순</option>
-            <option value="views">조회수 순</option>
-          </select>
+  <ListHeaderContainerHead1>Pop-up List</ListHeaderContainerHead1>
+  <div style={{
+    display: 'flex',
+    flexDirection: 'column', // 수직 배치
+    alignItems: 'flex-end', // 오른쪽 정렬
+    gap: '10px', // 요소 간 여백
+    marginTop: '10px' // 상단 여백 추가
+  }}>
+    {/* 정렬 옵션 드롭다운 */}
+    <select
+      value={sortOption}
+      onChange={(e) => setSortOption(e.target.value)}
+      style={{
+        padding: '5px 10px',
+        fontSize: '14px',
+        borderRadius: '5px',
+        border: '1px solid #ddd',
+        width: '150px'
+      }}
+    >
+      <option value="latest">최신순</option>
+      <option value="views">조회수 순</option>
+    </select>
 
-          {/* 등록 버튼 */}
-          {userPermissions !== null && userPermissions.includes("planner") && (
-            <StyledRegisterButton onClick={() => navigate('/popup/submit')}>
-              등록
-            </StyledRegisterButton>
-          )}
-        </div>
-      </ListHeaderContainer>
+    {/* 등록 버튼 */}
+    {userPermissions !== null && userPermissions.includes("planner") && (
+      <StyledRegisterButton onClick={() => navigate('/popup/submit')}>
+        등록
+      </StyledRegisterButton>
+    )}
+  </div>
+</ListHeaderContainer>
+
+
       <ListContentContainer>
         <ShowTag tags={tags} setList={setList} location={location} />
         <ShowList list={list} />
@@ -143,29 +157,29 @@ function ShowList({ list }) {
    const hyphenRemover = /-/g;
    const userId = sessionStorage.userId || "";
    const [cardCount, setCardCount] = useState(6); // 초기 카운트 설정
-  
+
    // 날짜 형식 변환
    const checkDir = (createdDate) => {
      const date = createdDate.replace(hyphenRemover, '');
      return date.substring(0, 8);
    };
-  
+
    // 더보기 버튼 클릭 핸들러
    const cardMore = () => {
      setCardCount((prev) => prev + 6);
    };
-  
+
    // eList가 비어있을 경우 메시지 출력
    if (!eList.length) {
      return <StyledMessage>등록된 이벤트가 없습니다.</StyledMessage>;
    }
-  
+
    // 모든 카드가 로드된 경우 더보기 버튼 숨김
    const noMoreItems = cardCount >= eList.length;
 
    return (
      <div>
-      <EventCardSpan>
+      <EventCardSpan style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
         {eList.slice(0, cardCount).map((e) => (
          <Col4 onClick={() => navigate(`/event/${e.eventNo}`)} key={e.eventNo}>
            <EventCardSpanImage
@@ -201,5 +215,5 @@ function ShowList({ list }) {
      </div>
    );
   }
-  
+
 export default EventList;
