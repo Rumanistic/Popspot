@@ -50,12 +50,18 @@ function EventDetail() {
   }, [no, userId]);
 
   const doDelete = () => {
-    axios.delete(`/api/event/${no}`).then((result) => {
-      alert(result.data.msg);
-      navigate('/popup');
-    });
+    const confirmDelete = window.confirm('삭제하시겠습니까?');
+    if (confirmDelete) {
+      axios.delete(`/api/event/${no}`).then((result) => {
+        alert('삭제되었습니다 !');
+        navigate('/popup');
+      }).catch((error) => {
+        console.error('삭제 중 오류가 발생했습니다.', error);
+        alert('삭제에 실패했습니다.');
+      });
+    }
   };
-
+  
   const doEdit = () => {
     navigate('/popup/edit', { state: { event } });
   };
