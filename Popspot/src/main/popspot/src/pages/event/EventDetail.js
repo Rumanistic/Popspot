@@ -50,12 +50,18 @@ function EventDetail() {
   }, [no, userId]);
 
   const doDelete = () => {
-    axios.delete(`/api/event/${no}`).then((result) => {
-      alert(result.data.msg);
-      navigate('/popup');
-    });
+    const confirmDelete = window.confirm('삭제하시겠습니까?');
+    if (confirmDelete) {
+      axios.delete(`/api/event/${no}`).then((result) => {
+        alert('삭제되었습니다 !');
+        navigate('/popup');
+      }).catch((error) => {
+        console.error('삭제 중 오류가 발생했습니다.', error);
+        alert('삭제에 실패했습니다.');
+      });
+    }
   };
-
+  
   const doEdit = () => {
     navigate('/popup/edit', { state: { event } });
   };
@@ -74,7 +80,7 @@ function EventDetail() {
       {event ? (
         <EventContainer>
           <EventTitle>{event.title}</EventTitle>
-           <SetParagraph content={event.content} company={event.company} createdDate={event.createdDate} />
+           <SetParagraph content={event.content} company={event.company} createdDate={event.createdDate} images={event.images} />
           <span
             onClick={like}
             style={{
@@ -87,10 +93,10 @@ function EventDetail() {
           </span>
           <span>{likeNo === 0 ? null : likeNo}</span>
           <ViewsCount no={no} />
-          <br />
-          {event.userId === userId ? <Button onClick={() => doEdit()}> 수정 </Button> : <></>} &nbsp; &nbsp; &nbsp;
+			<div>
+          {event.userId === userId ? <Button onClick={() => doEdit()}> 수정 </Button> : <></>}
           {event.userId === userId ? <Button onClick={doDelete}> 삭제 </Button> : <></>}
-
+			</div>
           {/* 탭 전환 버튼 */}
           <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
             <div
@@ -157,7 +163,7 @@ function EventDetail() {
   );
 }
 
-const SetParagraph = ({content, company, createdDate}) => {
+const SetParagraph = ({content, company, createdDate, images}) => {
    const text = content;
    const splitText = text.split(/<(?:\/)?[a-zA-Z][^>]*>/).filter(list => !/\[alert\](?:!\s\w)*[가-힣]*(?:\s[가-힣]*)*/.test(list));
    const hyphenRemover = /-/g;
@@ -170,9 +176,7 @@ const SetParagraph = ({content, company, createdDate}) => {
    
    return (
       <EventDetailItem>
-         {splitText.map((e, i) => {return (
-               <EventImages src={`/img/${company}${checkDir(createdDate)}/${company}_${e.substring(5)}.png`} alt='' key={i}/>
-         )})}
+               <EventImages src={`/img/${company}${checkDir(createdDate)}/${images}.png`} alt='' />
       </EventDetailItem>
    )
 }

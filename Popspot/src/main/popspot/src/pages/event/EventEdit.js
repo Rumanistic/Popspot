@@ -28,6 +28,7 @@ import {
 	const event = state.event;
 	const navigate = useNavigate();
   
+	// State Variables
 	const [eventData, setEventData] = useState({ ...event });
 	const [alertMessage, setAlertMessage] = useState('');
 	const [cLen, setCLen] = useState(0);
@@ -47,6 +48,7 @@ import {
 	const MINS = [0, 30];
   
 	useEffect(() => {
+	  // Initialize Kakao Map
 	  if (!window.kakao || !window.kakao.maps) {
 		console.error('Kakao Maps API가 로드되지 않았습니다.');
 		return;
@@ -73,6 +75,7 @@ import {
 	}, []);
   
 	useEffect(() => {
+	  // Extract content and alert message
 	  const text = event.content || '';
 	  const lastAlertIdx = text.lastIndexOf('[alert]');
 	  if (lastAlertIdx !== -1) {
@@ -85,6 +88,7 @@ import {
 	}, [event.content]);
   
 	useEffect(() => {
+	  // Update time strings
 	  const oTime = `${openTime.hour}:${openTime.min.padStart(2, '0')}`;
 	  const cTime = `${closeTime.hour}:${closeTime.min.padStart(2, '0')}`;
 	  setEventData((prev) => ({

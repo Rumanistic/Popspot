@@ -59,6 +59,16 @@ import {
      window.kakaoMapData = { map, marker };
    }, []);
  
+    useEffect(() => {
+      let cTime = `${closeTime.hour >= 10 ? closeTime.hour : '0' + closeTime.hour}:${closeTime.min >= 10 ? closeTime.min : '0' + closeTime.min}`;
+      let oTime = `${openTime.hour >= 10 ? openTime.hour : '0' + openTime.hour}:${openTime.min >= 10 ? openTime.min : '0' + openTime.min}`;
+      setEventData({
+            ...eventData,
+            openTime: oTime,
+            closeTime: cTime,
+      })
+   }, [closeTime, openTime])
+   
    const searchAddress = () => {
      new window.daum.Postcode({
        oncomplete: (data) => {
@@ -110,12 +120,13 @@ import {
    const submitData = () => {
      const contentData = eventData.content.concat('[alert]', alert);
      const tags = spans.join(',');
-     const submitData = { ...eventData, content: contentData, tags };
+     const submitDate={ ...eventData, content: contentData, tags }
      axios
-       .post('/api/event/submit', submitData, {
+       .post('/api/event/submit', submitDate, {
          headers: { 'Content-Type': 'application/json; charset=UTF-8' },
        })
-       .then(() => navigate('/popup'));
+       .then(() => navigate('/popup'))
+       .catch((e)=>{console.log("오류오류오류시발오류",e)});
    };
  
    return (
@@ -178,7 +189,7 @@ import {
          <h3>운영 시간</h3>
          <p>
            <span>
-             <SelectTime name="hour" onChange={(e) => setOpenTime({ ...openTime, hour: e.target.value })}>
+             <SelectTime name="hour" onChangeDate={(e) => setOpenTime({ ...openTime, hour: e.target.value })}>
                {HOURS.map((h, i) => (
                  <option key={i} value={h}>
                    {h}
