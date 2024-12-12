@@ -16,6 +16,9 @@ import jakarta.persistence.QueryHint;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long>  {
+	
+	@Query(value = "SELECT * FROM EVENT WHERE EVENT_NO LIKE :eventNo  ", nativeQuery = true)
+	Event findByEventNo(@Param("eventNo")Long eventNo);
 
 	List<Event> findAllByDeletedOrderByCreatedDateDesc(boolean b);
 	

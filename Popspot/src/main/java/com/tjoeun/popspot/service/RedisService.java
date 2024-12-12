@@ -1,10 +1,16 @@
 package com.tjoeun.popspot.service;
 
+import com.tjoeun.popspot.domain.Event;
 import com.tjoeun.popspot.domain.dto.ApiResponse;
+import com.tjoeun.popspot.domain.mapping.ReviewPoint;
+import com.tjoeun.popspot.repository.EventRepository;
 import com.tjoeun.popspot.repository.RedisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,6 +18,13 @@ import java.util.Set;
 public class RedisService {
 
     private final RedisRepository redisRepository;
+    private static final String SUCCESS = "성공";
+    
+	@Autowired
+	EventRepository es;
+	
+	@Autowired
+	ReviewService rs;
 
     @Autowired
     public RedisService(RedisRepository redisRepository) {
@@ -48,7 +61,38 @@ public class RedisService {
     public ApiResponse getTopNKeys(int n) {
         try {
             Set<String> topKeys = redisRepository.getTopNKeys(n);
-            return ApiResponse.apiBuilder(true, "상위 조회수 반환 성공", topKeys);
+            List<String> topKeysList = new ArrayList<>(topKeys);
+            System.out.println("상위권 이벤트 NO : " + topKeysList);
+            List<Event> eList = new ArrayList<>();
+            HashMap<String, Object> result = new HashMap<>();
+            
+            // 상위권 리스트 만들기 
+            for(String eventNo :topKeysList) {
+            	Event res = es.findByEventNo(Long.parseLong(eventNo));
+            	if(res != null) {
+            		eList.add(res);
+            	}
+            
+            }
+            if(eList.size() > 0) {
+    			HashMap<Long, Double> rPoint = new HashMap<>();
+    			List<ReviewPoint> rPoints = rs.getReviewPointAvg();
+    			
+    			for(ReviewPoint rp : rPoints) {
+    				rPoint.put(rp.getEventNo(), rp.getReviewPointAvg());
+    			}
+    			
+    			result.put("eList", eList);
+    			result.put("rPoint", rPoint);
+    			
+    			return ApiResponse.apiBuilder(true, SUCCESS, result);
+    		}
+            
+            
+            
+            System.out.println(" result : " + result);
+            
+            return ApiResponse.apiBuilder(true, "상위 조회수 반환 성공", result);
         } catch (Exception e) {
             System.err.println("RedisService Error (getTopNKeys): " + e.getMessage());
             return ApiResponse.apiBuilder(false, "상위 조회수 반환 실패");
