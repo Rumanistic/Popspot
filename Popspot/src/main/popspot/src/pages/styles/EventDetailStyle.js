@@ -85,7 +85,7 @@ export const Button = styled.button`
   font-size: 1.1rem;
   margin-top: 20px;
   text-align: center;
-  border: 1px solid #1f2933; /* 보조색 */
+  border: 0px solid #ffffff; /* 보조색 */
   text-transform: uppercase;
   transition: background-color 0.3s ease, transform 0.3s ease;
   cursor: pointer;
