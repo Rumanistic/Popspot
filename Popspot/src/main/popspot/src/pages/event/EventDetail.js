@@ -87,10 +87,10 @@ function EventDetail() {
           </span>
           <span>{likeNo === 0 ? null : likeNo}</span>
           <ViewsCount no={no} />
-
+			<div>
           {event.userId === userId ? <Button onClick={() => doEdit()}> 수정 </Button> : <></>}
           {event.userId === userId ? <Button onClick={doDelete}> 삭제 </Button> : <></>}
-
+			</div>
           {/* 탭 전환 버튼 */}
           <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
             <div
