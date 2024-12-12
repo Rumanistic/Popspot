@@ -95,6 +95,7 @@ function EventDetail() {
           <ViewsCount no={no} />
 			<div>
           {event.userId === userId ? <Button onClick={() => doEdit()}> 수정 </Button> : <></>}
+          &nbsp; &nbsp;
           {event.userId === userId ? <Button onClick={doDelete}> 삭제 </Button> : <></>}
 			</div>
           {/* 탭 전환 버튼 */}
