@@ -11,7 +11,7 @@ const Footer = () => {
     { name: '김요한', githubId: '@Zionoi', url: 'https://github.com/Zionoi' },
     { name: '김효빈', githubId: '@0biin0', url: 'https://github.com/0biin0' },
     { name: '최서진', githubId: '@seojinchoiiii', url: 'https://github.com/seojinchoiiii' },
-    { name: '현민환', githubId: '@setYourId', url: 'https://github.com/' },
+    { name: '현민환', githubId: '@hyunminhwan', url: 'https://github.com/hyunminhwan' },
     { name: '장광진', githubId: '@alfus17',url:'https://github.com/alfus17' }
   ];
 

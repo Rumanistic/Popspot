@@ -1,8 +1,16 @@
-import React, { useState }from 'react';
+import React, { useEffect, useState }from 'react';
 import './Submit.css';
 import axios from 'axios'; // axios를 import하여 API 요청에 사용
+import { useLocation } from 'react-router-dom';
 
 const Submit = () => {
+	useEffect(()=>{
+		const location = useLocation();
+    	const { event } = location.state || {};
+    	setEvent(event);
+	},[])
+    
+    
     const [event, setEvent] = useState({
         eventNumber: '',
         id: '',
