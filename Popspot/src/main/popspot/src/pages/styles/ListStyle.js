@@ -14,18 +14,21 @@ export const StarImg = styled.img`
 
 export const ListHeaderContainer = styled.div`
   display: flex;
+  align-items: center; /* 수직 정렬 */
+  justify-content: space-between; /* 양 끝 정렬 */
+  position: relative; /* 제목을 플렉스 중앙에 배치 */
   width: 100%;
   margin-bottom: 30px;
 `;
 
 export const ListHeaderContainerHead1 = styled.h1`
   font-size: 2.8rem;
-  color: #1F2933; 
+  color: #1F2933;
   font-weight: 700;
   text-align: center;
-  margin: 0;
-  width: 100%;
+  margin: 0 auto; /* 플렉스 컨테이너에서 중앙 정렬 */
   font-family: 'Jeju Gothic', sans-serif;
+  flex-grow: 1; /* 제목이 중앙을 유지하도록 공간을 채움 */
 `;
 
 export const EventCardSpan = styled.span`
@@ -137,7 +140,6 @@ export const StyledMessage = styled.div`
   text-transform: uppercase;
 `;
 
-// 네모난 등록 버튼 스타일
 export const StyledRegisterButton = styled.button`
   padding: 10px 20px;
   background-color: #006EB9; /* 버튼 배경색 */
@@ -149,16 +151,8 @@ export const StyledRegisterButton = styled.button`
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease, transform 0.3s ease;
-  text-align: center; 
-  white-space: nowrap; 
-
-  &:hover {
-    background-color: #005BB5; /* 호버 시 어두운 블루 */
-    transform: translateY(-2px); /* 약간 위로 올라가는 애니메이션 */
-  }
-
-  &:active {
-    background-color: #004A9D; /* 클릭 시 더 어두운 블루 */
-    transform: translateY(0); /* 클릭 시 원래 위치 */
-  }
-`; 
+  text-align: center;
+  white-space: nowrap;
+  position: absolute; /* 버튼을 오른쪽 끝에 고정 */
+  right: 0; /* 부모 컨테이너의 오른쪽 끝 */
+`;
