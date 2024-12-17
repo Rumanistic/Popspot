@@ -50,6 +50,7 @@ public class EventController {
 	@PostMapping("/submit")
 	public ResponseEntity<ApiResponse> submitEvent(@RequestBody Event e) throws Exception {
 		ApiResponse res = es.submitEvent(e);
+		System.out.println("이벤트 등록 컨트롤러 확인 : "+e);
 		return rb.buildCreatedResponse(res, HttpStatus.BAD_REQUEST);
 	}
 	
@@ -80,6 +81,7 @@ public class EventController {
 			@RequestBody Event e
 		) throws Exception {
 		ApiResponse res = es.editEvent(e);
+		System.out.println("이벤트 수정 컨트롤러 확인 "+rb.buildNoContentResponse(res, HttpStatus.BAD_REQUEST));
 		
 		return rb.buildNoContentResponse(res, HttpStatus.BAD_REQUEST);
 	}

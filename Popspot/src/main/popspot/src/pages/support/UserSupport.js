@@ -79,7 +79,7 @@ function UserSupportList({userId, userPermission}) {
 			}
 			</RightFloatSpan>				
 			{sList.map((e, i) => {
-				if(userId !== '' || e.secret !== 1){
+				if(e.secret !== 1 || e.userId === userId || userPermission.includes('admin')){
 					return (
 						<ContentHorizontalSpan key={i} redirect={'y'} onClick={() => showDetail(`/support/usersupport/detail/${e.inquiryNo}`)}>
 							<span className="no">{sList.length - i}</span>

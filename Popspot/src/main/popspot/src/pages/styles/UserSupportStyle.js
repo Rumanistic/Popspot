@@ -25,7 +25,7 @@ export const ContentHorizontalSpan = styled.span`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  width: 90%;
+  width: 100%;
   padding: 4px;
   align-items: center;
   cursor: ${({ redirect }) => (redirect === 'y' ? 'pointer' : 'default')};
@@ -35,34 +35,37 @@ export const ContentHorizontalSpan = styled.span`
     min-height: 35px;
     display: flex;
     align-items: center;
+    justify-content: center; 
+    flex-shrink: 0; /* 크기가 줄어들지 않음 */
+    white-space: nowrap; /* 줄바꿈 금지 */
+    overflow: hidden; /* 넘치는 글자 숨김 */
+    text-overflow: ellipsis; /* 넘치는 글자 ... 표시 */
   }
   
-  .label {
-	text-align: left;
-  }
-
   .no {
-    width: 3%;
+    width: 40px; /* 고정 너비 */
   }
 
   .type {
-    width: 11%;
-    text-align: left;
-    padding-left: 20px;
+    width: 80px; /* 고정 너비 */
+    text-align: center;
   }
 
   .secret {
-    width: 3%;
+    width: 40px; /* 고정 너비 */
   }
 
   .userId {
-    width: 12%;
+    width: 100px; /* 고정 너비 */
   }
 
   .title {
-    flex-grow: 1;
+    flex-grow: 1; /* 나머지 영역을 차지 */
+    max-width: 250px; /* 최대 너비 제한 */
+    min-width: 150px; /* 최소 너비 제한 */
   }
 `;
+
 
 export const ContentVerticalSpan = styled.span`
   display: flex;

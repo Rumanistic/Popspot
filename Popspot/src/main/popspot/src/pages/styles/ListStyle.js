@@ -53,6 +53,10 @@ export const Col4 = styled.div`
   color: #FFFFFF;
   padding: 15px;
   border: 1px solid #E5E7EB;
+  width: 272px;
+  height: 357px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   &:hover {
     background-color: #006EB9;

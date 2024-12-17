@@ -23,10 +23,13 @@ const Footer = () => {
       <FooterHorizontalBar />
       <FooterHorizontalSpan>
         <FooterContentSpan>
-        <p style={{ margin: '0 235px' }}>
-            더조은컴퓨터아카데미<br /><br />
-            자바&클라우드 활용 풀스택 취업캠프과정 세미프로젝트
-          </p>
+        <p style={{ 
+          margin: '0 auto', 
+          display: 'inline-block', 
+          whiteSpace: 'nowrap' 
+        }}>
+          더조은컴퓨터아카데미 자바&클라우드 활용 풀스택 취업캠프과정 세미프로젝트
+        </p>
         </FooterContentSpan>
         <FooterVerticalBar />
         <FooterContentSpan>
