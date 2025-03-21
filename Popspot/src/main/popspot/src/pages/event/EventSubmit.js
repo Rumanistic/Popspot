@@ -126,7 +126,7 @@ import {
          headers: { 'Content-Type': 'application/json; charset=UTF-8' },
        })
        .then(() => navigate('/popup'))
-       .catch((e)=>{console.log("오류오류오류시발오류",e)});
+       .catch((e)=>{console.log("오류오류오류오류",e)});
    };
  
    return (
